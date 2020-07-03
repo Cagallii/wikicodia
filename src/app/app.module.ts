@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { MatCardModule } from "@angular/material";
+import { MatCardModule, MatToolbar, MatButtonModule } from "@angular/material";
 
 import { AppComponent } from "./app.component";
 import { AboutComponent } from "./about/about.component";
@@ -50,8 +50,9 @@ import { AppRoutingModule } from "./app-routing.module";
     SearchResultComponent,
     ToolbarComponent,
     UserProfilComponent,
+    MatToolbar,
   ],
-  imports: [BrowserModule, AppRoutingModule, MatCardModule],
+  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule],
   providers: [],
   bootstrap: [AppComponent],
 })
