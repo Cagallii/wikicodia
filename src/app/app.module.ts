@@ -1,6 +1,6 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { MatCardModule, MatToolbar, MatButtonModule, MatMenuModule } from "@angular/material";
+import { MatCardModule, MatToolbar, MatButtonModule, MatMenuModule , MatIconModule } from "@angular/material";
 
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -30,6 +30,9 @@ import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { MenuComponent } from './menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { ArticleCategoryComponent } from './article-category/article-category.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +59,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ToolbarComponent,
     UserProfilComponent,
     MatToolbar,
-    MenuComponent
+    MenuComponent,
+    UserSettingsComponent,
+    ArticleCategoryComponent,
+    HomePageComponent
     
   ],
   imports: [
@@ -66,7 +72,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatButtonModule, 
     ReactiveFormsModule,
     MatMenuModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],

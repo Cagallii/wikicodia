@@ -1,5 +1,5 @@
 <form [formGroup]="searchForm" class="maincontainer" (ngSubmit)="onSubmit()">
-    <h1>Wikicodia</h1>
+    <a routerLink="/goHome"><h1>Wikicodia</h1></a>
     <div class="row searchZone">
         <div class="col-lg-6 col-md-6 col-sm-6 searchInput">
             <input class="searchInput" type="text" formControlName="searchWords" placeholder="Search">
@@ -96,8 +96,8 @@
             <input type="checkbox" formControlName="orderByLikes" (change)="onCheckboxChange($event)" />
         </div>
     </div>
-    <div>
-        <button class="btn" type="reset" (click)="onReset()">Reset</button>
+    <div class="row" *ngIf="showFilters">
+        <button class="col-12 btn" type="reset" (click)="onReset()">Reset</button>
     </div>
     
 

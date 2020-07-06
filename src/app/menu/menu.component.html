@@ -1,12 +1,15 @@
 <button mat-button [matMenuTriggerFor]="menu">Menu</button>
 <mat-menu #menu="matMenu">
-    
+    <mat-icon routerLink="userProfil">face</mat-icon>
     <h3>Bonjour [pseudo]</h3>
-    <button mat-menu-item>Articles favoris</button>
-    <button mat-menu-item>Créer un article</button>
-    <button mat-menu-item>Articles créés</button>
-    <button mat-menu-item>Paramètres</button>
-    <button mat-menu-item>Promouvoir / Destituer un administrateur</button>
-    <button mat-menu-item>Edition de type / catégorie / langage</button>
+    <button mat-menu-item routerLink="/liste">Articles favoris</button>
+    <button mat-menu-item routerLink="/createArticle">Créer un article</button>
+    <button mat-menu-item routerLink="/createdArticles">Articles créés</button>
+    <button mat-menu-item routerLink="/userSettings">Paramètres</button>
+    <button mat-menu-item routerLink="/roleManagement">Promouvoir / Destituer un administrateur</button>
+    <button mat-menu-item routerLink="/addTypeAndLanguage">Ajouter un type d'article ou un langage</button>
+    <button mat-menu-item routerLink="/editType">Modifier un type d'article</button>
+    <button mat-menu-item routerLink="/editLanguage">Modifier un langage</button>
+    <button mat-menu-item routerLink="/AddOrEditCategory">Ajouter ou modifier une catégorie d'article</button>
 </mat-menu>
 
