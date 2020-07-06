@@ -1,6 +1,8 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-import { MatCardModule, MatToolbar, MatButtonModule } from "@angular/material";
+import { MatCardModule, MatToolbar, MatButtonModule, MatMenuModule } from "@angular/material";
+
+
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from "./app.component";
@@ -26,6 +28,8 @@ import { SearchResultComponent } from "./search-result/search-result.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { MenuComponent } from './menu/menu.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -52,8 +56,18 @@ import { AppRoutingModule } from "./app-routing.module";
     ToolbarComponent,
     UserProfilComponent,
     MatToolbar,
+    MenuComponent
+    
   ],
-  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, ReactiveFormsModule],
+  imports: [
+    BrowserModule, 
+    AppRoutingModule, 
+    MatCardModule, 
+    MatButtonModule, 
+    ReactiveFormsModule,
+    MatMenuModule,
+    BrowserAnimationsModule
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

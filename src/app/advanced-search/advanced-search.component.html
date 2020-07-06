@@ -1,14 +1,18 @@
 <form [formGroup]="searchForm" class="maincontainer" (ngSubmit)="onSubmit()">
+    <h1>Wikicodia</h1>
     <div class="row searchZone">
-        <div class="col-lg-8 col-md-8 col-sm-10 searchInput">
+        <div class="col-lg-6 col-md-6 col-sm-6 searchInput">
             <input class="searchInput" type="text" formControlName="searchWords" placeholder="Search">
         </div>
         <div class="col-lg-2 col-md-2 col-sm-2 searchBtns">
             <button type="submit" value="submit" class="btn searchBtn">Rechercher</button>
             <!-- <button class="btn" type="reset" (click)="onReset()">Reset</button> -->
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-12 searchBtns">
-            <button type="button" class="btn" (click)="addFilters()"> <img class="searchIcons" src='../../assets/img/icons8-slider-48.png'/> Filtrer</button>
+        <div class="col-lg-2 col-md-2 col-sm-2 searchBtns">
+            <button type="button" class="btn"  (click)="addFilters()"> <img class="searchIcons" src='../../assets/img/icons8-slider-48.png'/> Filtrer</button>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2">
+            <app-menu></app-menu>
         </div>
     </div>
 
@@ -79,23 +83,23 @@
         <div>Trier par :</div>
     </div>
     <div class="row orderZone" *ngIf="showFilters">
-        <div class="col-4 orderCheckbox">
+        <div class="col-3 orderCheckbox">
             <div>Date de dernière modification</div>
             <input type="checkbox" formControlName="orderByModif" (change)="onCheckboxChange($event)" />
         </div>
-        <div class="col-4 orderCheckbox">
+        <div class="col-3 orderCheckbox">
             <div>Date de création</div>
             <input type="checkbox" formControlName="orderByCrea" (change)="onCheckboxChange($event)" />
         </div>
-        <div class="col-4 orderCheckbox">
+        <div class="col-3 orderCheckbox">
             <div>Popularité</div>
             <input type="checkbox" formControlName="orderByLikes" (change)="onCheckboxChange($event)" />
         </div>
-        <div>
-            <button class="btn" type="reset" (click)="onReset()">Reset</button>
-        </div>
     </div>
-
+    <div>
+        <button class="btn" type="reset" (click)="onReset()">Reset</button>
+    </div>
+    
 
 
 

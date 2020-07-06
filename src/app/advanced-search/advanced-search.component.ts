@@ -13,7 +13,7 @@ export class AdvancedSearchComponent implements OnInit {
 
   searchForm: FormGroup;
   submitted:boolean = false;
-  showFilters:boolean = true;
+  showFilters:boolean = false;
 
   counter;
   // A remplacer par une recuperation du back ou d'un service
@@ -68,7 +68,7 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   onCheckboxChange($event){
-    alert(JSON.stringify(this.searchForm.value['language'][0], null, 4));
+    //alert(JSON.stringify(this.searchForm.value['language'][0], null, 4));
   }
 
   // convenience getter for easy access to form fields
@@ -83,7 +83,7 @@ export class AdvancedSearchComponent implements OnInit {
     // }
 
     // display form values on success
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.searchForm.value, null, 4));
+    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.searchForm.value, null, 4));
   }
 
   onReset() {
