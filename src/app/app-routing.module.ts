@@ -2,7 +2,6 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Routes, RouterModule } from "@angular/router";
 import { ListArticleFavoriteComponent } from "./list-article-favorite/list-article-favorite.component";
-import {ArticleConsultationComponent} from "./article-consultation/article-consultation.component";
 import { CreateArticleComponent } from "./create-article/create-article.component";
 import { ListArticleCreatedComponent } from "./list-article-created/list-article-created.component";
 import { UserSettingsComponent } from "./user-settings/user-settings.component";
@@ -13,11 +12,12 @@ import { EditLanguageComponent } from "./edit-language/edit-language.component";
 import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { AddLanguageAndTypeComponent } from "./add-language-and-type/add-language-and-type.component";
+import { ArticleConsultationComponent } from "./article-consultation/article-consultation.component";
 
 const routes: Routes = [
   { path: "userProfil",component : UserProfilComponent},
   { path: "liste", component: ListArticleFavoriteComponent },
-  { path: "", component: ArticleConsultationComponent},
+  { path: "articleConsultation", component: ArticleConsultationComponent},
   { path: "createArticle", component: CreateArticleComponent },
   { path: "createdArticles", component: ListArticleCreatedComponent},
   { path: "userSettings",component: UserSettingsComponent },
