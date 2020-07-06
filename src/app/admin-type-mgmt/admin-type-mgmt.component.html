@@ -1,0 +1,22 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Types d'article disponibles</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Libellé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let type of types | async">
+            <td>{{type.libType}}</td>
+            <td>
+                <button (click)="deleteType(type.idType)" class="btn btn-danger">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

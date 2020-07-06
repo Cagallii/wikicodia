@@ -25,6 +25,13 @@ import { SearchResultComponent } from "./search-result/search-result.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { AdminCategoryMgmtComponent } from './admin-category-mgmt/admin-category-mgmt.component';
+import { AdminTypeMgmtComponent } from './admin-type-mgmt/admin-type-mgmt.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
+import { AddTypeComponent } from './add-type/add-type.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -51,8 +58,12 @@ import { AppRoutingModule } from "./app-routing.module";
     ToolbarComponent,
     UserProfilComponent,
     MatToolbar,
+    AdminCategoryMgmtComponent,
+    AdminTypeMgmtComponent,
+    AddCategoryComponent,
+    AddTypeComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule],
+  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, FormsModule, HttpClientModule],
   providers: [],
   bootstrap: [AppComponent],
 })

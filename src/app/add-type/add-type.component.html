@@ -1,0 +1,27 @@
+<h3>Créer un type d'article</h3>
+
+<div [hidden]="submitted" style="width: 400px;">
+
+    <form (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label for="libType">Libellé</label>
+        <input
+          type="text"
+          class="form-control"
+          id="libType"
+          required
+          [(ngModel)]="type.libType"
+          name="libType"
+        />
+      </div>
+  
+      <button type="submit" class="btn btn-success">Valider</button>
+
+    </form>
+
+</div>
+  
+<div [hidden]="!submitted">
+    <h4>Nouveau type créé</h4>
+</div>
