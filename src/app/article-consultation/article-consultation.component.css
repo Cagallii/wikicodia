@@ -1,0 +1,15 @@
+/* bottom-buttons-area{
+    display: inline-block;
+    justify-content: space-between;
+    margin: 80px;
+} */
+
+mat-card-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+};
+
+/* mat-icon{
+    margin: 1em;
+} */
