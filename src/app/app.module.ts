@@ -44,7 +44,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 
-import { MatCardModule, MatToolbar, MatButtonModule, MatMenuModule , MatIconModule } from "@angular/material";
+// import { MatCardModule, MatToolbar, MatButtonModule, MatMenuModule , MatIconModule } from "@angular/material";
 
 
 import { ReactiveFormsModule } from '@angular/forms';
@@ -109,18 +109,11 @@ import { HomePageComponent } from './home-page/home-page.component';
     HomePageComponent
     
   ],
-  imports: [
-    BrowserModule, 
-    AppRoutingModule, 
-    MatCardModule, 
-    MatButtonModule, 
+
+  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, MatIconModule,
     ReactiveFormsModule,
     MatMenuModule,
     BrowserAnimationsModule,
-    MatIconModule
-  ],
-  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, MatIconModule,
-  
     A11yModule,
     // ClipboardModule,
     CdkStepperModule,
