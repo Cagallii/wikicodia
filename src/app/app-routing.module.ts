@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Routes, RouterModule } from "@angular/router";
 import { ListArticleFavoriteComponent } from "./list-article-favorite/list-article-favorite.component";
+import {ArticleConsultationComponent} from "./article-consultation/article-consultation.component";
 import { CreateArticleComponent } from "./create-article/create-article.component";
 import { ListArticleCreatedComponent } from "./list-article-created/list-article-created.component";
 import { UserSettingsComponent } from "./user-settings/user-settings.component";
@@ -16,6 +17,7 @@ import { AddLanguageAndTypeComponent } from "./add-language-and-type/add-languag
 const routes: Routes = [
   { path: "userProfil",component : UserProfilComponent},
   { path: "liste", component: ListArticleFavoriteComponent },
+  { path: "", component: ArticleConsultationComponent},
   { path: "createArticle", component: CreateArticleComponent },
   { path: "createdArticles", component: ListArticleCreatedComponent},
   { path: "userSettings",component: UserSettingsComponent },
