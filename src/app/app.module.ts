@@ -44,6 +44,10 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 
+import { MatCardModule, MatToolbar, MatButtonModule, MatMenuModule , MatIconModule } from "@angular/material";
+
+
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from "./app.component";
 import { AboutComponent } from "./about/about.component";
@@ -68,6 +72,11 @@ import { SearchResultComponent } from "./search-result/search-result.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { MenuComponent } from './menu/menu.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserSettingsComponent } from './user-settings/user-settings.component';
+import { ArticleCategoryComponent } from './article-category/article-category.component';
+import { HomePageComponent } from './home-page/home-page.component';
 
 @NgModule({
   declarations: [
@@ -94,6 +103,21 @@ import { AppRoutingModule } from "./app-routing.module";
     ToolbarComponent,
     UserProfilComponent,
     MatToolbar,
+    MenuComponent,
+    UserSettingsComponent,
+    ArticleCategoryComponent,
+    HomePageComponent
+    
+  ],
+  imports: [
+    BrowserModule, 
+    AppRoutingModule, 
+    MatCardModule, 
+    MatButtonModule, 
+    ReactiveFormsModule,
+    MatMenuModule,
+    BrowserAnimationsModule,
+    MatIconModule
   ],
   imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, MatIconModule,
   
