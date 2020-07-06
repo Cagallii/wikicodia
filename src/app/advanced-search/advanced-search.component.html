@@ -1,1 +1,102 @@
-<p>advanced-search works!</p>
+<form [formGroup]="searchForm" class="maincontainer" (ngSubmit)="onSubmit()">
+    <div class="row searchZone">
+        <div class="col-lg-8 col-md-8 col-sm-10 searchInput">
+            <input class="searchInput" type="text" formControlName="searchWords" placeholder="Search">
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 searchBtns">
+            <button type="submit" value="submit" class="btn searchBtn">Rechercher</button>
+            <!-- <button class="btn" type="reset" (click)="onReset()">Reset</button> -->
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-12 searchBtns">
+            <button type="button" class="btn" (click)="addFilters()"> <img class="searchIcons" src='../../assets/img/icons8-slider-48.png'/> Filtrer</button>
+        </div>
+    </div>
+
+    <!-- zone des selects -->
+    <div class="row selectZone" *ngIf="showFilters">
+        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+            <div>Création</div>
+            <select formControlName="dateCrea">
+                <option *ngFor='let value of counter;' value="{{value}}">{{value}}</option>
+            </select>
+        </div>
+
+        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+            <div>Dernière modification </div>
+            <select formControlName="dateModif">
+                <option *ngFor='let value of counter;' value="{{value}}">{{value}}</option>
+            </select>
+        </div>
+
+        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+            <div>Language</div>
+            <select formControlName="language">
+                <option *ngFor='let value of listAllLanguages;' value="{{value}}">{{value}}
+                </option>
+            </select>
+        </div>
+
+        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+            <div>Version</div>
+            <select formControlName="version">
+                <option *ngFor='let value of counter;' value="{{value}}">{{value}}</option>
+            </select>
+        </div>
+
+
+        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+            <div>Framwork</div>
+            <select formControlName="framwork">
+                <option *ngFor='let value of listAllFramework' value="{{value}}">{{value}}</option>
+            </select>
+        </div>
+
+        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+            <div>Catégorie</div>
+            <select formControlName="category">
+                <option *ngFor='let value of listAllCategory' value="{{value}}">{{value}}</option>
+            </select>
+        </div>
+
+        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+            <div>Popularités</div>
+            <select formControlName="likes">
+                <option *ngFor='let value of listAllNbLikes' value="{{value}}">{{value}}</option>
+            </select>
+        </div>
+
+        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+            <div>Type</div>
+            <select formControlName="type">
+                <option *ngFor='let value of listAllType' value="{{value}}">{{value}}</option>
+            </select>
+        </div>
+
+    </div>
+
+    <!-- zone order by  -->
+    <div class="row orderTitle" *ngIf="showFilters">
+        <div>Trier par :</div>
+    </div>
+    <div class="row orderZone" *ngIf="showFilters">
+        <div class="col-4 orderCheckbox">
+            <div>Date de dernière modification</div>
+            <input type="checkbox" formControlName="orderByModif" (change)="onCheckboxChange($event)" />
+        </div>
+        <div class="col-4 orderCheckbox">
+            <div>Date de création</div>
+            <input type="checkbox" formControlName="orderByCrea" (change)="onCheckboxChange($event)" />
+        </div>
+        <div class="col-4 orderCheckbox">
+            <div>Popularité</div>
+            <input type="checkbox" formControlName="orderByLikes" (change)="onCheckboxChange($event)" />
+        </div>
+        <div>
+            <button class="btn" type="reset" (click)="onReset()">Reset</button>
+        </div>
+    </div>
+
+
+
+
+</form>

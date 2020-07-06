@@ -1,6 +1,7 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { MatCardModule, MatToolbar, MatButtonModule } from "@angular/material";
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from "./app.component";
 import { AboutComponent } from "./about/about.component";
@@ -52,7 +53,7 @@ import { AppRoutingModule } from "./app-routing.module";
     UserProfilComponent,
     MatToolbar,
   ],
-  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule],
+  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, ReactiveFormsModule],
   providers: [],
   bootstrap: [AppComponent],
 })
