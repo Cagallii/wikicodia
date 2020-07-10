@@ -46,11 +46,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppComponent } from "./app.component";
 import { AboutComponent } from "./about/about.component";
-import { AddLanguageAndTypeComponent } from "./add-language-and-type/add-language-and-type.component";
 import { AdministratorRoleManagementComponent } from "./administrator-role-management/administrator-role-management.component";
 import { ArticleAwaitingValidationComponent } from "./article-awaiting-validation/article-awaiting-validation.component";
-import { EditLanguageComponent } from "./edit-language/edit-language.component";
-import { EditTypeComponent } from "./edit-type/edit-type.component";
 import { ArticlePromotedHomeComponent } from "./article-promoted-home/article-promoted-home.component";
 import { ArticleSuggestionHomeComponent } from "./article-suggestion-home/article-suggestion-home.component";
 import { ArticleConsultationComponent , ArticleConsultationComponentDialog} from "./article-consultation/article-consultation.component";
@@ -99,11 +96,8 @@ export class XhrInterceptor implements HttpInterceptor {
   declarations: [
     AppComponent,
     AboutComponent,
-    AddLanguageAndTypeComponent,
     AdministratorRoleManagementComponent,
     ArticleAwaitingValidationComponent,
-    EditLanguageComponent,
-    EditTypeComponent,
     ArticlePromotedHomeComponent,
     ArticleSuggestionHomeComponent,
     ArticleConsultationComponent,
