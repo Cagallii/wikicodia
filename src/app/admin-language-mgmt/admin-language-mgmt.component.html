@@ -1,0 +1,22 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Liste des languages</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Libellé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let language of languages | async">
+            <td>{{language.lang}}</td>
+            <td>
+                <button (click)="deleteLanguage(language.idLang)" class="btn btn-danger">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

@@ -67,6 +67,16 @@ import { SearchResultComponent } from "./search-result/search-result.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { AdminCategoryMgmtComponent } from './admin-category-mgmt/admin-category-mgmt.component';
+import { AdminTypeMgmtComponent } from './admin-type-mgmt/admin-type-mgmt.component';
+import { AddCategoryComponent } from './add-category/add-category.component';
+import { AddTypeComponent } from './add-type/add-type.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { AddLanguageComponent } from './add-language/add-language.component';
+import { AddFrameworkComponent } from './add-framework/add-framework.component';
+import { AdminLanguageMgmtComponent } from './admin-language-mgmt/admin-language-mgmt.component';
+import { AdminFrameworkMgmtComponent } from './admin-framework-mgmt/admin-framework-mgmt.component';
 import { HttpInterceptor, HttpRequest, HttpHandler, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppService } from './app.service';
 import { MenuComponent } from './menu/menu.component';
@@ -112,11 +122,18 @@ export class XhrInterceptor implements HttpInterceptor {
     ToolbarComponent,
     UserProfilComponent,
     MatToolbar,
+    AdminCategoryMgmtComponent,
+    AdminTypeMgmtComponent,
+    AddCategoryComponent,
+    AddTypeComponent,
+    AddLanguageComponent,
+    AddFrameworkComponent,
+    AdminLanguageMgmtComponent,
+    AdminFrameworkMgmtComponent,
     MenuComponent,
     UserSettingsComponent,
     ArticleCategoryComponent,
     HomePageComponent
-    
   ],
 
   imports: [

@@ -1,0 +1,22 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Catégories d'article disponibles</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Libellé</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let category of categories | async">
+            <td>{{category.libCategorie}}</td>
+            <td>
+                <button (click)="deleteCategory(category.idCategorie)" class="btn btn-danger">Supprimer</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

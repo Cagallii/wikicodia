@@ -1,0 +1,27 @@
+<h3>Créer une catégorie</h3>
+
+<div [hidden]="submitted" style="width: 400px;">
+
+    <form (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label for="libCategorie">Libellé</label>
+        <input
+          type="text"
+          class="form-control"
+          id="libCategorie"
+          required
+          [(ngModel)]="category.libCategorie"
+          name="libCategorie"
+        />
+      </div>
+  
+      <button type="submit" class="btn btn-success">Valider</button>
+
+    </form>
+
+</div>
+  
+<div [hidden]="!submitted">
+    <h4>Nouvelle catégorie créée</h4>
+</div>
