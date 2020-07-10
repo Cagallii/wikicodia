@@ -1,85 +1,144 @@
 <form [formGroup]="searchForm" class="maincontainer" (ngSubmit)="onSubmit()">
-    <a routerLink="/goHome"><h1>Wikicodia</h1></a>
+    <!-- <a routerLink="/goHome"><h1>Wikicodia</h1></a> -->
     <div class="row searchZone">
-        <div class="col-lg-6 col-md-6 col-sm-6 searchInput">
-            <input class="searchInput" type="text" formControlName="searchWords" placeholder="Search">
+        <div class="col-lg-10 col-md-10 col-sm-12 searchInput">
+
+            <mat-form-field class="searchInput">
+                <mat-label>Rechercher</mat-label>
+                <input matInput formControlName="searchWords">
+              </mat-form-field>
+
+              <!-- matTooltip="Rechercher" -->
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-2 searchBtns">
-            <button type="submit" value="submit" class="btn searchBtn">Rechercher</button>
+        <div class="col-lg-1 col-md-1 col-sm-12 searchBtns">
+            <button mat-button matTooltip="Rechercher" type="submit" value="submit">
+                <mat-icon color="primary">search</mat-icon>
+            </button>
             <!-- <button class="btn" type="reset" (click)="onReset()">Reset</button> -->
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-2 searchBtns">
-            <button type="button" class="btn"  (click)="addFilters()"> <img class="searchIcons" src='../../assets/img/icons8-slider-48.png'/> Filtrer</button>
+        <div class="col-lg-1 col-md-1 col-sm-12 searchBtns">
+
+            <button mat-button matTooltip="Filtrer la recherche" type="button" (click)="addFilters()">
+                <mat-icon color="primary">tune</mat-icon>
+            </button>
         </div>
-        <div class="col-lg-2 col-md-2 col-sm-2">
+
+        <!-- <div class="col-lg-2 col-md-2 col-sm-2">
             <app-menu></app-menu>
-        </div>
+        </div> -->
     </div>
 
     <!-- zone des selects -->
     <div class="row selectZone" *ngIf="showFilters">
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <div>Création</div>
-            <select formControlName="dateCrea">
-                <option *ngFor='let value of counter;' value="{{value}}">{{value}}</option>
-            </select>
+            <mat-form-field appearance="fill">
+                <mat-label>Date de création</mat-label>
+                <mat-select formControlName="dateCrea">
+                    <mat-option value="none"> Toutes </mat-option>
+                  <mat-option *ngFor='let value of counter;' value="{{value}}">
+                      {{value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
 
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <div>Dernière modification </div>
-            <select formControlName="dateModif">
-                <option *ngFor='let value of counter;' value="{{value}}">{{value}}</option>
-            </select>
+            <mat-form-field appearance="fill">
+                <mat-label>Dernière modification</mat-label>
+                <mat-select formControlName="dateModif">
+                    <mat-option value="none"> Toutes </mat-option>
+                  <mat-option *ngFor='let value of counter;' value="{{value}}">
+                      {{value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
 
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <div>Language</div>
-            <select formControlName="language">
-                <option *ngFor='let value of listAllLanguages;' value="{{value}}">{{value}}
-                </option>
-            </select>
+            <mat-form-field appearance="fill">
+                <mat-label>Language</mat-label>
+                <mat-select formControlName="language">
+                    <mat-option value="none"> Tous </mat-option>
+                  <mat-option *ngFor='let value of listAllLanguages;' value="{{value}}">
+                      {{value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
 
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <div>Version</div>
-            <select formControlName="version">
-                <option *ngFor='let value of counter;' value="{{value}}">{{value}}</option>
-            </select>
+            <mat-form-field appearance="fill">
+                <mat-label>Version du language</mat-label>
+                <mat-select formControlName="version">
+                    <mat-option value="none"> Toutes </mat-option>
+                  <mat-option *ngFor='let value of counter;' value="{{value}}">
+                      {{value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
 
 
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <div>Framwork</div>
-            <select formControlName="framwork">
-                <option *ngFor='let value of listAllFramework' value="{{value}}">{{value}}</option>
-            </select>
+            <mat-form-field appearance="fill">
+                <mat-label>Framework</mat-label>
+                <mat-select formControlName="framework">
+                    <mat-option value="none"> Tous </mat-option>
+                  <mat-option *ngFor='let value of listAllFramework;' value="{{value}}">
+                      {{value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
 
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <div>Catégorie</div>
-            <select formControlName="category">
-                <option *ngFor='let value of listAllCategory' value="{{value}}">{{value}}</option>
-            </select>
+            <mat-form-field appearance="fill">
+                <mat-label>Catégorie</mat-label>
+                <mat-select formControlName="category">
+                    <mat-option value="none"> Toutes </mat-option>
+                  <mat-option *ngFor='let value of listAllCategory;' value="{{value}}">
+                      {{value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
 
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <div>Popularités</div>
-            <select formControlName="likes">
-                <option *ngFor='let value of listAllNbLikes' value="{{value}}">{{value}}</option>
-            </select>
+            <mat-form-field appearance="fill">
+                <mat-label>Popularités</mat-label>
+                <mat-select formControlName="likes">
+                    <mat-option value="none"> Tous </mat-option>
+                  <mat-option *ngFor='let value of listAllNbLikes;' value="{{value}}">
+                      {{value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
         </div>
 
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <div>Type</div>
-            <select formControlName="type">
-                <option *ngFor='let value of listAllType' value="{{value}}">{{value}}</option>
-            </select>
+            <mat-form-field appearance="fill">
+                <mat-label>Type</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option value="none"> Tous </mat-option>
+                  <mat-option *ngFor='let value of listAllType;' value="{{value}}">
+                      {{value}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+
+
+        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+            <button class="resetButton" mat-button matTooltip="Supprimer les filtres selectionnés" type="button" (click)="onReset()">
+                <mat-icon color="primary">backspace</mat-icon>
+            </button>
         </div>
 
     </div>
 
     <!-- zone order by  -->
-    <div class="row orderTitle" *ngIf="showFilters">
+    <!-- <div class="row orderTitle" *ngIf="showFilters">
+        <mat-divider></mat-divider>
         <div>Trier par :</div>
     </div>
     <div class="row orderZone" *ngIf="showFilters">
@@ -95,12 +154,7 @@
             <div>Popularité</div>
             <input type="checkbox" formControlName="orderByLikes" (change)="onCheckboxChange($event)" />
         </div>
-    </div>
-    <div class="row" *ngIf="showFilters">
-        <button class="col-12 btn" type="reset" (click)="onReset()">Reset</button>
-    </div>
-    
-
+    </div> -->
 
 
 </form>
