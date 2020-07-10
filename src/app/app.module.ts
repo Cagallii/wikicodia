@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, Injectable } from "@angular/core";
 import { MatCardModule, MatToolbar, MatButtonModule } from "@angular/material";
 import {MatIconModule} from '@angular/material/icon';
 
@@ -70,11 +70,25 @@ import { SearchResultComponent } from "./search-result/search-result.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { HttpInterceptor, HttpRequest, HttpHandler, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AppService } from './app.service';
+import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { ArticleCategoryComponent } from './article-category/article-category.component';
 import { HomePageComponent } from './home-page/home-page.component';
+
+@Injectable()
+export class XhrInterceptor implements HttpInterceptor {
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const xhr = req.clone({
+      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+    });
+    return next.handle(xhr);
+  }
+}
 
 @NgModule({
   declarations: [
@@ -164,8 +178,11 @@ import { HomePageComponent } from './home-page/home-page.component';
     PortalModule,
     ScrollingModule,
   ],
+
+  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, FormsModule],
+  providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   entryComponents: [ArticleConsultationComponentDialog],
-  providers: [],
   bootstrap: [AppComponent],
 })
+
 export class AppModule {}
