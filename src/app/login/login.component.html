@@ -1,1 +1,17 @@
-<p>login works!</p>
+<div class="container">
+    <div class="alert alert-danger" [hidden]="!error">
+        Erreure de connexion
+    </div>
+    <form role="form">
+        <div class="form-group">
+            <label for="username">Adresse Mail</label>
+            <input type="email" name="username" class="form-control" id="username" aria-describedby="emailHelp" placeholder="Entrez Votre Email" [(ngModel)]="credentials.username">
+        </div>
+        <div class="form-group">
+            <label for="password">Mot de Passe</label>
+            <input type="password" name="password" class="form-control" id="password" placeholder="Entrez Votre mot de passe" [(ngModel)]="credentials.password">
+        </div>
+        <button type="submit" class="btn btn-primary" (click)="login()">Connexion</button>
+    </form>     
+</div>
+

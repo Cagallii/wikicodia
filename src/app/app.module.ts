@@ -1,5 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
-import { NgModule } from "@angular/core";
+import { NgModule, Injectable } from "@angular/core";
 import { MatCardModule, MatToolbar, MatButtonModule } from "@angular/material";
 
 import { AppComponent } from "./app.component";
@@ -25,6 +25,21 @@ import { SearchResultComponent } from "./search-result/search-result.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
 import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { AppRoutingModule } from "./app-routing.module";
+import { HttpInterceptor, HttpRequest, HttpHandler, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AppService } from './app.service';
+import { FormsModule } from '@angular/forms';
+
+
+@Injectable()
+export class XhrInterceptor implements HttpInterceptor {
+
+  intercept(req: HttpRequest<any>, next: HttpHandler) {
+    const xhr = req.clone({
+      headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
+    });
+    return next.handle(xhr);
+  }
+}
 
 @NgModule({
   declarations: [
@@ -52,8 +67,9 @@ import { AppRoutingModule } from "./app-routing.module";
     UserProfilComponent,
     MatToolbar,
   ],
-  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule],
-  providers: [],
+  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, FormsModule],
+  providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
+
 export class AppModule {}
