@@ -71,7 +71,7 @@ import { AdminFrameworkMgmtComponent } from './admin-framework-mgmt/admin-framew
     AdminLanguageMgmtComponent,
     AdminFrameworkMgmtComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, FormsModule, HttpClientModule],
+  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule],
   providers: [],
   bootstrap: [AppComponent],
 })
