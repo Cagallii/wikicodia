@@ -40,14 +40,12 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatSortModule} from '@angular/material/sort';
 import {MatTableModule} from '@angular/material/table';
 import {MatTabsModule} from '@angular/material/tabs';
-// import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
-// import { MatCardModule, MatToolbar, MatButtonModule, MatMenuModule , MatIconModule } from "@angular/material";
 
-
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { AppComponent } from "./app.component";
 import { AboutComponent } from "./about/about.component";
@@ -58,7 +56,7 @@ import { EditLanguageComponent } from "./edit-language/edit-language.component";
 import { EditTypeComponent } from "./edit-type/edit-type.component";
 import { ArticlePromotedHomeComponent } from "./article-promoted-home/article-promoted-home.component";
 import { ArticleSuggestionHomeComponent } from "./article-suggestion-home/article-suggestion-home.component";
-import { ArticleConsultationComponent } from "./article-consultation/article-consultation.component";
+import { ArticleConsultationComponent , ArticleConsultationComponentDialog} from "./article-consultation/article-consultation.component";
 import { CarouselArticleComponent } from "./carousel-article/carousel-article.component";
 import { CreateArticleComponent } from "./create-article/create-article.component";
 import { ListArticleCreatedComponent } from "./list-article-created/list-article-created.component";
@@ -90,6 +88,7 @@ import { HomePageComponent } from './home-page/home-page.component';
     ArticlePromotedHomeComponent,
     ArticleSuggestionHomeComponent,
     ArticleConsultationComponent,
+    ArticleConsultationComponentDialog,
     CarouselArticleComponent,
     CreateArticleComponent,
     ListArticleCreatedComponent,
@@ -110,12 +109,19 @@ import { HomePageComponent } from './home-page/home-page.component';
     
   ],
 
-  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, MatIconModule,
+  imports: [
+    BrowserModule, 
+    AppRoutingModule, 
+    MatCardModule, 
+    MatButtonModule, 
+    MatIconModule,
+    MatInputModule,
     ReactiveFormsModule,
+    FormsModule,
     MatMenuModule,
     BrowserAnimationsModule,
     A11yModule,
-    // ClipboardModule,
+    MatFormFieldModule,    
     CdkStepperModule,
     CdkTableModule,
     CdkTreeModule,
@@ -158,6 +164,7 @@ import { HomePageComponent } from './home-page/home-page.component';
     PortalModule,
     ScrollingModule,
   ],
+  entryComponents: [ArticleConsultationComponentDialog],
   providers: [],
   bootstrap: [AppComponent],
 })

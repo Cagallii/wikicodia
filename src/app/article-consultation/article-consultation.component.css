@@ -13,3 +13,25 @@ mat-card-actions{
 button{
     margin-right: 2em;
 }
+
+
+
+
+
+
+
+/* css du dialog */
+
+mat-dialog-actions{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.textareaformfield{
+    width: 100%;
+}
+
+.checkboxDialog{
+    margin: 1em;
+}

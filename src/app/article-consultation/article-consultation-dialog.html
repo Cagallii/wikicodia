@@ -1,0 +1,26 @@
+
+<h1 mat-dialog-title>Signaler cet article</h1>
+
+<mat-dialog-content [formGroup]="form">
+  
+    <mat-checkbox matInput class ="checkboxDialog"  formControlName="depreciated">Déprécié</mat-checkbox>
+
+    <mat-checkbox matInput class ="checkboxDialog"  formControlName="doesntwork">Ne fonctionne pas</mat-checkbox>
+
+    <mat-checkbox matInput class ="checkboxDialog"  formControlName="otherreason">Autre</mat-checkbox>
+
+    <br/>
+
+    <mat-form-field class="textareaformfield">
+        <mat-label>Expliquez pourquoi cet article n'est pas pertinent</mat-label>
+        <textarea matInput  
+        formControlName="description" rows="5">  </textarea>  
+    </mat-form-field>
+
+ 
+</mat-dialog-content>
+
+<mat-dialog-actions>
+    <button mat-button (click)="close()">Annuler</button>
+    <button mat-button (click)="save()">Valider</button>
+</mat-dialog-actions>
