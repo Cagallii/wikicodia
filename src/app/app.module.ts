@@ -48,8 +48,6 @@ import { AppComponent } from "./app.component";
 import { AboutComponent } from "./about/about.component";
 import { AdministratorRoleManagementComponent } from "./administrator-role-management/administrator-role-management.component";
 import { ArticleAwaitingValidationComponent } from "./article-awaiting-validation/article-awaiting-validation.component";
-import { EditLanguageComponent } from "./edit-language/edit-language.component";
-import { EditTypeComponent } from "./edit-type/edit-type.component";
 import { ArticlePromotedHomeComponent } from "./article-promoted-home/article-promoted-home.component";
 import { ArticleSuggestionHomeComponent } from "./article-suggestion-home/article-suggestion-home.component";
 import { ArticleConsultationComponent , ArticleConsultationComponentDialog} from "./article-consultation/article-consultation.component";
@@ -100,8 +98,6 @@ export class XhrInterceptor implements HttpInterceptor {
     AboutComponent,
     AdministratorRoleManagementComponent,
     ArticleAwaitingValidationComponent,
-    EditLanguageComponent,
-    EditTypeComponent,
     ArticlePromotedHomeComponent,
     ArticleSuggestionHomeComponent,
     ArticleConsultationComponent,
