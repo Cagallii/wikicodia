@@ -7,9 +7,9 @@
 mat-card-actions{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
-};
+    justify-content: flex-end;
+}
 
-/* mat-icon{
-    margin: 1em;
-} */
+button{
+    margin-right: 2em;
+}
