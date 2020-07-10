@@ -53,3 +53,8 @@ input{
 button{
     width: 100%;
 }
+
+.resetButton{
+    width: 100%;
+    height: 100%;
+}

@@ -47,7 +47,7 @@ export class AdvancedSearchComponent implements OnInit {
       dateModif: [this.listAllLanguages[0]],
       language: [this.listAllLanguages[0]],
       version: [this.listAllLanguages[0]],
-      framwork: [this.listAllFramework[0]],
+      framework: [this.listAllFramework[0]],
       category: [this.listAllCategory[0]],
       likes: [this.listAllNbLikes[0]],
       type: [this.listAllType[0]],
@@ -83,13 +83,15 @@ export class AdvancedSearchComponent implements OnInit {
     // }
 
     // display form values on success
-    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.searchForm.value, null, 4));
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.searchForm.value, null, 4));
   }
 
   onReset() {
     this.submitted = false;
     this.searchForm.reset();
   }
+
+
 
 
 
