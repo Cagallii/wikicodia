@@ -1,0 +1,27 @@
+<h3>Ajouter un langage</h3>
+
+<div [hidden]="submitted" style="width: 400px;">
+
+    <form (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label for="lang">Langage</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lang"
+          required
+          [(ngModel)]="langage.lang"
+          name="lang"
+        />
+      </div>
+  
+      <button type="submit" class="btn btn-success">Valider</button>
+
+    </form>
+
+</div>
+  
+<div [hidden]="!submitted">
+    <h4>Langage ajouté</h4>
+</div>

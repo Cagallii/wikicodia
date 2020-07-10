@@ -32,6 +32,10 @@ import { AddTypeComponent } from './add-type/add-type.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { AddLanguageComponent } from './add-language/add-language.component';
+import { AddFrameworkComponent } from './add-framework/add-framework.component';
+import { AdminLanguageMgmtComponent } from './admin-language-mgmt/admin-language-mgmt.component';
+import { AdminFrameworkMgmtComponent } from './admin-framework-mgmt/admin-framework-mgmt.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +66,10 @@ import { FormsModule } from '@angular/forms';
     AdminTypeMgmtComponent,
     AddCategoryComponent,
     AddTypeComponent,
+    AddLanguageComponent,
+    AddFrameworkComponent,
+    AdminLanguageMgmtComponent,
+    AdminFrameworkMgmtComponent,
   ],
   imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, FormsModule, HttpClientModule],
   providers: [],
