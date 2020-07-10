@@ -3,13 +3,21 @@
     <mat-icon routerLink="userProfil">face</mat-icon>
     <h3>Bonjour [pseudo]</h3>
     <button mat-menu-item routerLink="/liste">Articles favoris</button>
+    <button mat-menu-item routerLink="/createdArticles">Mes articles</button>
     <button mat-menu-item routerLink="/createArticle">Créer un article</button>
-    <button mat-menu-item routerLink="/createdArticles">Articles créés</button>
-    <button mat-menu-item routerLink="/userSettings">Paramètres</button>
-    <button mat-menu-item routerLink="/roleManagement">Promouvoir / Destituer un administrateur</button>
-    <button mat-menu-item routerLink="/addTypeAndLanguage">Ajouter un type d'article ou un langage</button>
     <button mat-menu-item routerLink="/editType">Modifier un type d'article</button>
-    <button mat-menu-item routerLink="/editLanguage">Modifier un langage</button>
-    <button mat-menu-item routerLink="/AddOrEditCategory">Ajouter ou modifier une catégorie d'article</button>
+    <button mat-menu-item routerLink="/userSettings">Paramètres</button>
+
+    <!-- section réservée aux administrateurs -->
+    <button mat-menu-item routerLink="/categories/all">Catégories d'article</button>
+    <button mat-menu-item routerLink="/categories/creation">Ajouter une catégorie d'article</button>
+    <button mat-menu-item routerLink="/types/all">Types d'article</button>
+    <button mat-menu-item routerLink="/types/creation">Ajouter un type d'article</button>
+    <button mat-menu-item routerLink="/langages/all">Langages</button>
+    <button mat-menu-item routerLink="/langages/creation">Ajouter un langage</button>
+    <button mat-menu-item routerLink="/frameworks/all">Frameworks</button>
+    <button mat-menu-item routerLink="/frameworks/creation">Ajouter un framework</button>
+    <button mat-menu-item routerLink="/roleManagement">Promouvoir / Destituer un administrateur</button>
+
 </mat-menu>
 

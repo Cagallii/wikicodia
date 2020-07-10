@@ -15,7 +15,6 @@ import { ArticleCategoryComponent } from "./article-category/article-category.co
 import { EditLanguageComponent } from "./edit-language/edit-language.component";
 import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { HomePageComponent } from "./home-page/home-page.component";
-import { AddLanguageAndTypeComponent } from "./add-language-and-type/add-language-and-type.component";
 import { ArticleConsultationComponent } from "./article-consultation/article-consultation.component";
 
 
@@ -50,7 +49,6 @@ const routes: Routes = [
   { path: "AddOrEditCategory",component: ArticleCategoryComponent},
   { path: "editLanguage",component: EditLanguageComponent},
   { path: "goHome",component: HomePageComponent},
-  { path: "addTypeAndLanguage",component: AddLanguageAndTypeComponent},
 ];
 @NgModule({
   declarations: [],
