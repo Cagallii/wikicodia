@@ -1,6 +1,19 @@
+<!-- Menu temporaire -->
 <a routerLink="/">Home</a><br />
 <a routerLink="/liste">Liste</a><br />
 <a routerLink="/connexion">Connexion</a><br />
+
+<a routerLink="/categories/all">Administrer les catégories d'articles</a><br />
+<a routerLink="/types/all">Administrer les types d'articles</a><br />
+<a routerLink="/langages/all">Administrer les langages</a><br />
+<a routerLink="/frameworks/all">Administrer les frameworks</a><br />
+
+<!-- Sections à rendre accessible depuis pages d'administration ci-dessus -->
+<a routerLink="/categories/creation">Créer une nouvelle catégorie d'article</a><br />
+<a routerLink="/types/creation">Créer un nouveau type d'article</a><br />
+<a routerLink="/langages/creation">Ajouter un langage</a><br />
+<a routerLink="/frameworks/creation">Ajouter un framework</a><br />
+
 <button class="btn btn-danger" (click)="logout()">Logout</button>
 <app-advanced-search></app-advanced-search>
 

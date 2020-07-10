@@ -72,7 +72,6 @@ import { AdminTypeMgmtComponent } from './admin-type-mgmt/admin-type-mgmt.compon
 import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddTypeComponent } from './add-type/add-type.component';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
 import { AddLanguageComponent } from './add-language/add-language.component';
 import { AddFrameworkComponent } from './add-framework/add-framework.component';
 import { AdminLanguageMgmtComponent } from './admin-language-mgmt/admin-language-mgmt.component';
@@ -151,6 +150,7 @@ export class XhrInterceptor implements HttpInterceptor {
     CdkTableModule,
     CdkTreeModule,
     DragDropModule,
+    HttpClientModule,
     MatAutocompleteModule,
     MatBadgeModule,
     MatBottomSheetModule,
