@@ -21,6 +21,10 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button mat-button (click)="close()">Annuler</button>
-    <button mat-button (click)="save()">Valider</button>
+    <button mat-button mat-mini-fab (click)="close()" color="accent">
+        <mat-icon>cancel</mat-icon>
+    </button>
+    <button mat-button mat-mini-fab (click)="save()" color="primary">
+        <mat-icon>check_circle</mat-icon>
+    </button>
 </mat-dialog-actions>

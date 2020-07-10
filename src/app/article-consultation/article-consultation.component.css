@@ -4,19 +4,27 @@
     margin: 80px;
 } */
 
+mat-card {
+    margin: 1em;
+}
+
 mat-card-actions{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    /* padding: 0em;
+    margin: 0em; */
 }
 
 button{
     margin-right: 2em;
+    justify-content: center;
 }
 
 
-
-
+/* mat-icon{
+    vertical-align: none;
+} */
 
 
 
@@ -26,6 +34,7 @@ mat-dialog-actions{
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    /* margin-top: 1em; */
 }
 
 .textareaformfield{
