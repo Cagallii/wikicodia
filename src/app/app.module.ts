@@ -43,10 +43,7 @@ import {MatTabsModule} from '@angular/material/tabs';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatFormFieldModule} from '@angular/material/form-field';
-
-
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-
 import { AppComponent } from "./app.component";
 import { AboutComponent } from "./about/about.component";
 import { AddLanguageAndTypeComponent } from "./add-language-and-type/add-language-and-type.component";
@@ -72,7 +69,6 @@ import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { HttpInterceptor, HttpRequest, HttpHandler, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppService } from './app.service';
-import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
@@ -126,8 +122,6 @@ export class XhrInterceptor implements HttpInterceptor {
   imports: [
     BrowserModule, 
     AppRoutingModule, 
-    MatCardModule, 
-    MatButtonModule, 
     MatIconModule,
     MatInputModule,
     ReactiveFormsModule,
@@ -178,8 +172,6 @@ export class XhrInterceptor implements HttpInterceptor {
     PortalModule,
     ScrollingModule,
   ],
-
-  imports: [BrowserModule, AppRoutingModule, MatCardModule, MatButtonModule, FormsModule],
   providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
   entryComponents: [ArticleConsultationComponentDialog],
   bootstrap: [AppComponent],
