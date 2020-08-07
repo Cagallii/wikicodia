@@ -24,6 +24,7 @@ import { AddCategoryComponent } from "./add-category/add-category.component";
 import { AddTypeComponent } from "./add-type/add-type.component";
 import { AddLanguageComponent } from "./add-language/add-language.component";
 import { AddFrameworkComponent } from "./add-framework/add-framework.component";
+import { RegisterComponent } from './register/register.component';
 
 const routes: Routes = [
   { path: "userProfil",component : UserProfilComponent},
@@ -44,6 +45,7 @@ const routes: Routes = [
   { path: "roleManagement",component: AdministratorRoleManagementComponent},
   { path: "AddOrEditCategory",component: ArticleCategoryComponent},
   { path: "goHome",component: HomePageComponent},
+  { path: "register",component: RegisterComponent},
 ];
 @NgModule({
   declarations: [],
