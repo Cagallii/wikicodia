@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Type from '../model/type';
+import Type from '../model/Type';
 import { TypeService } from '../services/type.service';
 import { Router } from '@angular/router';
 

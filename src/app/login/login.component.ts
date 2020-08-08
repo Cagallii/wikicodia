@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
   //passe les user name et le passord a la fonction autentification
   login() {
     this.app.authenticate(this.credentials, () => {
-      //route de redirection apres le connexion
+      //route de redirection apres la connexion
       this.router.navigateByUrl('/');
     });
     return false;

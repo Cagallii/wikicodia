@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import Language from '../model/language';
+import Language from '../model/Language';
 import { LanguageService } from '../services/language.service';
 import { Router } from '@angular/router';
 

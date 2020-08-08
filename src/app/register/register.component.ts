@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
+import { HttpParams, HttpClient, HttpHeaders } from '@angular/common/http';
+import User from '../model/User';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-register',
@@ -8,7 +11,7 @@ import { FormGroup, FormControl } from '@angular/forms';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() {}
+  constructor(private app: AppService) {}
 
   ngOnInit() {
   }
@@ -19,12 +22,18 @@ export class RegisterComponent implements OnInit {
     prenom: new FormControl(),
     mail: new FormControl(),
     mdp: new FormControl(),
-    confirmeMdp: new FormControl(),
-  });
+    //confirmeMdp: new FormControl(),
+  })
 
   onFormSubmit(): void {
-    console.log('Nom:' + this.registerForm.get('nom').value);
-    console.log('Prenom:' + this.registerForm.get('prenom').value);
-  }
+    const utilisateur = new User();
+    utilisateur.nom = this.registerForm.get('nom').value
+    utilisateur.prenom = this.registerForm.get('prenom').value
+    utilisateur.motDePasse = this.registerForm.get('mdp').value
+    utilisateur.mail = this.registerForm.get('mail').value
 
+    console.log(utilisateur);
+    
+    this.app.register(utilisateur);
+  }
 }
