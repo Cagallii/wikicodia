@@ -1,23 +1,34 @@
 import Article from '../model/Article'
 import { roleType } from '../enum/roleType';
 import {Moment} from 'moment';
+import Etat from './Etat';
+import Framework from './Framework';
+import Language from './Language';
+import Type from './Type';
+import Category from './Category';
+
 
 export default class UserCreate {
-    lastname : string;
-    firstname : string;
-    username: string;
-    role: roleType;
-    isAdministrator: boolean;
-    email: string; //ce qui permet l'auth par la suite
-    linkedin: string;
+    prenom : string;
+    nom : string;
+    pseudo: string;
+    mail: string; //ce qui permet l'auth par la suite
+    motDePasse: string; 
+    lienLinkedin: string;
+    statut: string;
+    dateInscription: Moment;
+    dateDerniereConnexion: Moment;
     preferences : string[];
+    etat : Etat;
+    role: roleType;
+    framework : Framework[];
+    langage : Language[];
+    type : Type[];
+    categorie : Category[];
     //guilde
-    articlesCreated: Article[];
-    articlesFavoris: Article[];
+    //articlesCreated: Article[];
+    //articlesFavoris: Article[];
     // actif ???
-    vote: number;
-    password: string; 
-    avatar : boolean; //any //string pour URL?
-    registryDate: Moment;
-    lastConnect: Moment;
+    //vote: number;
+    //avatar : boolean; //any //string pour URL?
 }

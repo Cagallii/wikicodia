@@ -1,1 +1,26 @@
-<p>register works!</p>
+<div class="container">
+    <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+        <h2>S'inscrire</h2>
+        <mat-form-field appearance="fill" class="full-width-input">
+            <mat-label>Nom</mat-label>
+            <input matInput formControlName="nom">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width-input">
+            <mat-label>Prenom</mat-label>
+            <input matInput formControlName="prenom">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width-input">
+            <mat-label>E-mail</mat-label>
+            <input matInput formControlName="mail" type="mail">
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width-input">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput formControlName="mdp" type="password">
+        </mat-form-field>
+        <!--<mat-form-field appearance="fill" class="full-width-input">
+            <mat-label>Confirmer Mot de passe</mat-label>
+            <input matInput formControlName="confirmeMdp" type="password">
+        </mat-form-field>-->
+        <button type="submit">S'inscrir</button>
+    </form>
+</div>

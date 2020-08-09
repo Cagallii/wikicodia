@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import User from './model/User';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,6 @@ export class AppService {
         const body = new HttpParams()
         .set('username', credentials.username)
         .set('password', credentials.password)
-
-        console.log(credentials);
         
         this.http.post('login', body.toString(), 
         {
@@ -38,6 +37,28 @@ export class AppService {
         });
 
     }
+
+    register(utisateur: User) {
+        console.log("caca");
+        
+        const body = new HttpParams()
+        .set('nom', utisateur.nom)
+        .set('prenom', utisateur.prenom)
+        .set('mail', utisateur.mail)
+        .set('motDePasse', utisateur.motDePasse)
+    
+        this.http.post(
+          '/utilisateur/creation',
+           body.toString(), 
+          {
+              headers: new HttpHeaders()
+              .set('Content-Type', 'application/x-www-form-urlencoded') 
+          }
+        ).subscribe(response => {
+            //TODO: connecter l utilisateur fraichement créé
+            console.log("ok");
+        });
+      }
 
     checkIfLogged(){
 
