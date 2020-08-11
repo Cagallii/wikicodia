@@ -1,1 +1,112 @@
-<p>create-article works!</p>
+<form [formGroup]="createArticleForm" class="maincontainer" (ngSubmit)="onSubmit()">
+
+    <mat-card class="creationCard">
+
+        <mat-card-header>
+            <mat-card-title>Interface de création d'article</mat-card-title>
+            <!-- <mat-card-subtitle>texte de la description texte de la description texte de la description texte de la description
+        texte de la description </mat-card-subtitle> -->
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+        <br />
+
+        <mat-card-content>
+
+            <mat-form-field class="largeInput">
+                <input matInput type="text" placeholder="Titre de l'article" formControlName="title" id="title">
+                <mat-error align="end" *ngIf="hasError('title', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="largeInput">
+                <textarea matInput type="text" placeholder="Description de l'article" formControlName="description"
+                    id="description" cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="100"></textarea>
+                    <mat-error align="end" *ngIf="hasError('description', 'required')">Ce champs est requis</mat-error>
+                    <mat-error align="end" *ngIf="hasError('description', 'minlength')">Un minimum de 100 caractères est requis</mat-error>
+            </mat-form-field>
+
+            <!-- zone des selects -->
+
+            <mat-form-field appearance="fill">
+                <mat-label>Type d'article</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option *ngFor='let value of variableBidon;' value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end" *ngIf="hasError('description', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field appearance="fill">
+                <mat-label>Catégorie d'article</mat-label>
+                <mat-select formControlName="category">
+                    <mat-option *ngFor='let value of variableBidon;' value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end" *ngIf="hasError('category', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Languages utilisés</mat-label>
+                <mat-select formControlName="language" multiple>
+                    <mat-option *ngFor='let value of variableBidon;' value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end" *ngIf="hasError('language', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Versions des languages utilisés</mat-label>
+                <mat-select formControlName="languageVersion" multiple>
+                    <mat-option *ngFor='let value of variableBidon;' value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end" *ngIf="hasError('languageVersion', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Frameworks utilisés</mat-label>
+                <mat-select formControlName="framework" multiple>
+                    <mat-option *ngFor='let value of variableBidon;' value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end" *ngIf="hasError('framework', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Versions des frameworks utilisés</mat-label>
+                <mat-select formControlName="frameworkVersion" multiple>
+                    <mat-option *ngFor='let value of variableBidon;' value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end" *ngIf="hasError('frameworkVersion', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+            <!-- fin de zone des selects -->
+
+            <mat-form-field class="largeInput">
+                <textarea matInput type="text" placeholder="Contenu de l'article" formControlName="content"
+                    id="description" cdkTextareaAutosize cdkAutosizeMinRows="20"></textarea>
+                    <mat-error align="end" *ngIf="hasError('content', 'required')">Ce champs est requis</mat-error>
+                    <mat-error align="end" *ngIf="hasError('content', 'minlength')">Un minimum de 100 caractères est requis</mat-error>
+            </mat-form-field>
+
+        </mat-card-content>
+
+
+
+        <mat-divider></mat-divider>
+
+        <mat-card-actions>
+            <button type="submit" value="submit" mat-raised-button color="primary" [disabled]="!createArticleForm.valid" matTooltip="Le contenu présenté est bien pertinent" >Publier</button>
+            <button type="button" mat-raised-button color="warn" (click)="onCancel()" matTooltip="Le contenu présenté est bien pertinent">Annuler</button>
+
+        </mat-card-actions>
+    </mat-card>
+</form>
