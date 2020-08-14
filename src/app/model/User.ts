@@ -9,8 +9,8 @@ import Category from './Category';
 
 
 export default class UserCreate {
-    prenom : string;
     nom : string;
+    prenom : string;
     pseudo: string;
     mail: string; //ce qui permet l'auth par la suite
     motDePasse: string; 
@@ -31,4 +31,21 @@ export default class UserCreate {
     // actif ???
     //vote: number;
     //avatar : boolean; //any //string pour URL?
+
+    hydrate(user: Object){
+        this.nom = user['nom'];
+        this.prenom = user['prenom'];
+        this.pseudo = user['pseudo'];
+        this.mail = user['mail'];
+        this.lienLinkedin = user['lienLinkedin'];
+        this.statut = user['statut'];
+        this.dateInscription = user['dateInscription'];
+        this.preferences = user['preferences'];
+        this.etat = user['etat'];
+        this.role = user['role'];
+        this.framework = user['framework'];
+        this.langage = user['langage'];
+        this.type = user['type'];
+        this.categorie = user['categorie'];
+    }
 }

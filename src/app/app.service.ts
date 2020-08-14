@@ -8,6 +8,7 @@ import User from './model/User';
 export class AppService {
   
     authenticated = false;
+    user: User = null;
 
     constructor(private http: HttpClient) {
     }
@@ -26,11 +27,7 @@ export class AppService {
 
             this.http.get('user').subscribe(response => {
 
-                if (response['nom']) {
-                    this.authenticated = true;
-                } else {
-                    this.authenticated = false;
-                }
+                    this.checkIfLogged();
                 
                 return callback && callback();
             });
@@ -63,14 +60,20 @@ export class AppService {
     checkIfLogged(){
 
         this.http.get('user').subscribe(response => {
+            console.log(response);
+            
 
-            if (response['name']) {
+            if (response['authenticated']) {
                 this.authenticated = true;
+                this.user = new User();
+                this.user.hydrate(response['principal']);
             } else {
                 this.authenticated = false;
+                this.user = null;
             }
             
             console.log(this.authenticated);
+            console.log(this.user);
             
             return this.authenticated;
         });
