@@ -10,9 +10,9 @@ export default class Article {
     author: UserCreate;
     title: string;
     type: articleType;
-    language: languageType;
-    versionLanguage: string; 
-    versionFramework: string;
+    language: languageType[];
+    versionLanguage: string[]; 
+    versionFramework: string[];
     category: category;
     content: string;
     description: string;

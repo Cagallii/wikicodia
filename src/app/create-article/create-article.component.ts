@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import {CdkTextareaAutosize} from '@angular/cdk/text-field';
-
+import{ArticleService} from '../services/article.service';
+import Article from '../model/Article';
 
 @Component({
   selector: 'app-create-article',
@@ -10,28 +11,15 @@ import {CdkTextareaAutosize} from '@angular/cdk/text-field';
 })
 export class CreateArticleComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private articleService :ArticleService) { }
 
   createArticleForm: FormGroup;
-  // submitted:boolean = false;
-
-
+  newArticle :Article = new Article();
 
   //variable à supprimer car à remplacer par ce qui vient du back 
   variableBidon ;
 
   ngOnInit() {
-
-// A BIEN RAJOUTER DEPUIS LE BACK  !!!!!! : 
-
-    // <mat-chip color="accent" selected>date de création</mat-chip>
-    // <mat-chip color="accent" selected>date de modification</mat-chip>
-    // <mat-chip color="accent" selected>auteur</mat-chip>
-    // <mat-chip color="primary" selected>nb likes</mat-chip>
-    // <mat-chip color="primary" selected>nb dislikes</mat-chip>
-
-
-
 
   //variable à supprimer car à remplacer par ce qui vient du back 
     this.variableBidon = ["Tous","Java","Javascript","C#","C","C++","Typescript","Go","Ruby","Python","Spring","Angular","AngularJS","Symphony","Laravel","Bootstrap","JQuery","Tuto","Erreur","Nouveau","Populaire","Très populaire"];
@@ -68,6 +56,34 @@ export class CreateArticleComponent implements OnInit {
 
 
   onSubmit() {
+    // this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.createArticleForm.invalid) {
+      return;
+    }
+    // display form values on success
+    else {
+      alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.createArticleForm.value, null, 4));
+      this.newArticle  = new Article();
+      this.newArticle.author = null;
+      this.newArticle.category = this.createArticleForm.controls['category'].value;
+      this.newArticle.content = this.createArticleForm.controls['content'].value;
+      this.newArticle.description = this.createArticleForm.controls['description'].value;
+      this.newArticle.language = this.createArticleForm.controls['language'].value;
+      this.newArticle.title = this.createArticleForm.controls['title'].value;
+      this.newArticle.versionFramework = this.createArticleForm.controls['versionFramework'].value;
+      this.newArticle.versionLanguage = this.createArticleForm.controls['versionLanguage'].value;
+      this.newArticle. = this.createArticleForm.controls['versionLanguage'].value;
+
+
+
+      this.articleService.create(this.createArticleForm.value)
+    }
+  }
+
+
+  onSubmitGlobally() {
     // this.submitted = true;
 
     // stop here if form is invalid
