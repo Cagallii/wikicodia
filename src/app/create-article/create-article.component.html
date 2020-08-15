@@ -104,9 +104,11 @@
         <mat-divider></mat-divider>
 
         <mat-card-actions>
-            <button type="submit" value="submit" mat-raised-button color="primary" [disabled]="!createArticleForm.valid" matTooltip="Le contenu présenté est bien pertinent" >Publier</button>
+            <button type="submit" value="submit" mat-raised-button color="primary" (click)="onSubmitGlobally()" [disabled]="!createArticleForm.valid" matTooltip="Sauvegarder mon article et le rendre accessible et consultable par la communauté" >Valider et publier</button>
+            <button type="submit" value="submit" mat-raised-button color="primary" [disabled]="!createArticleForm.valid" matTooltip="Sauvegarder mon article sans le partager avec la communauté" >Sauvegarder</button>
             <button type="button" mat-raised-button color="warn" (click)="onCancel()" matTooltip="Le contenu présenté est bien pertinent">Annuler</button>
 
         </mat-card-actions>
     </mat-card>
 </form>
+
