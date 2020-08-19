@@ -11,7 +11,7 @@
                             <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
-                            <button id="btn-contact" (click)="clearModal()" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow">Modifier le Profil</button> 
+                            <button id="btn-contact" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow">Modifier le Profil</button> 
                             <button class="btn btn-warning btn-block">Un autre truc</button>                               
                         </div>
                         <div class="row user-detail-row">
@@ -160,23 +160,70 @@
                         <span aria-hidden="true">×</span>
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="txtFullname">Nom</label>
-                        <input type="text" id="txtFullname" class="form-control">
+                <div class="modal-body" [formGroup]="editForm">
+                    <div class="hidden">
+                        <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
                     </div>
-                    <div class="form-group">
-                        <label for="txtEmail">Email</label>
-                        <input type="text" id="txtEmail" class="form-control">
-                    </div>
-                    <div class="form-group">
-                        <label for="txtPhone">Pseudo</label>
-                        <input type="text" id="txtPhone" class="form-control">
-                    </div>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Nom</mat-label>
+                        <input matInput formControlName="nom">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Prenom</mat-label>
+                        <input matInput formControlName="prenom">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Pseudo</mat-label>
+                        <input matInput formControlName="pseudo">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>E-mail</mat-label>
+                        <input matInput formControlName="mail" type="mail">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Mot de passe</mat-label>
+                        <input matInput formControlName="motDePasse" type="password">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Lien Linkedin</mat-label>
+                        <input matInput formControlName="lienLinkedin">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Statut</mat-label>
+                        <input matInput formControlName="statut">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Preference</mat-label>
+                        <input matInput formControlName="preferences">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Etat</mat-label>
+                        <input matInput formControlName="etat">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Role</mat-label>
+                        <input matInput formControlName="role">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Framework</mat-label>
+                        <input matInput formControlName="framework">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Langage</mat-label>
+                        <input matInput formControlName="langage">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Type</mat-label>
+                        <input matInput formControlName="type">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Categorie</mat-label>
+                        <input matInput formControlName="categorie">
+                    </mat-form-field>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuler</button>
-                    <button type="button" class="btn btn-primary" (click)="openModal()" data-dismiss="modal">Modifier</button>
+                    <button type="button" class="btn btn-primary" (click)="modification()" data-dismiss="modal">Modifier</button>
                 </div>
             </div>
         </div>

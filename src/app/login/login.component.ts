@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AppService } from '../app.service';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -18,8 +19,16 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
   }
 
+    //Gestion du formulaire
+    loginForm = new FormGroup({
+      mail: new FormControl(),
+      mdp: new FormControl(),
+    })
+
   //passe les user name et le passord a la fonction autentification
   login() {
+    console.log(this.credentials);
+    
     this.app.authenticate(this.credentials, () => {
       //route de redirection apres la connexion
       this.router.navigateByUrl('/');

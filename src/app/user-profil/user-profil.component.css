@@ -120,3 +120,6 @@ body{
       font-size: 1.2em;    
     }
     
+    mat-form-field {
+      display: block;
+    }
