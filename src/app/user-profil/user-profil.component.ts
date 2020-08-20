@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
 import User from '../model/User';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { stringify } from 'querystring';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-user-profil',
@@ -14,7 +16,7 @@ export class UserProfilComponent implements OnInit {
   user: User = null;
   editForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private app: AppService,) {
+  constructor(private formBuilder: FormBuilder, private app: AppService, private router: Router) {
 
   }
 
@@ -25,23 +27,24 @@ export class UserProfilComponent implements OnInit {
     if (this.user) {
       this.editForm = this.formBuilder.group({
         id: ['', Validators.required],
-        nom: ['', Validators.required],
-        prenom: ['', Validators.required],
+        nom: [''],
+        prenom: [''],
         pseudo: ['', Validators.required],
         mail: ['', Validators.required],
-        motDePasse: ['', Validators.required],
-        lienLinkedin: ['', Validators.required],
-        statut: ['', Validators.required],
-        preferences: ['', Validators.required],
-        etat: ['', Validators.required],
-        role: ['', Validators.required],
-        framework: ['', Validators.required],
-        langage: ['', Validators.required],
-        type: ['', Validators.required],
-        categorie: ['', Validators.required],
+        lienLinkedin: [''],
+        statut: [''],
+        preferences: [''],
+        etat: [''],
+        role: [''],
+        framework: [''],
+        langage: [''],
+        type: [''],
+        categorie: [''],
       });
-  
+        
       this.editForm.setValue(this.user);
+    } else {
+        this.router.navigateByUrl('/connexion');
     }
   }
 

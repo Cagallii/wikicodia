@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
                             <button id="btn-contact" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow">Modifier le Profil</button> 
-                            <button class="btn btn-warning btn-block">Un autre truc</button>                               
+                            <button class="btn btn-warning btn-block">Changer de mot de passe</button>                               
                         </div>
                         <div class="row user-detail-row">
                             <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -52,84 +52,84 @@
                                     <div class="tab-content">
                                         <div role="tabpanel" class="tab-pane fade show active" id="profile">
                                             <div class="row">
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <label>Mail</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 offset-md-3">
                                                     <p>{{ user.mail }}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <label>Linkedin</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 offset-md-3">
                                                     <p>{{ user.lienLinkedin }}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <label>Status</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 offset-md-3">
                                                     <p>{{ user.statut }}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <label>Role</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 offset-md-3">
                                                     <p>{{ user.role }}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <label>Membre depuis</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 offset-md-3">
                                                     <p>{{ user.dateInscription }}</p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane fade" id="buzz">
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <label>Preferences</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 offset-md-3">
                                                     <p>{{ user.preferences }}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <label>Etat</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 offset-md-3">
                                                     <p>{{ user.etat }}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <label>Framework</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 offset-md-3">
                                                     <p>{{ user.framework }}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <label>Langage</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 offset-md-3">
                                                     <p>{{ user.langage }}</p>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <label>Type</label>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-6 offset-md-3">
                                                     <p>{{ user.type }}</p>
                                                 </div>
                                             </div>
@@ -161,64 +161,60 @@
                     </button>
                 </div>
                 <div class="modal-body" [formGroup]="editForm">
-                    <div class="hidden">
-                        <input type="text" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
+                    <div class="d-none">
+                        <input type="hidden" [(ngModel)]="user.id" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
                     </div>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Nom</mat-label>
-                        <input matInput formControlName="nom">
+                        <input [(ngModel)]="user.nom" matInput formControlName="nom">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Prenom</mat-label>
-                        <input matInput formControlName="prenom">
+                        <input matInput [(ngModel)]="user.prenom" formControlName="prenom">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Pseudo</mat-label>
-                        <input matInput formControlName="pseudo">
+                        <input matInput [(ngModel)]="user.pseudo" formControlName="pseudo">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>E-mail</mat-label>
-                        <input matInput formControlName="mail" type="mail">
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="full-width-input">
-                        <mat-label>Mot de passe</mat-label>
-                        <input matInput formControlName="motDePasse" type="password">
+                        <input matInput [(ngModel)]="user.mail" formControlName="mail" type="mail">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Lien Linkedin</mat-label>
-                        <input matInput formControlName="lienLinkedin">
+                        <input matInput [(ngModel)]="user.lienLinkedin" formControlName="lienLinkedin">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Statut</mat-label>
-                        <input matInput formControlName="statut">
+                        <input matInput [(ngModel)]="user.statut" formControlName="statut">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Preference</mat-label>
-                        <input matInput formControlName="preferences">
+                        <input matInput [(ngModel)]="user.preferences" formControlName="preferences">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Etat</mat-label>
-                        <input matInput formControlName="etat">
+                        <input matInput [(ngModel)]="user.etat" formControlName="etat">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Role</mat-label>
-                        <input matInput formControlName="role">
+                        <input matInput [(ngModel)]="user.role" formControlName="role">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Framework</mat-label>
-                        <input matInput formControlName="framework">
+                        <input matInput [(ngModel)]="user.framework" formControlName="framework">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Langage</mat-label>
-                        <input matInput formControlName="langage">
+                        <input matInput [(ngModel)]="user.langage" formControlName="langage">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Type</mat-label>
-                        <input matInput formControlName="type">
+                        <input matInput [(ngModel)]="user.type" formControlName="type">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Categorie</mat-label>
-                        <input matInput formControlName="categorie">
+                        <input matInput [(ngModel)]="user.categorie" formControlName="categorie">
                     </mat-form-field>
                 </div>
                 <div class="modal-footer">

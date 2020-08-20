@@ -9,6 +9,7 @@ import Category from './Category';
 
 
 export default class UserCreate {
+    id : number;
     nom : string;
     prenom : string;
     pseudo: string;
@@ -33,6 +34,7 @@ export default class UserCreate {
     //avatar : boolean; //any //string pour URL?
 
     hydrate(user: Object){
+        this.id = user['idUtilisateur']
         this.nom = user['nom'];
         this.prenom = user['prenom'];
         this.pseudo = user['pseudo'];

@@ -35,9 +35,7 @@ export class AppService {
 
     }
 
-    register(utisateur: User) {
-        console.log("caca");
-        
+    register(utisateur: User) {        
         const body = new HttpParams()
         .set('nom', utisateur.nom)
         .set('prenom', utisateur.prenom)
@@ -57,11 +55,9 @@ export class AppService {
         });
       }
 
-    checkIfLogged(){
+    checkIfLogged() : Boolean {
 
         this.http.get('user').subscribe(response => {
-            console.log(response);
-            
 
             if (response['authenticated']) {
                 this.authenticated = true;
@@ -71,12 +67,10 @@ export class AppService {
                 this.authenticated = false;
                 this.user = null;
             }
-            
-            console.log(this.authenticated);
-            console.log(this.user);
-            
-            return this.authenticated;
         });
+
+        return this.authenticated
     }
 
+    
 }
