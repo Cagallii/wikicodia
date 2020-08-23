@@ -1,11 +1,14 @@
-import Article from '../model/Article'
+import Article from './Article'
 import { roleType } from '../enum/roleType';
 import {Moment} from 'moment';
 import Etat from './Etat';
 import Framework from './Framework';
 import Language from './Language';
-import Type from './Type';
+import Type from './TypeArticle';
 import Category from './Category';
+import RoleUser from './RoleUser';
+import Guilde from './Guilde';
+import TypeArticle from './TypeArticle';
 
 
 export default class UserCreate {
@@ -18,17 +21,12 @@ export default class UserCreate {
     statut: string;
     dateInscription: Moment;
     dateDerniereConnexion: Moment;
-    preferences : string[];
     etat : Etat;
-    role: roleType;
+    role: RoleUser;
+    guilde:Guilde[];
     framework : Framework[];
     langage : Language[];
-    type : Type[];
+    type : TypeArticle[];
     categorie : Category[];
-    //guilde
-    //articlesCreated: Article[];
-    //articlesFavoris: Article[];
-    // actif ???
-    //vote: number;
-    //avatar : boolean; //any //string pour URL?
+
 }
