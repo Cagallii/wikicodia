@@ -1,6 +1,29 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatDialogConfig } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import Article from '../model/Article';
+
+
+// exemple de récupération de data : 
+
+// dans le component précédent: 
+
+// goToPlay(){
+//   let params = {nomroom:this.objectRoom.nomroom,pwdroom:this.objectRoom.pwdroom}
+//   this.router.navigate(['jeu', params], {skipLocationChange:true});
+// }
+
+// dans le component ou on utilise les datas : 
+
+// ngOnInit(): void {
+//   this.route.params.subscribe(data=>this.objectParams=data);
+//   });
+
+// }
+
+
+
 
 
 
@@ -12,11 +35,25 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class ArticleConsultationComponent implements OnInit {
 
-  constructor(private dialog: MatDialog) { }
+  constructor(private dialog: MatDialog, private router : Router,
+    private route : ActivatedRoute) { }
+
+    objectArticle;
+
+    ngOnInit() {
+      
+      // on recupere l'article selectionné précédemment et passé en param 
+      this.route.params.subscribe(data=>this.objectArticle=data);
 
 
+
+    }
+
+
+
+
+  // fonction qui gère la fenetre pop up de like dislike
   openDialog() {
-
     const dialogConfig = new MatDialogConfig();
 
     // dialogConfig.disableClose = true;
@@ -39,8 +76,7 @@ export class ArticleConsultationComponent implements OnInit {
   }
 
 
-  ngOnInit() {
-  }
+
 
 
 }

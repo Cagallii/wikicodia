@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { TypeService } from '../services/type.service';
-import Type from './../model/Type'
+import Type from '../model/TypeArticle'
 import { Router } from '@angular/router';
 
 @Component({
