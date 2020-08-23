@@ -21,6 +21,10 @@ mat-select{
     margin: 1%;
 }
 
+.removeBtn{
+    margin-right: 0em;
+    /* padding:0em; */
+}
 
 
 /* css du dialog */
