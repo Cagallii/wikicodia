@@ -162,7 +162,7 @@
                 </div>
                 <div class="modal-body" [formGroup]="editForm">
                     <div class="d-none">
-                        <input type="hidden" [(ngModel)]="user.id" formControlName="id" placeholder="id" name="id" class="form-control" id="id">
+                        <input type="number" [(ngModel)]="user.idUtilisateur" formControlName="idUtilisateur" placeholder="id" name="idUtilisateur" class="form-control">
                     </div>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Nom</mat-label>

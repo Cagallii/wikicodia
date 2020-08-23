@@ -4,6 +4,8 @@ import User from '../model/User';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { stringify } from 'querystring';
 import { Router } from '@angular/router';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-user-profil',
@@ -16,7 +18,7 @@ export class UserProfilComponent implements OnInit {
   user: User = null;
   editForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private app: AppService, private router: Router) {
+  constructor(private formBuilder: FormBuilder, private app: AppService, private router: Router, private http: HttpClient) {
 
   }
 
@@ -26,7 +28,7 @@ export class UserProfilComponent implements OnInit {
 
     if (this.user) {
       this.editForm = this.formBuilder.group({
-        id: ['', Validators.required],
+        idUtilisateur: ['', Validators.required],
         nom: [''],
         prenom: [''],
         pseudo: ['', Validators.required],
@@ -42,7 +44,7 @@ export class UserProfilComponent implements OnInit {
         categorie: [''],
       });
         
-      this.editForm.setValue(this.user);
+      this.editForm.patchValue(this.user);
     } else {
         this.router.navigateByUrl('/connexion');
     }
@@ -50,5 +52,18 @@ export class UserProfilComponent implements OnInit {
 
   modification(){
     console.log(this.editForm.value);
+    const body = new HttpParams()
+    .set('utilisateur', this.editForm.value)
+
+    this.http.put(
+      '/utilisateur/modification', this.editForm.value.toString,
+      {
+          headers: new HttpHeaders()
+          .set('Content-Type', "application/json; charset=utf-8") 
+      }
+    ).subscribe(response => {
+        //TODO: connecter l utilisateur fraichement créé
+        console.log("ok");
+    });
   }
 }
