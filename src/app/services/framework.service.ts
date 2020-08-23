@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class FrameworkService {
 
-  private baseUrl = 'http://localhost:8080/wikicodia/frameworks';
+  private baseUrl = '/framework';
 
   constructor(private http: HttpClient) {}
 

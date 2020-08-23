@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import User from './model/User';
+import { UserService } from './services/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AppService {
     authenticated = false;
     user: User = null;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, private userService: UserService) {
     }
 
     authenticate(credentials, callback) {
@@ -62,7 +63,7 @@ export class AppService {
             if (response['authenticated']) {
                 this.authenticated = true;
                 this.user = new User();
-                this.user.hydrate(response['principal']);
+                this.userService.hydrate(this.user, response['principal']);
             } else {
                 this.authenticated = false;
                 this.user = null;

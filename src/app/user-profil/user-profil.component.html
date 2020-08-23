@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
                             <button id="btn-contact" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow">Modifier le Profil</button> 
-                            <button class="btn btn-warning btn-block">Changer de mot de passe</button>                               
+                            <button class="btn btn-warning btn-block" data-toggle="modal" data-target="#preferences" >Modifier les Préférences</button>                               
                         </div>
                         <div class="row user-detail-row">
                             <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -33,7 +33,7 @@
                                     <h5>{{ user.pseudo }}</h5>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
-                                    <a href="/search" class="btn btn-primary btn-block">Un truc</a>
+                                    <a href="/search" class="btn btn-primary btn-block">Changer de mot de passe</a>
                                 </div>
                             </div>
                         </div>
@@ -64,7 +64,7 @@
                                                     <label>Linkedin</label>
                                                 </div>
                                                 <div class="col-md-6 offset-md-3">
-                                                    <p>{{ user.lienLinkedin }}</p>
+                                                    <p><a href="{{ user.lienLinkedin }}">{{ user.lienLinkedin }}</a></p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -85,6 +85,14 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-3">
+                                                    <label>Etat</label>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3">
+                                                    <p>{{ user.etat }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
                                                     <label>Membre depuis</label>
                                                 </div>
                                                 <div class="col-md-6 offset-md-3">
@@ -93,22 +101,6 @@
                                             </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane fade" id="buzz">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <label>Preferences</label>
-                                                </div>
-                                                <div class="col-md-6 offset-md-3">
-                                                    <p>{{ user.preferences }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <label>Etat</label>
-                                                </div>
-                                                <div class="col-md-6 offset-md-3">
-                                                    <p>{{ user.etat }}</p>
-                                                </div>
-                                            </div>
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <label>Framework</label>
@@ -188,40 +180,73 @@
                         <mat-label>Statut</mat-label>
                         <input matInput [(ngModel)]="user.statut" formControlName="statut">
                     </mat-form-field>
-                    <mat-form-field appearance="fill" class="full-width-input">
-                        <mat-label>Preference</mat-label>
-                        <input matInput [(ngModel)]="user.preferences" formControlName="preferences">
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="full-width-input">
-                        <mat-label>Etat</mat-label>
-                        <input matInput [(ngModel)]="user.etat" formControlName="etat">
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="full-width-input">
-                        <mat-label>Role</mat-label>
-                        <input matInput [(ngModel)]="user.role" formControlName="role">
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="full-width-input">
-                        <mat-label>Framework</mat-label>
-                        <input matInput [(ngModel)]="user.framework" formControlName="framework">
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="full-width-input">
-                        <mat-label>Langage</mat-label>
-                        <input matInput [(ngModel)]="user.langage" formControlName="langage">
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="full-width-input">
-                        <mat-label>Type</mat-label>
-                        <input matInput [(ngModel)]="user.type" formControlName="type">
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="full-width-input">
-                        <mat-label>Categorie</mat-label>
-                        <input matInput [(ngModel)]="user.categorie" formControlName="categorie">
-                    </mat-form-field>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuler</button>
                     <button type="button" class="btn btn-primary" (click)="modification()" data-dismiss="modal">Modifier</button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="modal fade" id="preferences" tabindex="-1" role="dialog" aria-labelledby="preferences" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <mat-card class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="preferences">Modification des Préférences</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" [formGroup]="modifPref">
+                    <div class="d-none">
+                        <input type="number" [(ngModel)]="user.idUtilisateur" formControlName="idUtilisateur" placeholder="id" name="idUtilisateur" class="form-control">
+                    </div>
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-label>Categories</mat-label>
+                            <section class="categorie" *ngFor="let category of categories | async">
+                                <mat-checkbox>
+                                {{ category.libCategorie }}
+                                </mat-checkbox>
+                            </section>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-label>Frameworks</mat-label>
+                            <section class="framework" *ngFor="let frame of framework | async">
+                                <mat-checkbox>
+                                {{ frame.framework }} : {{ frame.version }}
+                                </mat-checkbox>
+                            </section>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-label>Type d'articles</mat-label>
+                            <section class="type" *ngFor="let typ of type | async">
+                                <mat-checkbox>
+                                {{ typ.libType }}
+                                </mat-checkbox>
+                            </section>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-label>Categorie d'articles</mat-label>
+                            <section class="langage" *ngFor="let lang of language | async">
+                                <mat-checkbox>
+                                {{ lang.lang }} : {{ lang.version }}
+                                </mat-checkbox>
+                            </section>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuler</button>
+                    <button type="button" class="btn btn-primary" (click)="modification()" data-dismiss="modal">Modifier</button>
+                </div>
+            </mat-card>
         </div>
     </div>
 </body>

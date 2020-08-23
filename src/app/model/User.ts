@@ -19,7 +19,6 @@ export default class UserCreate {
     statut: string;
     dateInscription: Moment;
     dateDerniereConnexion: Moment;
-    preferences : string[];
     etat : Etat;
     role: roleType;
     framework : Framework[];
@@ -32,22 +31,4 @@ export default class UserCreate {
     // actif ???
     //vote: number;
     //avatar : boolean; //any //string pour URL?
-
-    hydrate(user: Object){
-        this.idUtilisateur = user['idUtilisateur']
-        this.nom = user['nom'];
-        this.prenom = user['prenom'];
-        this.pseudo = user['pseudo'];
-        this.mail = user['mail'];
-        this.lienLinkedin = user['lienLinkedin'];
-        this.statut = user['statut'];
-        this.dateInscription = user['dateInscription'];
-        this.preferences = user['preferences'];
-        this.etat = user['etat'];
-        this.role = user['role'];
-        this.framework = user['framework'];
-        this.langage = user['langage'];
-        this.type = user['type'];
-        this.categorie = user['categorie'];
-    }
 }
