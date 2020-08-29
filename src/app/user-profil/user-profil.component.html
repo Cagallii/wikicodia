@@ -12,7 +12,7 @@
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
                             <button id="btn-contact" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow">Modifier le Profil</button> 
-                            <button class="btn btn-warning btn-block" data-toggle="modal" data-target="#preferences" >Modifier les Préférences</button>                               
+                            <button class="btn btn-warning btn-block" data-toggle="modal" (click)="fillPreference()" data-target="#preferences" >Modifier les Préférences</button>                               
                         </div>
                         <div class="row user-detail-row">
                             <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -105,31 +105,40 @@
                                                 <div class="col-md-3">
                                                     <label>Framework</label>
                                                 </div>
-                                                <div class="col-md-6 offset-md-3">
-                                                    <p>{{ user.framework }}</p>
+                                                <div class="col-md-6 offset-md-3" >
+                                                    <mat-chip-list aria-label="framework">
+                                                        <mat-chip *ngFor="let framework of user.framework" color="primary" selected>{{ framework.framework }} : {{ framework.version }} </mat-chip>
+                                                    </mat-chip-list>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <label>Langage</label>
                                                 </div>
-                                                <div class="col-md-6 offset-md-3">
-                                                    <p>{{ user.langage }}</p>
+                                                <div class="col-md-6 offset-md-3" >
+                                                    <mat-chip-list aria-label="language">
+                                                        <mat-chip *ngFor="let language of user.langage" color="primary" selected>{{ language.lang }} : {{ language.version }} </mat-chip>
+                                                    </mat-chip-list>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-3">
                                                     <label>Type</label>
                                                 </div>
-                                                <div class="col-md-6 offset-md-3">
-                                                    <p>{{ user.type }}</p>
+                                                <div class="col-md-6 offset-md-3" >
+                                                    <mat-chip-list aria-label="type">
+                                                        <mat-chip *ngFor="let type of user.type" color="primary" selected>{{ type.libType }}</mat-chip>
+                                                    </mat-chip-list>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-12">
+                                                <div class="col-md-3">
                                                     <label>Categorie</label>
-                                                    <br/>
-                                                    <p>{{ user.categorie }}</p>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3" >
+                                                    <mat-chip-list aria-label="categories">
+                                                        <mat-chip *ngFor="let categorie of user.categorie" color="primary" selected>{{ categorie.libCategorie }}</mat-chip>
+                                                    </mat-chip-list>
                                                 </div>
                                             </div>
                                         </div>
@@ -205,9 +214,10 @@
                         <mat-card-content>
                             <mat-label>Categories</mat-label>
                             <section class="categorie" *ngFor="let category of categories | async">
-                                <mat-checkbox>
-                                {{ category.libCategorie }}
-                                </mat-checkbox>
+                                <label>
+                                    <input type="checkbox" class="input-categorie" [value]="category.idCategorie" (change)="onCategoriesChange($event, 'categorie')" />
+                                    {{ category.libCategorie }}
+                                </label>
                             </section>
                         </mat-card-content>
                     </mat-card>
@@ -215,9 +225,10 @@
                         <mat-card-content>
                             <mat-label>Frameworks</mat-label>
                             <section class="framework" *ngFor="let frame of framework | async">
-                                <mat-checkbox>
-                                {{ frame.framework }} : {{ frame.version }}
-                                </mat-checkbox>
+                                <label>
+                                <input type="checkbox" class="input-framework" [value]="frame.idFramework" (change)="onFrameworkChange($event, 'framework')" />
+                                    {{ frame.framework }} : {{ frame.version }}
+                                </label>
                             </section>
                         </mat-card-content>
                     </mat-card>
@@ -225,19 +236,21 @@
                         <mat-card-content>
                             <mat-label>Type d'articles</mat-label>
                             <section class="type" *ngFor="let typ of type | async">
-                                <mat-checkbox>
-                                {{ typ.libType }}
-                                </mat-checkbox>
+                                <label>
+                                    <input type="checkbox" class="input-type" [value]="typ.idType" (change)="onTypeChange($event, 'type')" />
+                                    {{ typ.libType }}
+                                </label>
                             </section>
                         </mat-card-content>
                     </mat-card>
                     <mat-card>
                         <mat-card-content>
-                            <mat-label>Categorie d'articles</mat-label>
+                            <mat-label>Language</mat-label>
                             <section class="langage" *ngFor="let lang of language | async">
-                                <mat-checkbox>
-                                {{ lang.lang }} : {{ lang.version }}
-                                </mat-checkbox>
+                                <label>
+                                    <input type="checkbox" class="input-langage" [value]="lang.idLang" (change)="onLangageChange($event, 'langage')" />
+                                    {{ lang.lang }} : {{ lang.version }}
+                                </label>
                             </section>
                         </mat-card-content>
                     </mat-card>

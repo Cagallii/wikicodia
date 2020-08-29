@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import User from '../model/User';
+import Category from '../model/Category';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class UserService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  create(framework: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}/creation`, framework);
+  create(user: User): Observable<Object> {
+    return this.http.post(`${this.baseUrl}/creation`, user);
   }
 
   delete(id: number): Observable<any> {
@@ -30,6 +31,10 @@ export class UserService {
 
   modification(user: User): Observable<any> {
     return this.http.put(`${this.baseUrl}/modification`, user);
+  }
+
+  setCategories(categorie: Category, user: User){
+    user.categorie.push(categorie);
   }
 
   hydrate(u: User, user: Object){
