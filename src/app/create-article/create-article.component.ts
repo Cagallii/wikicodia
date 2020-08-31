@@ -52,7 +52,7 @@ export class CreateArticleComponent implements OnInit {
       description: new FormControl('', [Validators.required, Validators.minLength(100)]),
       type: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
-      // languages: new FormControl('', [Validators.required]),
+      // langages: new FormControl('', [Validators.required]),
       // frameworks: new FormControl('', [Validators.required]),
       content: new FormControl('', [Validators.required, Validators.minLength(100)])
     });
