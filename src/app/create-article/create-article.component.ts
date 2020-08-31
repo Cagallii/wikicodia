@@ -98,7 +98,7 @@ export class CreateArticleComponent implements OnInit {
     let newFram = new Framework();
     if(this.selectedFram && this.selectedFramVersion){
       newFram.framework = this.selectedFram.toLowerCase();
-      newFram.verstion = this.selectedFramVersion.toLowerCase();
+      newFram.version = this.selectedFramVersion.toLowerCase();
       this.allSelectedFram.push(newFram);
       // console.log(this.allSelectedLang);
     }
