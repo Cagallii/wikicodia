@@ -11,7 +11,9 @@ import { AppService } from '../app.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private app: AppService) {}
+  constructor(
+    private app: AppService
+    ) {}
 
   ngOnInit() {
   }
@@ -31,8 +33,6 @@ export class RegisterComponent implements OnInit {
     utilisateur.prenom = this.registerForm.get('prenom').value
     utilisateur.motDePasse = this.registerForm.get('mdp').value
     utilisateur.mail = this.registerForm.get('mail').value
-
-    console.log(utilisateur);
     
     this.app.register(utilisateur);
   }
