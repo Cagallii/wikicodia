@@ -1,6 +1,6 @@
 import { Component, OnInit, Input} from '@angular/core';
 import { AppService } from '../app.service';
-import User from '../model/User';
+import User from '../model/UserCreate';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { stringify } from 'querystring';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 import { UserService } from '../services/user.service';
 import Category from '../model/Category';
 import Framework from '../model/Framework';
-import Type from '../model/Type';
+import Type from '../model/TypeArticle';
 import Language from '../model/Language';
 import { CategoryService } from '../services/category.service';
 import { FrameworkService } from '../services/framework.service';
