@@ -26,6 +26,23 @@ mat-select{
     /* padding:0em; */
 }
 
+.langageList{
+    display: inline-block;
+    /* flex-direction: row; */
+    min-width: 100%;
+    width: 100%;
+}
+
+
+/* .mat-form-field {
+    display: inline-block;
+    position: relative;
+    min-width: 100%;
+    width: 100%;
+} */
+
+
+
 
 /* css du dialog */
 

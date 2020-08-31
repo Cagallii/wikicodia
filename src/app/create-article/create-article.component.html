@@ -55,6 +55,12 @@
 
 
             <div class="row addLangOrFramRow">
+
+
+                <div class="col-lg-12 col-md-12 col-sm-12 ">
+                    <p>Liste des languages utilisés dans l'article </p>
+                </div>
+
                 <div class="col-lg-5 col-md-5 col-sm-7 largeInput">
                     <!-- <mat-label>Language utilisé</mat-label> -->
                     <input matInput type="text" placeholder="Language utilisé" [(ngModel)]="selectedLang"
@@ -74,6 +80,23 @@
                 </div>
             </div>
 
+            <br />
+
+            <mat-form-field appearance="fill">
+                <!-- <mat-label>Languages Selectionnés</mat-label> -->
+                <mat-chip-list class="langageList">
+                    <mat-chip *ngFor="let langage of allSelectedLang" value="{{ langage }}" color="accent" selected>
+                        {{ langage.lang}} {{langage.version}}
+                        <button class="removeBtn" mat-button matTooltip="Retirer ce language" type="button"
+                            (click)="removeOneLanguage(langage)">
+                            <mat-icon color="primary">remove</mat-icon>
+                        </button>
+                    </mat-chip>
+                </mat-chip-list>
+                <!-- <mat-error align="end" *ngIf="hasError('langages', 'required')">Il est impératif de préciser les
+                    languages et frameworks utilisés</mat-error> -->
+            </mat-form-field>
+
 
             <br />
             <mat-divider></mat-divider>
@@ -81,6 +104,11 @@
 
 
             <div class="row addLangOrFramRow">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 ">
+                    <p>Liste des frameworks utilisés dans l'article </p>
+                </div>
+
                 <div class="col-lg-5 col-md-5 col-sm-7 largeInput">
                     <!-- <mat-label>Language utilisé</mat-label> -->
                     <input matInput type="text" placeholder="Framework utilisé" [(ngModel)]="selectedFram"
@@ -98,35 +126,15 @@
                         <mat-icon color="primary">add</mat-icon>
                     </button>
                 </div>
-            </div>
 
 
-            <br />
-            <mat-divider></mat-divider>
-            <br />
 
             <!-- affichage des languages et versions selectionnés -->
-
-
-            <mat-form-field appearance="fill">
-                <mat-label>Languages Selectionnés</mat-label>
-                <mat-chip-list>
-                    <mat-chip *ngFor="let langage of allSelectedLang" value="{{ langage }}" color="accent" selected>
-                        {{ langage.lang}} {{langage.version}}
-                        <button class="removeBtn" mat-button matTooltip="Retirer ce language" type="button"
-                            (click)="removeOneLanguage(langage)">
-                            <mat-icon color="primary">remove</mat-icon>
-                        </button>
-                    </mat-chip>
-                </mat-chip-list>
-                <!-- <mat-error align="end" *ngIf="hasError('languages', 'required')">Il est impératif de préciser les
-                    languages et frameworks utilisés</mat-error> -->
-            </mat-form-field>
-
+            <br />
 
             <mat-form-field appearance="fill">
-                <mat-label>Frameworks Selectionnés</mat-label>
-                    <mat-chip-list>
+                <!-- <mat-label>Frameworks Selectionnés</mat-label> -->
+                    <mat-chip-list >
                         <mat-chip *ngFor="let framew of allSelectedFram" value="{{framew}}" color="accent" selected>
                             {{framew.framework}} {{framew.version}}
                             <button class="removeBtn" mat-button matTooltip="Retirer ce framework" type="button"
@@ -139,6 +147,8 @@
                         languages et frameworks utilisés</mat-error> -->
             </mat-form-field>
 
+
+            </div>
 
             <br />
             <mat-divider></mat-divider>
