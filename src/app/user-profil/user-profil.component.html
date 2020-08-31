@@ -1,1 +1,279 @@
-<p>user-profil works!</p>
+<body *ngIf="autentificated">
+    <div class="container main-secction">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 col-xs-12 image-section">
+                <img src="https://i.imgur.com/T1kCd0H.jpeg">
+            </div>
+            <div class="row user-left-part col-md-12">
+                <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
+                    <div class="row ">
+                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
+                            <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
+                        </div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
+                            <button id="btn-contact" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow">Modifier le Profil</button> 
+                            <button class="btn btn-warning btn-block" data-toggle="modal" (click)="fillPreference()" data-target="#preferences" >Modifier les Préférences</button>                               
+                        </div>
+                        <div class="row user-detail-row">
+                            <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
+                                <div class="border"></div>
+                                <p>Articles</p>
+                                <span>12</span>
+                            </div>                           
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-12 pull-right profile-right-section">
+                    <div class="row profile-right-section-row">
+                        <div class="col-md-12 profile-header">
+                            <div class="row">
+                                <div class="col-md-8 col-sm-6 col-xs-6 profile-header-section1 pull-left">
+                                    <h1>{{ user.prenom }} {{ user.nom }}</h1>
+                                    <h5>{{ user.pseudo }}</h5>
+                                    <p>{{ user.statut }}</p>
+                                </div>
+                                <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
+                                    <a href="/search" data-toggle="modal" data-target="#changeMdp"  class="btn btn-primary btn-block">Changer de mot de passe</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li class="nav-item">
+                                            <a class="nav-link active" href="#profile" role="tab" data-toggle="tab"><i class="fas fa-user-circle"></i> Profile</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"><i class="fas fa-info-circle"></i> Préférences </a>
+                                        </li>                                                
+                                    </ul>       
+                                    <!-- Tab panes -->
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane fade show active" id="profile">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Mail</label>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3">
+                                                    <p>{{ user.mail }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Linkedin</label>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3">
+                                                    <p><a href="{{ user.lienLinkedin }}">{{ user.lienLinkedin }}</a></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Role</label>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3">
+                                                    <p>{{ user.role }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Etat</label>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3">
+                                                    <p>{{ user.etat.etat }}</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Membre depuis</label>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3">
+                                                    <p>{{ user.dateInscription }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div role="tabpanel" class="tab-pane fade" id="buzz">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Framework</label>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3" >
+                                                    <mat-chip-list aria-label="framework">
+                                                        <mat-chip *ngFor="let framework of user.framework" color="primary" selected>{{ framework.framework }} : {{ framework.version }} </mat-chip>
+                                                    </mat-chip-list>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Langage</label>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3" >
+                                                    <mat-chip-list aria-label="language">
+                                                        <mat-chip *ngFor="let language of user.langage" color="primary" selected>{{ language.lang }} : {{ language.version }} </mat-chip>
+                                                    </mat-chip-list>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Type</label>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3" >
+                                                    <mat-chip-list aria-label="type">
+                                                        <mat-chip *ngFor="let type of user.type" color="primary" selected>{{ type.libType }}</mat-chip>
+                                                    </mat-chip-list>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <label>Categorie</label>
+                                                </div>
+                                                <div class="col-md-6 offset-md-3" >
+                                                    <mat-chip-list aria-label="categories">
+                                                        <mat-chip *ngFor="let categorie of user.categorie" color="primary" selected>{{ categorie.libCategorie }}</mat-chip>
+                                                    </mat-chip-list>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contact">Modification du Profile</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" [formGroup]="editForm">
+                    <div class="d-none">
+                        <input type="number" [(ngModel)]="user.idUtilisateur" formControlName="idUtilisateur" placeholder="id" name="idUtilisateur" class="form-control">
+                    </div>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Nom</mat-label>
+                        <input [(ngModel)]="user.nom" matInput formControlName="nom">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Prenom</mat-label>
+                        <input matInput [(ngModel)]="user.prenom" formControlName="prenom">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Pseudo</mat-label>
+                        <input matInput [(ngModel)]="user.pseudo" formControlName="pseudo">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Lien Linkedin</mat-label>
+                        <input matInput [(ngModel)]="user.lienLinkedin" formControlName="lienLinkedin">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Statut</mat-label>
+                        <input matInput [(ngModel)]="user.statut" formControlName="statut">
+                    </mat-form-field>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuler</button>
+                    <button type="button" class="btn btn-primary" (click)="modification()" data-dismiss="modal">Modifier</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="preferences" tabindex="-1" role="dialog" aria-labelledby="preferences" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <mat-card class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="preferences">Modification des Préférences</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" [formGroup]="modifPref">
+                    <div class="d-none">
+                        <input type="number" [(ngModel)]="user.idUtilisateur" formControlName="idUtilisateur" placeholder="id" name="idUtilisateur" class="form-control">
+                    </div>
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-label>Categories</mat-label>
+                            <section class="categorie" *ngFor="let category of categories | async">
+                                <label>
+                                    <input type="checkbox" class="input-categorie" [value]="category.idCategorie" (change)="onCategoriesChange($event, 'categorie')" />
+                                    {{ category.libCategorie }}
+                                </label>
+                            </section>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-label>Frameworks</mat-label>
+                            <section class="framework" *ngFor="let frame of framework | async">
+                                <label>
+                                <input type="checkbox" class="input-framework" [value]="frame.idFramework" (change)="onFrameworkChange($event, 'framework')" />
+                                    {{ frame.framework }} : {{ frame.version }}
+                                </label>
+                            </section>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-label>Type d'articles</mat-label>
+                            <section class="type" *ngFor="let typ of type | async">
+                                <label>
+                                    <input type="checkbox" class="input-type" [value]="typ.idType" (change)="onTypeChange($event, 'type')" />
+                                    {{ typ.libType }}
+                                </label>
+                            </section>
+                        </mat-card-content>
+                    </mat-card>
+                    <mat-card>
+                        <mat-card-content>
+                            <mat-label>Language</mat-label>
+                            <section class="langage" *ngFor="let lang of language | async">
+                                <label>
+                                    <input type="checkbox" class="input-langage" [value]="lang.idLang" (change)="onLangageChange($event, 'langage')" />
+                                    {{ lang.lang }} : {{ lang.version }}
+                                </label>
+                            </section>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuler</button>
+                    <button type="button" class="btn btn-primary" (click)="modification()" data-dismiss="modal">Modifier</button>
+                </div>
+            </mat-card>
+        </div>
+    </div>
+    <div class="modal fade" id="changeMdp" tabindex="-1" role="dialog" aria-labelledby="changeMdpLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contact">Modification du Mot de Passe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" [formGroup]="mdpForm">
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Nouveau mot de passe</mat-label>
+                        <input type="password" matInput formControlName="newMdp">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Confirmez nouveau mot de passe</mat-label>
+                        <input type="password" matInput formControlName="confirmNewMdp">
+                    </mat-form-field>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuler</button>
+                    <button type="button" class="btn btn-primary" (click)="changementMdp()" data-dismiss="modal">Modifier</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

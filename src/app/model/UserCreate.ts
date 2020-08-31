@@ -12,8 +12,9 @@ import TypeArticle from './TypeArticle';
 
 
 export default class UserCreate {
-    prenom : string;
+    idUtilisateur : number;
     nom : string;
+    prenom : string;
     pseudo: string;
     mail: string; //ce qui permet l'auth par la suite
     motDePasse: string; 

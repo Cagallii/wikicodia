@@ -1,13 +1,14 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import Category from '../model/Category';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  private baseUrl = 'http://localhost:8080/wikicodia/categories';
+  private baseUrl = '/categories';
 
   constructor(private http: HttpClient) {}
 

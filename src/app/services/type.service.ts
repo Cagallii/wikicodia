@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class TypeService {
   
-  private baseUrl = 'http://localhost:8080/wikicodia/types';
+  private baseUrl = '/types';
 
   constructor(private http: HttpClient) {}
 

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class LanguageService {
 
-  private baseUrl = 'http://localhost:8080/wikicodia/langages';
+  private baseUrl = '/langage';
 
   constructor(private http: HttpClient) {}
 
