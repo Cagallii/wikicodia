@@ -128,7 +128,6 @@
                 <mat-label>Frameworks Selectionnés</mat-label>
                     <mat-chip-list>
                         <mat-chip *ngFor="let framew of allSelectedFram" value="{{framew}}" color="accent" selected>
-                            {{framew.framework}} {{framew.verstion}}
                             <button class="removeBtn" mat-button matTooltip="Retirer ce framework" type="button"
                                 (click)="removeOneFramework(framew)">
                                 <mat-icon color="primary">remove</mat-icon>
