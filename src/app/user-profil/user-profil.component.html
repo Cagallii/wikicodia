@@ -33,7 +33,7 @@
                                     <p>{{ user.statut }}</p>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
-                                    <a href="/search" class="btn btn-primary btn-block">Changer de mot de passe</a>
+                                    <a href="/search" data-toggle="modal" data-target="#changeMdp"  class="btn btn-primary btn-block">Changer de mot de passe</a>
                                 </div>
                             </div>
                         </div>
@@ -170,10 +170,6 @@
                         <input matInput [(ngModel)]="user.pseudo" formControlName="pseudo">
                     </mat-form-field>
                     <mat-form-field appearance="fill" class="full-width-input">
-                        <mat-label>E-mail</mat-label>
-                        <input matInput [(ngModel)]="user.mail" formControlName="mail" type="mail">
-                    </mat-form-field>
-                    <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Lien Linkedin</mat-label>
                         <input matInput [(ngModel)]="user.lienLinkedin" formControlName="lienLinkedin">
                     </mat-form-field>
@@ -252,6 +248,32 @@
                     <button type="button" class="btn btn-primary" (click)="modification()" data-dismiss="modal">Modifier</button>
                 </div>
             </mat-card>
+        </div>
+    </div>
+    <div class="modal fade" id="changeMdp" tabindex="-1" role="dialog" aria-labelledby="changeMdpLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="contact">Modification du Mot de Passe</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" [formGroup]="mdpForm">
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Nouveau mot de passe</mat-label>
+                        <input type="password" matInput formControlName="newMdp">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill" class="full-width-input">
+                        <mat-label>Confirmez nouveau mot de passe</mat-label>
+                        <input type="password" matInput formControlName="confirmNewMdp">
+                    </mat-form-field>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuler</button>
+                    <button type="button" class="btn btn-primary" (click)="changementMdp()" data-dismiss="modal">Modifier</button>
+                </div>
+            </div>
         </div>
     </div>
 </body>

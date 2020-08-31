@@ -42,6 +42,7 @@ export class UserService {
     u.nom = user['nom'];
     u.prenom = user['prenom'];
     u.pseudo = user['pseudo'];
+    u.motDePasse = user["password"];
     u.mail = user['mail'];
     u.lienLinkedin = user['lienLinkedin'];
     u.statut = user['statut'];
@@ -52,5 +53,5 @@ export class UserService {
     u.langage = user['langage'];
     u.type = user['type'];
     u.categorie = user['categorie'];
-}
+  }
 }

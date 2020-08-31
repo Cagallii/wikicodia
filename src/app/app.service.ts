@@ -27,9 +27,14 @@ export class AppService {
         }).subscribe(response => {
 
             this.http.get('user').subscribe(response => {
-
-                    this.checkIfLogged();
-                
+                if (response['authenticated']) {
+                    this.authenticated = true;
+                    this.user = new User();
+                    this.userService.hydrate(this.user, response['principal']);
+                } else {
+                    this.authenticated = false;
+                    this.user = null;
+                }
                 return callback && callback();
             });
         });
@@ -54,12 +59,11 @@ export class AppService {
             //TODO: connecter l utilisateur fraichement créé
             console.log("ok");
         });
-      }
+    }
 
     checkIfLogged() : Boolean {
 
         this.http.get('user').subscribe(response => {
-
             if (response['authenticated']) {
                 this.authenticated = true;
                 this.user = new User();

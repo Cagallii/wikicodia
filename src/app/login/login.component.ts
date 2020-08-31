@@ -34,13 +34,15 @@ export class LoginComponent implements OnInit {
   //passe les user name et le passord a la fonction autentification
   login() {    
     this.app.authenticate(this.credentials, () => {
+/*      console.log(this.credentials);
+      
       //on set la derniere date de connexion
       this.app.user.dateDerniereConnexion = moment();
       this.userService.modification(this.app.user).subscribe(
         data => console.log(data),
         error => console.log(error)
       );
-      //route de redirection apres la connexion
+      //route de redirection apres la connexion*/
       this.router.navigateByUrl('/');
     });
     return false;

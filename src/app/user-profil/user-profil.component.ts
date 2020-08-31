@@ -27,6 +27,7 @@ export class UserProfilComponent implements OnInit {
   user: User = null;
   editForm: FormGroup;
   modifPref: FormGroup;
+  mdpForm: FormGroup;
   categories: Observable<Category[]>;
   framework: Observable<Framework[]>;
   type: Observable<Type[]>;
@@ -52,14 +53,13 @@ export class UserProfilComponent implements OnInit {
     this.language = this.langageService.getAll();
     this.type = this.typeService.getAll();
 
-    if (this.user) {
+    if (this.app.authenticated) {
       // editon utilisateur
       this.editForm = this.formBuilder.group({
         idUtilisateur: ['', Validators.required],
         nom: [''],
         prenom: [''],
         pseudo: ['', Validators.required],
-        mail: ['', Validators.required],
         lienLinkedin: [''],
         statut: [''],
       });
@@ -76,9 +76,20 @@ export class UserProfilComponent implements OnInit {
       });
         
       this.modifPref.patchValue(this.user);
+
+      //modification MDP
+      this.mdpForm =  this.formBuilder.group({
+        actualMdp: ['', Validators.required],
+        newMdp: ['', Validators.required],
+        confirmNewMdp: ['', Validators.required],
+      });
+
+
     } else {
       this.router.navigateByUrl('/connexion');
-    }    
+    }
+    
+    
   }
 
   modification(){    
@@ -277,6 +288,17 @@ export class UserProfilComponent implements OnInit {
           this.user.type.splice(index, 1);
         }
       }
+    }
+  }
+
+  //changement du mot de passe
+  changementMdp(){
+    let mdpNew = this.mdpForm.value;
+    let mdpConfirmation = this.mdpForm.value;
+
+    if(mdpConfirmation === mdpNew && mdpNew === ""){
+      this.user.motDePasse = mdpNew;
+      this.modification();
     }
   }
 }
