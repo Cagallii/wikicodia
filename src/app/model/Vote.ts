@@ -4,4 +4,5 @@ export default class Vote {
     liked:Boolean;
     utilisateur:UserCreate;
     commentaire:string;
+    raison:string;
 }
