@@ -143,8 +143,6 @@ export class CreateArticleComponent implements OnInit {
     }
     else if (this.app.authenticated) {
 
-            // alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.createArticleForm.value, null, 4));
-            console.log(this.createArticleForm.value);
             this.newArticle  = new Article();
       
             // TODO : recuperer l'auteur coté front
@@ -178,14 +176,39 @@ export class CreateArticleComponent implements OnInit {
 
 
   onSubmitGlobally() {
-    if (this.createArticleForm.invalid ) {
+    if (this.createArticleForm.invalid) {
       return;
     }
-    // else {alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.createArticleForm.value, null, 4));}
-    console.log(this.createArticleForm.value);
-    console.log(this.newArticle);
+    else if (this.app.authenticated) {
 
+            this.newArticle  = new Article();
+      
+            // TODO : recuperer l'auteur coté front
+            this.newArticle.auteur  = this.user;
+            this.newArticle.description = this.createArticleForm.controls['description'].value;
+            this.newArticle.estPromu = false;
+            this.newArticle.estPublie = true;
+            this.newArticle.titre = this.createArticleForm.controls['title'].value;
+            this.newArticle.type = this.createArticleForm.controls['type'].value;
+            this.newArticle.vote = null;
+            this.newArticle.categorie = this.createArticleForm.controls['category'].value;
+            this.newArticle.contenu = this.createArticleForm.controls['content'].value;
+            this.newArticle.dateCreation = null;
+            this.newArticle.dateDerniereModif = null;
+      
+      
+            this.newArticle.framework = this.allSelectedFram;
+            this.newArticle.langage = this.allSelectedLang;
+      
+            this.articleService.create(this.newArticle).subscribe(data=>(console.log(data))   ,    error => console.log(error)
+            );
 
+            console.log(this.newArticle);
+
+    }
+    else {
+      console.log("rien :else ");
+    }
   }
 
   onReset() {
