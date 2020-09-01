@@ -35,9 +35,9 @@ export class UserProfilComponent implements OnInit {
   checkArray: FormArray;
 
   constructor(
-    private formBuilder: FormBuilder, 
-    private app: AppService, 
-    private router: Router, 
+    private formBuilder: FormBuilder,
+    private app: AppService,
+    private router: Router,
     private userService: UserService,
     private categoriesService: CategoryService,
     private frameworkService: FrameworkService,
