@@ -3,28 +3,28 @@
 
 <mat-dialog-content [formGroup]="form">
   
-    <mat-checkbox matInput class ="checkboxDialog"  formControlName="depreciated">Déprécié</mat-checkbox>
+    <!-- <mat-checkbox matInput class ="checkboxDialog"  formControlName="depreciated">Déprécié</mat-checkbox>
 
     <mat-checkbox matInput class ="checkboxDialog"  formControlName="doesntwork">Ne fonctionne pas</mat-checkbox>
 
-    <mat-checkbox matInput class ="checkboxDialog"  formControlName="otherreason">Autre</mat-checkbox>
+    <mat-checkbox matInput class ="checkboxDialog"  formControlName="otherreason">Autre</mat-checkbox> -->
 
-    <br/>
+    <!-- <br/> -->
 
     <mat-form-field class="textareaformfield">
         <mat-label>Expliquez pourquoi cet article n'est pas pertinent</mat-label>
         <textarea matInput  
-        formControlName="description" rows="5">  </textarea>  
+        formControlName="raisonDislike" rows="5">  </textarea>  
     </mat-form-field>
 
  
 </mat-dialog-content>
 
 <mat-dialog-actions>
-    <button mat-button mat-mini-fab (click)="close()" color="accent">
+    <button mat-button mat-mini-fab matTooltip="Annuler" (click)="close()" color="accent">
         <mat-icon>cancel</mat-icon>
     </button>
-    <button mat-button mat-mini-fab (click)="save()" color="primary">
+    <button mat-button mat-mini-fab matTooltip="Valider" (click)="save()" color="primary">
         <mat-icon>check_circle</mat-icon>
     </button>
 </mat-dialog-actions>
