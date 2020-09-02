@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import Article from '../model/Article';
 
@@ -14,7 +14,16 @@ export class ArticleService {
 
 
   create(article: Article): Observable<Object> {
-    return this.http.post(this.baseUrl+ "/creation", article);
+    return this.http.post(this.baseUrl+ "creation", article);
   }
+
+  getOneArticle(idArticle:number): Observable<Object> {
+    return this.http.get(this.baseUrl+`${idArticle}`);
+  }
+
+  getArticlesAwaitingValidation(): Observable<any> {
+    return this.http.get(this.baseUrl+ "pending");
+  }
+
 
 }

@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { Routes, RouterModule } from "@angular/router";
 import { ListArticleFavoriteComponent } from "./list-article-favorite/list-article-favorite.component";
+import { ListArticleAwaitingValidationComponent } from "./list-article-awaiting-validation/list-article-awaiting-validation.component";
 import { LoginComponent } from './login/login.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: "articleConsultation", component: ArticleConsultationComponent},
   { path: "createArticle", component: CreateArticleComponent },
   { path: "createdArticles", component: ListArticleCreatedComponent},
+  { path: "articles/pending", component: ListArticleAwaitingValidationComponent},
   { path: "userSettings",component: UserSettingsComponent },
   { path: "roleManagement",component: AdministratorRoleManagementComponent},
   { path: "AddOrEditCategory",component: ArticleCategoryComponent},

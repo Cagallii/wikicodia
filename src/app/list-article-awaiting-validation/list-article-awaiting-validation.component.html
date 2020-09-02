@@ -1,0 +1,30 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Articles en attente de validation</h2>
+    </div>
+    <div class="panel-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Auteur</th>
+            <th>En attente de publication?</th>
+            <th>Validé?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let article of articles | async">
+            <td>{{article.titre}}</td>
+            <td>{{article.author}}</td>
+            <td>{{article.estPublie}}</td>
+            <td>{{article.estValide}}</td>
+            <!--
+            <td>
+                <button (click)="deleteCategory(category.idCategorie)" class="btn btn-danger">Supprimer</button>
+            </td>
+            -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

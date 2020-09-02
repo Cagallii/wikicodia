@@ -1,0 +1,83 @@
+$mat-wikicodia-palette: (
+    50: #0A0909, 	
+    100: #000000, 
+    200: #050606,
+    300: #070807,
+    400: #0E0E0E,
+    500: #111111,
+    600: #fff,
+    700: #0C7979, 
+    contrast: (
+        50: #fff,
+        100: #fff,
+        200: #fff,
+        300: #fff,
+        400: #fff,
+        500: #fff,
+        600: #000,
+        700: #fff,
+      )
+    );
+$mat-wikicodia-palette-accent: (
+    50: #CA1414, 
+    100: #C32121,
+    200: #CA6614,
+    300: #C36B21,
+    400: #f49e01,
+    500: #0C7979, 
+    600: #147575, 
+    700: #10A110,
+    800: #1B9C1B,
+    contrast: (
+        50: #fff,
+        100: #fff,
+        200: #000,
+        300: #fff,
+        400: #fff,
+        500: #fff,
+        600: #fff,
+        700: #fff,
+        800: #fff,
+      )
+);
+$mat-wikicodia-palette-warn: (
+  50: #fbe3e3,
+  100: #f6b9b9,
+  200: #f08b8a,
+  300: #ea5d5b,
+  400: #e63a37,
+  500: #e11714,
+  600: #dd1412,
+  700: #d9110e,
+  800: #d50d0b,
+  900: #cd0706,
+  contrast: (
+    50: #000,
+    100: #000,
+    200: #000,
+    300: #fff,
+    400: #fff,
+    500: #fff,
+    600: #fff,
+    700: #fff,
+    800: #fff,
+    900: #fff,
+  )
+);
+
+$white: map-get($mat-wikicodia-palette, 600);
+$black: #000;
+$success: #24a12e;
+$warning: map-get($mat-wikicodia-palette-accent, 400);
+$error: map-get($mat-wikicodia-palette-warn, 500);
+$grey-text: #9b9b9b;
+$color-text-dark: $black;
+$color-text-light: $white;
+
+/* ******************   FONTS    ****************** */
+//$wikicodia-font: a definir;
+//$wikicodia-font-medium: a definir;
+$wikicodia-font-size-small: 12px;
+$wikicodia-font-size-regular: 14px;
+$wikicodia-font-size-medium: 16px;
+$wikicodia-font-size-large: 18px;

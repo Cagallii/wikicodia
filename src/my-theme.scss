@@ -1,11 +1,11 @@
 @import '~@angular/material/theming';
+@import './src/variables.scss';
 
 @include mat-core();
 
-$my-app-primary: mat-palette($mat-blue-grey);
-$my-app-accent:  mat-palette($mat-pink, 500, 900, A100);
-$my-app-warn:    mat-palette($mat-deep-orange);
+$my-app-primary: mat-palette($mat-wikicodia-palette, 700);
+$my-app-accent: mat-palette($mat-wikicodia-palette-accent, 300);
+$my-app-warn: mat-palette($mat-wikicodia-palette-warn, 500);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
-
 
 @include angular-material-theme($my-app-theme);
