@@ -21,4 +21,9 @@ export class ArticleService {
     return this.http.get(this.baseUrl+`${idArticle}`);
   }
 
+  getArticlesAwaitingValidation(): Observable<any> {
+    return this.http.get(this.baseUrl+ "pending");
+  }
+
+
 }
