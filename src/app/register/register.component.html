@@ -3,24 +3,31 @@
         <h2>S'inscrire</h2>
         <mat-form-field appearance="fill" class="full-width-input">
             <mat-label>Nom</mat-label>
-            <input matInput formControlName="nom">
+            <input matInput formControlName="nom" required>
         </mat-form-field>
         <mat-form-field appearance="fill" class="full-width-input">
             <mat-label>Prenom</mat-label>
-            <input matInput formControlName="prenom">
+            <input matInput formControlName="prenom" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="full-width-input">
+            <mat-label>Pseudo</mat-label>
+            <input matInput formControlName="pseudo" required>
         </mat-form-field>
         <mat-form-field appearance="fill" class="full-width-input">
             <mat-label>E-mail</mat-label>
-            <input matInput formControlName="mail" type="mail">
+            <input matInput formControlName="mail" type="mail" required>
         </mat-form-field>
+        <div class="alert-msg" *ngIf="invalidePassword">
+            <p>Les deux mots de passes doivent correspondre</p>
+        </div>
         <mat-form-field appearance="fill" class="full-width-input">
             <mat-label>Mot de passe</mat-label>
-            <input matInput formControlName="mdp" type="password">
+            <input matInput formControlName="mdp" type="password" required>
         </mat-form-field>
-        <!--<mat-form-field appearance="fill" class="full-width-input">
+        <mat-form-field appearance="fill" class="full-width-input">
             <mat-label>Confirmer Mot de passe</mat-label>
-            <input matInput formControlName="confirmeMdp" type="password">
-        </mat-form-field>-->
+            <input matInput formControlName="confirmeMdp" type="password" required>
+        </mat-form-field>
         <button type="submit">S'inscrir</button>
     </form>
 </div>

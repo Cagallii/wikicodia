@@ -127,3 +127,10 @@ body{
     mat-card {
       margin: 1em;
     }
+
+    /*
+    * Modif mdp err message
+    */
+    .alert-msg {
+      color: red;
+    }
