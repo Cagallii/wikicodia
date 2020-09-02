@@ -1,43 +1,41 @@
 <button (click)="switchDisplay()" mat-button [matMenuTriggerFor]="menu">Menu</button>
 <mat-menu #menu="matMenu">
-    <mat-icon routerLink="userProfil">face</mat-icon>
-
-    <h3>Bonjour [prenom]<!--{{ app.user.prenom }}--></h3>
+    <mat-icon *ngIf="authenticated" routerLink="userProfil">face</mat-icon>
+    <h3 *ngIf="authenticated">Bonjour [prenom]<!--{{ app.user.prenom }}--></h3>
 
     <!-- section accessible pour tout le monde -->
     <!-- ajouter lien vers la page de recherche des articles -->
 
     <!-- accès au sous-menu réservé aux administrateurs -->
-    <button *ngIf="!mustBeHidden" mat-menu-item [matMenuTriggerFor]="subMenu">Admin</button>
+    <button *ngIf="adminConnected" mat-menu-item [matMenuTriggerFor]="subMenu">Admin</button>
     
     <!-- section réservée aux utilisateurs connectés -->
-
-    <button mat-menu-item routerLink="/liste">Articles favoris</button>
-    <button mat-menu-item routerLink="/createdArticles">Mes articles</button>
-    <button mat-menu-item routerLink="/createArticle">Créer un article</button>
-    <button mat-menu-item routerLink="/editType">Modifier le type d'un de mes articles</button>
-    <button mat-menu-item routerLink="/profil">Profil</button>
-    <button mat-menu-item routerLink="/userSettings">Paramètres</button>
-    <button mat-menu-item class="btn btn-danger" (click)="logout()">Déconnexion</button>
+    <button *ngIf="authenticated" mat-menu-item routerLink="/liste">Articles favoris</button>
+    <button *ngIf="authenticated" mat-menu-item routerLink="/createdArticles">Mes articles</button>
+    <button *ngIf="authenticated" mat-menu-item routerLink="/createArticle">Créer un article</button>
+    <button *ngIf="authenticated" mat-menu-item routerLink="/editType">Modifier le type d'un de mes articles</button>
+    <button *ngIf="authenticated" mat-menu-item routerLink="/profil">Profil</button>
+    <button *ngIf="authenticated" mat-menu-item routerLink="/userSettings">Paramètres</button>
+    <button *ngIf="authenticated" mat-menu-item class="btn btn-danger" (click)="logout()">Déconnexion</button>
 
     <!-- section réservée aux utilisateurs non connectés -->
-    <button mat-menu-item routerLink="/register">S'inscrire</button>
-    <button mat-menu-item routerLink="/connexion">Se connecter</button>
+    <button *ngIf="!authenticated" mat-menu-item routerLink="/register">S'inscrire</button>
+    <button *ngIf="!authenticated" mat-menu-item routerLink="/connexion">Se connecter</button>
 
 </mat-menu>
 
 <!-- sous-menu réservé aux administrateurs -->
 <mat-menu #subMenu="matMenu">
-    <button *ngIf="!mustBeHidden" mat-menu-item routerLink="/articles/pending">Articles en attente de validation</button>
-    <button *ngIf="!mustBeHidden" mat-menu-item routerLink="/categories/all">Catégories d'article</button>
-    <button *ngIf="!mustBeHidden" mat-menu-item routerLink="/categories/creation">Ajouter une catégorie d'article</button>
-    <button *ngIf="!mustBeHidden" mat-menu-item routerLink="/types/all">Types d'article</button>
-    <button *ngIf="!mustBeHidden" mat-menu-item routerLink="/types/creation">Ajouter un type d'article</button>
-    <button *ngIf="!mustBeHidden" mat-menu-item routerLink="/langages/all">Langages</button>
-    <button *ngIf="!mustBeHidden" mat-menu-item routerLink="/langages/creation">Ajouter un langage</button>
-    <button *ngIf="!mustBeHidden" mat-menu-item routerLink="/frameworks/all">Frameworks</button>
-    <button *ngIf="!mustBeHidden" mat-menu-item routerLink="/frameworks/creation">Ajouter un framework</button>
-    <button *ngIf="!mustBeHidden" mat-menu-item routerLink="/roleManagement">Promouvoir / Destituer un utilisateur</button>
+    <button mat-menu-item routerLink="/articles/pending">Articles en attente de validation</button>
+    <button mat-menu-item routerLink="/categories/all">Catégories d'article</button>
+    <button mat-menu-item routerLink="/categories/creation">Ajouter une catégorie d'article</button>
+    <button mat-menu-item routerLink="/types/all">Types d'article</button>
+    <button mat-menu-item routerLink="/types/creation">Ajouter un type d'article</button>
+    <button mat-menu-item routerLink="/langages/all">Langages</button>
+    <button mat-menu-item routerLink="/langages/creation">Ajouter un langage</button>
+    <button mat-menu-item routerLink="/frameworks/all">Frameworks</button>
+    <button mat-menu-item routerLink="/frameworks/creation">Ajouter un framework</button>
+    <button mat-menu-item routerLink="/roleManagement">Promouvoir / Destituer un utilisateur</button>
 </mat-menu>
 
 

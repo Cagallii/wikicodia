@@ -11,10 +11,11 @@ import { on } from 'process';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent implements OnInit {
-
-  authenticated: boolean = false;
+  
   user: User = null;
-  mustBeHidden: boolean = true;
+  authenticated: boolean = false;
+  adminConnected: boolean = false;
+  regularUserConnected: boolean = false;
 
   constructor(
     private appComp: AppComponent,
@@ -23,9 +24,7 @@ export class MenuComponent implements OnInit {
     {}
 
   ngOnInit() {
-    
-    
-    
+     
   }
 
   switchDisplay(){
@@ -34,10 +33,11 @@ export class MenuComponent implements OnInit {
     this.user = this.app.user;
     
     if (this.app.user.role.role == "admin"){
-      this.mustBeHidden = false;
+      this.adminConnected = true;
     } else {
-      this.mustBeHidden = true;
+      this.adminConnected = false;
     }
+
   }
 
   logout(){

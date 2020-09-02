@@ -23,9 +23,8 @@ export class ListArticleAwaitingValidationComponent implements OnInit {
     this.articles = this.articleService.getArticlesAwaitingValidation();
   }
 
-  /*
-  deleteArticle(id: number) {
-    this.articleService.delete(id)
+  rejectArticle(id: number) {
+    this.articleService.reject(id)
       .subscribe(
         data => {
           console.log(data);
@@ -33,6 +32,15 @@ export class ListArticleAwaitingValidationComponent implements OnInit {
         },
         error => console.log(error));
   }
-  */
+
+  validateArticle(id: number) {
+    this.articleService.validate(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error));
+  }
 
 }

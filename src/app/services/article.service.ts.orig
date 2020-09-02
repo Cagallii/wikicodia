@@ -17,26 +17,16 @@ export class ArticleService {
     return this.http.post(this.baseUrl+ "creation", article);
   }
 
-  getOneArticle(idArticle:number): Observable<Object> {
-    return this.http.get(this.baseUrl+`${idArticle}`);
-  }
-
-
-  updateOneArticle(article:Article): Observable<Object> {
-    return this.http.put(this.baseUrl+"modification"+`${article.idArticle}`, article);
-  }
-
+<<<<<<< HEAD
   getArticlesAwaitingValidation(): Observable<any> {
     return this.http.get(this.baseUrl+ "pending");
   }
 
-  reject(idArticle:number): Observable<Object> {
-    return this.http.put(this.baseUrl + "reject/" +`${idArticle}`, { observe: 'response' });
+
+=======
+  getOneArticle(idArticle:number): Observable<Object> {
+    return this.http.get(this.baseUrl+`${idArticle}`);
   }
 
-  validate(idArticle:number): Observable<Object> {
-    return this.http.put(this.baseUrl + "validate/" +`${idArticle}`, { observe: 'response' });
-  }
-
-
+>>>>>>> dev
 }

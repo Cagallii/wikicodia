@@ -15,14 +15,17 @@
         <tbody>
           <tr *ngFor="let article of articles | async">
             <td>{{article.titre}}</td>
-            <td>{{article.author}}</td>
+            <td>{{article.auteur}}</td>
             <td>{{article.estPublie}}</td>
             <td>{{article.estValide}}</td>
-            <!--
+            
             <td>
-                <button (click)="deleteCategory(category.idCategorie)" class="btn btn-danger">Supprimer</button>
+              <button (click)="validateArticle(article.idArticle)" class="btn btn-success">Valider</button>
             </td>
-            -->
+            <td>
+                <button (click)="rejectArticle(article.idArticle)" class="btn btn-danger">Rejeter</button>
+            </td>
+            
           </tr>
         </tbody>
       </table>
