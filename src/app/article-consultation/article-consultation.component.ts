@@ -13,6 +13,7 @@ import User from "../model/UserCreate";
 import { UserService } from "../services/user.service";
 import Vote from "../model/Vote";
 import { ArticleService } from "../services/article.service";
+import {VoteService} from "../services/vote.service"
 
 // exemple de récupération de data :
 
@@ -43,36 +44,35 @@ export class ArticleConsultationComponent implements OnInit {
     private route: ActivatedRoute,
     private app: AppService,
     private userService: UserService,
-    private articleService: ArticleService
+    private articleService: ArticleService,
+    private voteService:VoteService
   ) {}
 
   gottenArticle: Article;
   autentificated: boolean = false;
   user: User = null;
-  nbLike: number =0 ;
-  nbDislike: number =0;
-  dislikeComment:String;
-  likeStatus:boolean = null;
+  allLike:number=0;
+  allDislike:number=0;
+  dislikeComment:string;
 
   ngOnInit() {
-    this.articleService
-      .getOneArticle(1)
-      .subscribe((data: Article) => {this.gottenArticle = data; console.log(this.gottenArticle); console.log(data)});
+    // this.articleService
+    //   .getOneArticle(1)
+    //   .subscribe((data: Article) => {this.gottenArticle = data; console.log(this.gottenArticle); console.log(data)});
 
 
     if (this.app.authenticated) {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
-      this.nbLike = 0;
-      this.nbDislike = 0;
-      this.likeStatus = null;
+      this.allLike= 0;
+      this.allDislike= 0;
 
-      // on recupere l'article selectionné précédemment et passé en param
+      // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh 
       // this.route.params.subscribe(
       //   (data: Article) => (this.gottenArticle = data)
       // );
 
-      this.countLike();
+      this.refreshDataArticle();
 
     } else {
       this.router.navigateByUrl("/");
@@ -80,22 +80,46 @@ export class ArticleConsultationComponent implements OnInit {
   }
 
   actionLike(){
-    if(this.likeStatus==null){
-      this.likeStatus=true;
-    }
-    else{
-      this.likeStatus=!this.likeStatus;
-      console.log(this.likeStatus);
-    }
+    var voteOfUser = this.gottenArticle.vote.find(vot => vot.utilisateur.idUtilisateur === this.user.idUtilisateur);
+    var voteOfAut:Vote = this.gottenArticle.vote.find(vot => vot.utilisateur.idUtilisateur === this.gottenArticle.auteur.idUtilisateur);
+
+      // impossible de liker son propre article 
+      if(voteOfAut){
+        console.log("tentative de liker son propre article");
+        // return
+      }
+      // suppression du like si cliqué par quelqu'un l'ayant déjà liké 
+      else if (voteOfUser){
+        var indexOfVote = this.gottenArticle.vote.indexOf(voteOfUser,0);
+        this.gottenArticle.vote.splice(indexOfVote,1);
+        this.articleService.updateOneArticle(this.gottenArticle).subscribe(data=>{console.log(data); this.refreshDataArticle()});
+      }
+      else{
+        var newVote = new Vote();
+        newVote.commentaire = this.dislikeComment;
+        newVote.liked=true;
+        newVote.utilisateur=this.user;
+        this.gottenArticle.vote.push(newVote);
+        this.articleService.updateOneArticle(this.gottenArticle).subscribe(data=>{console.log(data); this.refreshDataArticle()});
+        // this.voteService.createVote(newVote).subscribe(data=>{
+        //   console.log(data);
+        //   this.refreshDataArticle();
+        // });
+      }
   }
 
-  countLike(){
-    if (this.gottenArticle.vote != null && this.gottenArticle.vote != undefined && this.gottenArticle.vote.length>0) {
+  refreshDataArticle(){
+
+    this.articleService
+      .getOneArticle(1)
+      .subscribe((data: Article) => {this.gottenArticle = data; console.log(this.gottenArticle); console.log(data)});
+
+    if (this.gottenArticle.vote !== null && this.gottenArticle.vote !== undefined && this.gottenArticle.vote.length>0) {
       this.gottenArticle.vote.forEach((v) => {
         if (v.liked) {
-          this.nbLike = this.nbLike + 1;
+          this.allLike = this.allLike+1;
         } else if (!v.liked) {
-          this.nbDislike = this.nbDislike + 1;
+          this.allDislike=this.allDislike+1;
         } else {
           console.log("soucis en lien avec les votes");
         }
