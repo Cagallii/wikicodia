@@ -1,1 +1,36 @@
-<p>administrator-role-management works!</p>
+<div id="container">
+    <h1>Promouvoir ou destituer un utilisateur</h1>
+    <div>
+        <mat-form-field id="searchUser" style="width:600px">
+            <mat-label>Rechercher un utilisateur par son adresse e-mail</mat-label>
+            <input #userPseudo matInput>
+        </mat-form-field>
+        <button mat-button matTooltip="Rechercher" type="submit" value="submit" (click)="findUser(userPseudo.value)">
+            <mat-icon color="primary">search</mat-icon>
+        </button>
+    </div>
+    
+
+    <div >
+        <div id="messages"></div>
+        <div *ngIf="isUserFound">
+            
+            <mat-card class="userToChangeCard">
+                <mat-card-title>Utilisateur sélectionné</mat-card-title>
+                <mat-card-content>Pseudo : {{ userToChange.pseudo }}</mat-card-content>
+                <mat-card-content>Prénom : {{ userToChange.prenom }}</mat-card-content>
+                <mat-card-content>Nom : {{ userToChange.nom }}</mat-card-content>
+                <mat-card-content>Adresse e-mail : {{ userToChange.mail }}</mat-card-content>
+                <mat-card-content>Etat : {{ userToChange.etat.etat }}</mat-card-content>
+                <mat-card-content>Rôle : {{ userToChange.role.role }}</mat-card-content>
+                <div *ngIf="!isUserAdmin"><button mat-button color="warn" (click)="upGrade()">Promouvoir l'utilisateur</button></div>
+                <div *ngIf="isUserAdmin"><button mat-button color="warn" (click)="downGrade()">Destituer l'utilisateur</button></div>
+                
+            </mat-card>
+            
+        </div>
+        
+    </div>
+
+</div>
+
