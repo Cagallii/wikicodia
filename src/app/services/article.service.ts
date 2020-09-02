@@ -17,4 +17,9 @@ export class ArticleService {
     return this.http.post(this.baseUrl+ "creation", article);
   }
 
+  getArticlesAwaitingValidation(): Observable<any> {
+    return this.http.get(this.baseUrl+ "pending");
+  }
+
+
 }
