@@ -1,4 +1,4 @@
-import { Component, OnInit, Input} from '@angular/core';
+import { Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import { AppService } from '../app.service';
 import User from '../model/UserCreate';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
@@ -33,6 +33,7 @@ export class UserProfilComponent implements OnInit {
   type: Observable<Type[]>;
   language: Observable<Language[]>;
   checkArray: FormArray;
+  invalidePassword : Boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -293,12 +294,31 @@ export class UserProfilComponent implements OnInit {
 
   //changement du mot de passe
   changementMdp(){
-    let mdpNew = this.mdpForm.value;
-    let mdpConfirmation = this.mdpForm.value;
+    let mdpNew = this.mdpForm.value['newMdp'];
+    let mdpConfirmation = this.mdpForm.value['confirmNewMdp'];
 
-    if(mdpConfirmation === mdpNew && mdpNew === ""){
+    console.log(mdpNew);
+    console.log(mdpConfirmation);
+    
+
+    if(mdpConfirmation === mdpNew && mdpNew !== ""){
       this.user.motDePasse = mdpNew;
       this.modification();
+      this.eventFire(document.querySelector("#changeMdp-close"), 'click')
+    }else{
+      this.invalidePassword = true;
+      this.mdpForm.reset();
+      return
+    }
+  }
+
+  eventFire(el, etype){
+    if (el.fireEvent) {
+      el.fireEvent('on' + etype);
+    } else {
+      var evObj = document.createEvent('Events');
+      evObj.initEvent(etype, true, false);
+      el.dispatchEvent(evObj);
     }
   }
 }

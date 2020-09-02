@@ -19,6 +19,7 @@ export default class Article {
     dateDerniereModif: Moment; //???
     estPublie:Boolean;
     estPromu:Boolean;
+    estValide:Boolean;
     vote:Vote[];
     langage:Language[];
     framework:Framework[];

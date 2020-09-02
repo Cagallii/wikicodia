@@ -1,58 +1,30 @@
-<mat-card class="consultation-card">
+<mat-card class="consultation-card" *ngIf='this.gottenArticle'>
   <mat-card-header>
-    <!-- <div mat-card-avatar class="example-header-image"></div> -->
-    <mat-card-title>Titre de l'article </mat-card-title>
-    <mat-card-subtitle>texte de la description texte de la description texte de la description texte de la description
-      texte de la description </mat-card-subtitle>
+    <mat-chip-list aria-label="">
+      <mat-chip color="accent" selected (click)="actionLike()"> <mat-icon>thumb_up</mat-icon> | {{this.nbLike}}  </mat-chip>
+      <mat-chip color="accent" selected (click)="openDialog()"><mat-icon>thumb_down</mat-icon> | {{  this.nbDislike}}</mat-chip>
+    </mat-chip-list>
+    <mat-card-title>{{this.gottenArticle.titre}}</mat-card-title>
+    <mat-card-subtitle>{{this.gottenArticle.description}}</mat-card-subtitle>
   </mat-card-header>
-  <mat-chip-list aria-label="Fish selection">
-    <mat-chip color="accent" selected>Type</mat-chip>
-    <mat-chip color="accent" selected>categorie</mat-chip>
-    <mat-chip color="accent" selected>language</mat-chip>
-    <mat-chip color="accent" selected>version language</mat-chip>
-    <mat-chip color="accent" selected>framework</mat-chip>
-    <mat-chip color="accent" selected>version framework</mat-chip>
-    <mat-chip color="accent" selected>date de création</mat-chip>
-    <mat-chip color="accent" selected>date de modification</mat-chip>
-    <mat-chip color="accent" selected>auteur</mat-chip>
-    <mat-chip color="primary" selected>nb likes</mat-chip>
-    <mat-chip color="primary" selected>nb dislikes</mat-chip>
+  <mat-chip-list aria-label="">
+    <mat-chip color="accent" selected>{{this.gottenArticle.type.libType}}</mat-chip>
+    <mat-chip color="accent" selected>{{this.gottenArticle.categorie.libCategorie}}</mat-chip>
+    <mat-chip color="accent" selected *ngFor="let lang of this.gottenArticle.langage" value="{{lang}}">{{lang.lang}} {{lang.version}}</mat-chip>
+    <mat-chip color="accent" selected *ngFor="let fram of this.gottenArticle.framework" value="{{fram}}">{{fram.framework}} {{fram.version}}</mat-chip>
+    <mat-chip color="accent" selected>Créé le {{this.gottenArticle.dateCreation}}</mat-chip>
+    <mat-chip color="accent" selected>Modifié le {{this.gottenArticle.dateDerniereModif}}</mat-chip>
+    <mat-chip color="accent" selected>{{this.gottenArticle.auteur.pseudo}}</mat-chip>
   </mat-chip-list>
   <br />
 
   <mat-card-content>
-    <p>
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-      ceci est le contenu de l'article
-    </p>
+    <div>{{this.gottenArticle.contenu}}</div>
   </mat-card-content>
 
   <mat-divider></mat-divider>
 
   <mat-card-actions>
-
-      <button mat-mini-fab matTooltip="Le contenu présenté est bien pertinent" color="primary" >
-        <mat-icon>thumb_up</mat-icon>
-      </button>
-
-      <button mat-mini-fab matTooltip="Le contenu présenté n'est pas pertinent" color="warn" (click)="openDialog()">
-        <mat-icon>thumb_down</mat-icon>
-      </button> 
-
       <button mat-mini-fab matTooltip="Modifier cet article" color="primary">
         <mat-icon>create</mat-icon>
       </button>
@@ -67,3 +39,7 @@
   </mat-card-actions>
 
 </mat-card>
+
+
+
+    <!-- <div mat-card-avatar class="example-header-image"></div> -->

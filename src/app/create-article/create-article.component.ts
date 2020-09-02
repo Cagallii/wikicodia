@@ -150,6 +150,7 @@ export class CreateArticleComponent implements OnInit {
             this.newArticle.description = this.createArticleForm.controls['description'].value;
             this.newArticle.estPromu = false;
             this.newArticle.estPublie = false;
+            this.newArticle.estValide = false;
             this.newArticle.titre = this.createArticleForm.controls['title'].value;
             this.newArticle.type = this.createArticleForm.controls['type'].value;
             this.newArticle.vote = null;
@@ -157,7 +158,6 @@ export class CreateArticleComponent implements OnInit {
             this.newArticle.contenu = this.createArticleForm.controls['content'].value;
             this.newArticle.dateCreation = null;
             this.newArticle.dateDerniereModif = null;
-      
       
             this.newArticle.framework = this.allSelectedFram;
             this.newArticle.langage = this.allSelectedLang;
@@ -188,6 +188,7 @@ export class CreateArticleComponent implements OnInit {
             this.newArticle.description = this.createArticleForm.controls['description'].value;
             this.newArticle.estPromu = false;
             this.newArticle.estPublie = true;
+            this.newArticle.estValide = false;
             this.newArticle.titre = this.createArticleForm.controls['title'].value;
             this.newArticle.type = this.createArticleForm.controls['type'].value;
             this.newArticle.vote = null;

@@ -83,14 +83,6 @@
                                                     <p>{{ user.etat.etat }}</p>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <label>Membre depuis</label>
-                                                </div>
-                                                <div class="col-md-6 offset-md-3">
-                                                    <p>{{ user.dateInscription }}</p>
-                                                </div>
-                                            </div>
                                         </div>
                                         <div role="tabpanel" class="tab-pane fade" id="buzz">
                                             <div class="row">
@@ -260,6 +252,9 @@
                     </button>
                 </div>
                 <div class="modal-body" [formGroup]="mdpForm">
+                    <div class="alert-msg" *ngIf="invalidePassword">
+                        <p>Les deux mots de passes doivent correspondre</p>
+                    </div>
                     <mat-form-field appearance="fill" class="full-width-input">
                         <mat-label>Nouveau mot de passe</mat-label>
                         <input type="password" matInput formControlName="newMdp">
@@ -270,8 +265,8 @@
                     </mat-form-field>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Anuler</button>
-                    <button type="button" class="btn btn-primary" (click)="changementMdp()" data-dismiss="modal">Modifier</button>
+                    <button type="button" id="changeMdp-close" class="btn btn-secondary" data-dismiss="modal">Anuler</button>
+                    <button type="button" class="btn btn-primary" (click)="changementMdp()">Modifier</button>
                 </div>
             </div>
         </div>
