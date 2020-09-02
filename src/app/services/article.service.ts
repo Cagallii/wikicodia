@@ -23,7 +23,7 @@ export class ArticleService {
 
 
   updateOneArticle(article:Article): Observable<Object> {
-    return this.http.put(this.baseUrl+"modification"+`${article.idArticle}`, article);
+    return this.http.put(this.baseUrl+"modification/"+`${article.idArticle}`, article);
   }
 
   getArticlesAwaitingValidation(): Observable<any> {

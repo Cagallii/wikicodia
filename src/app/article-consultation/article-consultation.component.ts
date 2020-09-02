@@ -93,6 +93,7 @@ export class ArticleConsultationComponent implements OnInit {
         var indexOfVote = this.gottenArticle.vote.indexOf(voteOfUser,0);
         this.gottenArticle.vote.splice(indexOfVote,1);
         this.articleService.updateOneArticle(this.gottenArticle).subscribe(data=>{console.log(data); this.refreshDataArticle()});
+        console.log(this.gottenArticle);
       }
       else{
         var newVote = new Vote();
@@ -101,10 +102,13 @@ export class ArticleConsultationComponent implements OnInit {
         newVote.utilisateur=this.user;
         this.gottenArticle.vote.push(newVote);
         this.articleService.updateOneArticle(this.gottenArticle).subscribe(data=>{console.log(data); this.refreshDataArticle()});
+
         // this.voteService.createVote(newVote).subscribe(data=>{
         //   console.log(data);
         //   this.refreshDataArticle();
         // });
+        console.log(this.gottenArticle);
+
       }
   }
 
@@ -112,7 +116,7 @@ export class ArticleConsultationComponent implements OnInit {
 
     this.articleService
       .getOneArticle(1)
-      .subscribe((data: Article) => {this.gottenArticle = data; console.log(this.gottenArticle); console.log(data)});
+      .subscribe((data: Article) => {this.gottenArticle = data; console.log(this.gottenArticle); console.log("data from refresh :"); console.log(data)});
 
     if (this.gottenArticle.vote !== null && this.gottenArticle.vote !== undefined && this.gottenArticle.vote.length>0) {
       this.gottenArticle.vote.forEach((v) => {
