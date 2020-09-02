@@ -27,7 +27,7 @@ export class AppService {
 
         const body = new HttpParams()
         .set('username', credentials.username)
-        .set('password', credentials.password)
+        .set('password', window.btoa(credentials.password))
         
         this.http.post('login', body.toString(), 
         {
@@ -62,7 +62,7 @@ export class AppService {
         .set('nom', utisateur.nom)
         .set('prenom', utisateur.prenom)
         .set('mail', utisateur.mail)
-        .set('motDePasse', utisateur.motDePasse)
+        .set('motDePasse', window.btoa(utisateur.motDePasse))
         .set('pseudo', utisateur.pseudo)
 
         let credentials = {username: utisateur.mail, password: utisateur.motDePasse}
