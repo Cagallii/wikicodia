@@ -3,7 +3,6 @@ import { NgModule, Injectable } from "@angular/core";
 import { MatCardModule, MatToolbar, MatButtonModule } from "@angular/material";
 import {MatIconModule} from '@angular/material/icon';
 
-
 import {A11yModule} from '@angular/cdk/a11y';
 // import {ClipboardModule} from '@angular/cdk/clipboard';
 import {DragDropModule} from '@angular/cdk/drag-drop';
@@ -80,6 +79,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { ArticleCategoryComponent } from './article-category/article-category.component';
 import { HomePageComponent } from './home-page/home-page.component';
+import { ListArticleAwaitingValidationComponent } from './list-article-awaiting-validation/list-article-awaiting-validation.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -126,7 +126,8 @@ export class XhrInterceptor implements HttpInterceptor {
     MenuComponent,
     UserSettingsComponent,
     ArticleCategoryComponent,
-    HomePageComponent
+    HomePageComponent,
+    ListArticleAwaitingValidationComponent
   ],
 
   imports: [
