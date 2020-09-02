@@ -4,6 +4,9 @@
     </div>
     <form [formGroup]="loginForm">
         <h2>Se connecter</h2>
+        <div *ngIf="app.wrongPassword" class="alert-msg">
+            <p>L'email ou le mot de passe n est pas correcte</p>
+        </div>
         <mat-form-field appearance="fill" class="full-width-input">
             <mat-label>E-mail</mat-label>
             <input matInput type="email" formControlName="mail" [(ngModel)]="credentials.username">

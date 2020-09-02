@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import User from '../model/UserCreate';
 import Category from '../model/Category';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,9 @@ export class UserService {
   }
 
   modification(user: User): Observable<any> {
+    //user.dateInscription.add(1);
+    console.log(moment(user.dateInscription).add(2, "d"));
+    console.log(user.dateDerniereConnexion);
     return this.http.put(`${this.baseUrl}/modification`, user);
   }
 
@@ -38,6 +42,11 @@ export class UserService {
   }
 
   hydrate(u: User, user: Object){
+    if (user['dateInscription']) {
+      let split = user['dateInscription'].split('-');
+      u.dateInscription = moment([split[0], split[1], split[2]]).add(2, "days");
+    }
+
     u.idUtilisateur = user['idUtilisateur']
     u.nom = user['nom'];
     u.prenom = user['prenom'];
@@ -46,12 +55,12 @@ export class UserService {
     u.mail = user['mail'];
     u.lienLinkedin = user['lienLinkedin'];
     u.statut = user['statut'];
-    u.dateInscription = user['dateInscription'];
     u.etat = user['etat'];
     u.role = user['role'];
     u.framework = user['framework'];
     u.langage = user['langage'];
     u.type = user['type'];
     u.categorie = user['categorie'];
+
   }
 }
