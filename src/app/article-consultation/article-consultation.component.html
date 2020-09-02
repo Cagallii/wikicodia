@@ -1,8 +1,8 @@
 <mat-card class="consultation-card" *ngIf='this.gottenArticle'>
   <mat-card-header>
     <mat-chip-list aria-label="">
-      <mat-chip color="accent" selected (click)="actionLike()"> <mat-icon>thumb_up</mat-icon> | {{this.nbLike}}  </mat-chip>
-      <mat-chip color="accent" selected (click)="openDialog()"><mat-icon>thumb_down</mat-icon> | {{  this.nbDislike}}</mat-chip>
+      <mat-chip color="accent" selected (click)="actionLike()"> <mat-icon>thumb_up</mat-icon> | {{this.allLike}}  </mat-chip>
+      <mat-chip color="accent" selected (click)="openDialog()"><mat-icon>thumb_down</mat-icon> | {{this.allDislike}}</mat-chip>
     </mat-chip-list>
     <mat-card-title>{{this.gottenArticle.titre}}</mat-card-title>
     <mat-card-subtitle>{{this.gottenArticle.description}}</mat-card-subtitle>

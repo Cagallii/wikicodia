@@ -21,4 +21,9 @@ export class ArticleService {
     return this.http.get(this.baseUrl+`${idArticle}`);
   }
 
+
+  updateOneArticle(article:Article): Observable<Object> {
+    return this.http.put(this.baseUrl+"modification"+`${article.idArticle}`, article);
+  }
+
 }

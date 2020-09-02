@@ -11,7 +11,7 @@ import TypeArticle from './TypeArticle';
 import Category from './Category';
 
 export default class Article {
-
+    idArticle:number;
     titre: string;
     description: string;
     contenu: string;
