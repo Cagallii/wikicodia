@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import User from './model/UserCreate';
 import { UserService } from './services/user.service';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -10,6 +11,7 @@ export class AppService {
   
     authenticated = false;
     user: User = null;
+    
 
     constructor(private http: HttpClient, private userService: UserService) {
     }
@@ -77,5 +79,30 @@ export class AppService {
         return this.authenticated
     }
 
+    findUserByMail(mail : string) {
+        return this.http.get(
+            '/utilisateur/trouverUnUtilisateur',
+            {
+                headers: new HttpHeaders()
+                .set('mail', mail)
+            }
+        )
+    }
+
+    userUpGrade(role : any){
+        
+        return this.http.put(
+            'http://localhost:8080/role/promossion', 
+            role
+        )
+    }
+
+    userDownGrade(role : any){
+        
+        return this.http.put(
+            'http://localhost:8080/role/destitution', 
+            role
+        )
+    }
     
 }
