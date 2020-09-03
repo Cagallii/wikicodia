@@ -100,12 +100,12 @@ export class ArticleConsultationComponent implements OnInit {
       console.log(this.gottenArticle);
     } else {
       this.createVote();
-      this.articleService
-        .updateOneArticle(this.gottenArticle)
-        .subscribe((data) => {
-          console.log(data);
-          this.refreshDataArticle();
-        });
+      // this.articleService
+      //   .updateOneArticle(this.gottenArticle)
+      //   .subscribe((data) => {
+      //     console.log(data);
+      //     this.refreshDataArticle();
+      //   });
 
       console.log(this.user);
       console.log(this.gottenArticle);
@@ -119,14 +119,20 @@ export class ArticleConsultationComponent implements OnInit {
     );
     // impossible de liker son propre article
     if (this.gottenArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
-      console.log("tentative de disliker son propre article");
+      console.log("Option 1 : tentative de disliker son propre article");
       // return
     }
     // modification du dislike si cliqué par quelqu'un l'ayant déjà disliké
-    else if (voteOfUser) {
+    else if (voteOfUser && this.dislikeComment!=="cancel") {
+
+      console.log("OPTION 2 : modification du dislike si cliqué par quelqu'un l'ayant déjà disliké");
       var indexOfVote = this.gottenArticle.vote.indexOf(voteOfUser, 0);
-      this.gottenArticle.vote.splice(indexOfVote, 1);
-      this.createVote();
+      var modifiedVote = new Vote();
+      modifiedVote.commentaire = this.dislikeComment;
+      modifiedVote.liked = false;
+      modifiedVote.utilisateur = this.user;
+      this.gottenArticle.vote.splice(indexOfVote, 1, modifiedVote);
+      // this.createVote();
       this.articleService
         .updateOneArticle(this.gottenArticle)
         .subscribe((data) => {
@@ -137,6 +143,8 @@ export class ArticleConsultationComponent implements OnInit {
     } 
         // l'utilisateur clique sur suppression du dislike
     else if(this.dislikeComment==="cancel"){
+      console.log("OPTION 3 : utilisateur clique sur suppression du dislike")
+
       var indexOfVote = this.gottenArticle.vote.indexOf(voteOfUser, 0);
       this.gottenArticle.vote.splice(indexOfVote, 1);
       this.articleService
@@ -148,13 +156,16 @@ export class ArticleConsultationComponent implements OnInit {
       console.log(this.gottenArticle);
     }
     else {
+
+      console.log("OPTION 4 : else final ")
+
       this.createVote();
-      this.articleService
-        .updateOneArticle(this.gottenArticle)
-        .subscribe((data) => {
-          console.log(data);
-          this.refreshDataArticle();
-        });
+      // this.articleService
+      //   .updateOneArticle(this.gottenArticle)
+      //   .subscribe((data) => {
+      //     console.log(data);
+      //     this.refreshDataArticle();
+      //   });
 
       console.log(this.user);
       console.log(this.gottenArticle);
@@ -174,6 +185,12 @@ export class ArticleConsultationComponent implements OnInit {
     newVote.utilisateur = this.user;
     console.log(newVote);
     this.gottenArticle.vote.push(newVote);
+    this.articleService
+    .updateOneArticle(this.gottenArticle)
+    .subscribe((data) => {
+      console.log(data);
+      this.refreshDataArticle();
+    });
   }
 
   refreshDataArticle() {
@@ -231,7 +248,7 @@ export class ArticleConsultationComponent implements OnInit {
     dialogRef.afterClosed().subscribe((data) => {
       console.log("Dialog output:", data);
       this.dislikeComment = data.raisonDislike;
-      this.actionLike();
+      this.actionDislike();
     });
   }
 
