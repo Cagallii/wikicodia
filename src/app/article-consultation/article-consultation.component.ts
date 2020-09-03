@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Input,Inject } from "@angular/core";
 import {
   MatDialog,
   MatDialogRef,
@@ -38,6 +38,8 @@ import { VoteService } from "../services/vote.service";
   styleUrls: ["./article-consultation.component.css"],
 })
 export class ArticleConsultationComponent implements OnInit {
+  @Input()   oneArticle : Article;
+
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -68,6 +70,7 @@ export class ArticleConsultationComponent implements OnInit {
       // this.route.params.subscribe(
       //   (data: Article) => (this.gottenArticle = data)
       // );
+      this.gottenArticle = this.oneArticle;
 
       this.refreshDataArticle();
     } else {
@@ -182,7 +185,7 @@ export class ArticleConsultationComponent implements OnInit {
   }
 
   refreshDataArticle() {
-    this.articleService.getOneArticle(1).subscribe((data: Article) => {
+    this.articleService.getOneArticle(this.gottenArticle.idArticle).subscribe((data: Article) => {
       this.gottenArticle = data;
       console.log(this.gottenArticle);
       console.log("data from refresh :");

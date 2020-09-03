@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import Article from '../model/Article';
+import UserCreate from '../model/UserCreate';
+import { UserProfilComponent } from '../user-profil/user-profil.component';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +38,10 @@ export class ArticleService {
 
   validate(idArticle:number): Observable<Object> {
     return this.http.put(this.baseUrl + "validate/" +`${idArticle}`, { observe: 'response' });
+  }
+
+  getAllMyArticles(userid:number): Observable<Object> {
+    return this.http.get(this.baseUrl + "mesarticles" +`${userid}`);
   }
 
 
