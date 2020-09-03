@@ -56,9 +56,6 @@ export class ArticleConsultationComponent implements OnInit {
   dislikeComment: string = null;
 
   ngOnInit() {
-    // this.articleService
-    //   .getOneArticle(1)
-    //   .subscribe((data: Article) => {this.gottenArticle = data; console.log(this.gottenArticle); console.log(data)});
 
     if (this.app.authenticated) {
       this.autentificated = this.app.authenticated;
@@ -156,17 +153,8 @@ export class ArticleConsultationComponent implements OnInit {
       console.log(this.gottenArticle);
     }
     else {
-
       console.log("OPTION 4 : else final ")
-
       this.createVote();
-      // this.articleService
-      //   .updateOneArticle(this.gottenArticle)
-      //   .subscribe((data) => {
-      //     console.log(data);
-      //     this.refreshDataArticle();
-      //   });
-
       console.log(this.user);
       console.log(this.gottenArticle);
     }
