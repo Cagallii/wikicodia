@@ -37,7 +37,7 @@ export class ListArticleCreatedComponent implements OnInit {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
       this.allMyArticles= new Array() ;
-      this.articleService.getAllMyArticles(this.user.idUtilisateur.valueOf()).subscribe((data:Article[])=>this.allMyArticles=data);
+      this.articleService.getAllMyArticles(this.user.idUtilisateur).subscribe((data:Article[])=>this.allMyArticles=data);
     } else {
       this.router.navigateByUrl("/");
     }

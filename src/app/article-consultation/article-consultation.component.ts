@@ -49,13 +49,13 @@ export class ArticleConsultationComponent implements OnInit {
     private voteService: VoteService
   ) {}
 
-  gottenArticle: Article;
+  // oneArticle: Article = this.oneArticle;
   autentificated: boolean = false;
   user: User = null;
   allLike: number = 0;
   allDislike: number = 0;
   dislikeComment: string = null;
-
+  oneArticle:Article;
   ngOnInit() {
 
     if (this.app.authenticated) {
@@ -67,8 +67,9 @@ export class ArticleConsultationComponent implements OnInit {
 
       // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh
       this.route.params.subscribe(
-        (data: Article) => (this.gottenArticle = data)
+        (data: Article) => (this.oneArticle = data)
       );
+
 
       this.refreshDataArticle();
     } else {
@@ -77,46 +78,46 @@ export class ArticleConsultationComponent implements OnInit {
   }
 
   actionLike() {
-    var voteOfUser = this.gottenArticle.vote.find(
+    var voteOfUser = this.oneArticle.vote.find(
       (vot) => vot.utilisateur.idUtilisateur === this.user.idUtilisateur
     );
     // impossible de liker son propre article
-    if (this.gottenArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
+    if (this.oneArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
       console.log("tentative de liker son propre article");
       // return
     }
     // suppression du like si cliqué par quelqu'un l'ayant déjà liké
     else if (voteOfUser) {
-      var indexOfVote = this.gottenArticle.vote.indexOf(voteOfUser, 0);
-      this.gottenArticle.vote.splice(indexOfVote, 1);
+      var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
+      this.oneArticle.vote.splice(indexOfVote, 1);
       this.articleService
-        .updateOneArticle(this.gottenArticle)
+        .updateOneArticle(this.oneArticle)
         .subscribe((data) => {
           console.log(data);
           this.refreshDataArticle();
         });
-      console.log(this.gottenArticle);
+      console.log(this.oneArticle);
     } else {
       this.createVote();
       // this.articleService
-      //   .updateOneArticle(this.gottenArticle)
+      //   .updateOneArticle(this.oneArticle)
       //   .subscribe((data) => {
       //     console.log(data);
       //     this.refreshDataArticle();
       //   });
 
       console.log(this.user);
-      console.log(this.gottenArticle);
+      console.log(this.oneArticle);
     }
   }
 
 
   actionDislike() {
-    var voteOfUser = this.gottenArticle.vote.find(
+    var voteOfUser = this.oneArticle.vote.find(
       (vot) => vot.utilisateur.idUtilisateur === this.user.idUtilisateur
     );
     // impossible de liker son propre article
-    if (this.gottenArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
+    if (this.oneArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
       console.log("Option 1 : tentative de disliker son propre article");
       // return
     }
@@ -124,40 +125,40 @@ export class ArticleConsultationComponent implements OnInit {
     else if (voteOfUser && this.dislikeComment!=="cancel") {
 
       console.log("OPTION 2 : modification du dislike si cliqué par quelqu'un l'ayant déjà disliké");
-      var indexOfVote = this.gottenArticle.vote.indexOf(voteOfUser, 0);
+      var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
       var modifiedVote = new Vote();
       modifiedVote.commentaire = this.dislikeComment;
       modifiedVote.liked = false;
       modifiedVote.utilisateur = this.user;
-      this.gottenArticle.vote.splice(indexOfVote, 1, modifiedVote);
+      this.oneArticle.vote.splice(indexOfVote, 1, modifiedVote);
       // this.createVote();
       this.articleService
-        .updateOneArticle(this.gottenArticle)
+        .updateOneArticle(this.oneArticle)
         .subscribe((data) => {
           console.log(data);
           this.refreshDataArticle();
         });
-      console.log(this.gottenArticle);
+      console.log(this.oneArticle);
     } 
         // l'utilisateur clique sur suppression du dislike
     else if(this.dislikeComment==="cancel"){
       console.log("OPTION 3 : utilisateur clique sur suppression du dislike")
 
-      var indexOfVote = this.gottenArticle.vote.indexOf(voteOfUser, 0);
-      this.gottenArticle.vote.splice(indexOfVote, 1);
+      var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
+      this.oneArticle.vote.splice(indexOfVote, 1);
       this.articleService
-      .updateOneArticle(this.gottenArticle)
+      .updateOneArticle(this.oneArticle)
       .subscribe((data) => {
         console.log(data);
         this.refreshDataArticle();
       });
-      console.log(this.gottenArticle);
+      console.log(this.oneArticle);
     }
     else {
       console.log("OPTION 4 : else final ")
       this.createVote();
       console.log(this.user);
-      console.log(this.gottenArticle);
+      console.log(this.oneArticle);
     }
   }
 
@@ -173,9 +174,9 @@ export class ArticleConsultationComponent implements OnInit {
     }
     newVote.utilisateur = this.user;
     console.log(newVote);
-    this.gottenArticle.vote.push(newVote);
+    this.oneArticle.vote.push(newVote);
     this.articleService
-    .updateOneArticle(this.gottenArticle)
+    .updateOneArticle(this.oneArticle)
     .subscribe((data) => {
       console.log(data);
       this.refreshDataArticle();
@@ -183,9 +184,9 @@ export class ArticleConsultationComponent implements OnInit {
   }
 
   refreshDataArticle() {
-    this.articleService.getOneArticle(this.gottenArticle.idArticle).subscribe((data: Article) => {
-      this.gottenArticle = data;
-      console.log(this.gottenArticle);
+    this.articleService.getOneArticle(this.oneArticle.idArticle).subscribe((data: Article) => {
+      this.oneArticle = data;
+      console.log(this.oneArticle);
       console.log("data from refresh :");
       console.log(data);
       this.refreshLikeArticle();
@@ -198,11 +199,11 @@ export class ArticleConsultationComponent implements OnInit {
     this.dislikeComment = null;
 
     if (
-      this.gottenArticle.vote !== null &&
-      this.gottenArticle.vote !== undefined &&
-      this.gottenArticle.vote.length !== 0
+      this.oneArticle.vote !== null &&
+      this.oneArticle.vote !== undefined &&
+      this.oneArticle.vote.length !== 0
     ) {
-      this.gottenArticle.vote.forEach((v) => {
+      this.oneArticle.vote.forEach((v) => {
         if (v.liked === true) {
           this.allLike = this.allLike + 1;
         } else if (v.liked === false) {
