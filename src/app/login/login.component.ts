@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
         
         data => {
           console.log(data);
-          this.app.user["articlesFavoris"] = data.articlesFavoris;
+          this.app.user.articlesFavoris = data.articlesFavoris;
         },
         error => {
           console.log(error)

@@ -2,12 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import Article from "../model/Article";
 import { AppService } from "../app.service";
 import User from "../model/UserCreate";
-import { UserService } from "../services/user.service";
-import Vote from "../model/Vote";
 import { ArticleService } from "../services/article.service";
-import { VoteService } from "../services/vote.service";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import {  Router } from "@angular/router";
 
 
 @Component({
@@ -19,11 +15,8 @@ export class ListArticleCreatedComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private app: AppService,
-    private userService: UserService,
     private articleService: ArticleService,
-    private voteService: VoteService
   ) { }
 
   allMyArticles:Article[];
