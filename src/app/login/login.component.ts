@@ -37,7 +37,11 @@ export class LoginComponent implements OnInit {
       //on set la derniere date de connexion
       this.app.user.dateDerniereConnexion = moment();
       this.userService.modification(this.app.user).subscribe(
-        data => console.log(data),
+        
+        data => {
+          console.log(data);
+          this.app.user["articlesFavoris"] = data.articlesFavoris;
+        },
         error => {
           console.log(error)
         }
