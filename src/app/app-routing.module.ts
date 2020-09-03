@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CreateArticleComponent } from "./create-article/create-article.component";
+import { CommentArticleComponent } from "./comment-article/comment-article.component";
 import { ListArticleCreatedComponent } from "./list-article-created/list-article-created.component";
 import { UserSettingsComponent } from "./user-settings/user-settings.component";
 import { AdministratorRoleManagementComponent } from "./administrator-role-management/administrator-role-management.component";
@@ -41,6 +42,7 @@ const routes: Routes = [
   { path: "connexion", component: LoginComponent },
   { path: "articleConsultation", component: ArticleConsultationComponent},
   { path: "createArticle", component: CreateArticleComponent },
+  { path: "commentArticle/:id", component: CommentArticleComponent },
   { path: "createdArticles", component: ListArticleCreatedComponent},
   { path: "articles/pending", component: ListArticleAwaitingValidationComponent},
   { path: "userSettings",component: UserSettingsComponent },

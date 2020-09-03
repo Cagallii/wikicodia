@@ -25,12 +25,12 @@ export class ListArticleAwaitingValidationComponent implements OnInit {
 
   rejectArticle(id: number) {
     this.articleService.reject(id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
+    .subscribe(
+      data => {
+        console.log(data);
+        this.reloadData();
+      },
+      error => console.log(error));
   }
 
   validateArticle(id: number) {

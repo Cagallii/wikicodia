@@ -24,7 +24,9 @@
             <td>
                 <button (click)="rejectArticle(article.idArticle)" class="btn btn-danger">Rejeter</button>
             </td>
-            
+            <td>
+              <button type="submit" [routerLink]="['/commentArticle', article.idArticle]" class="btn btn-warning">Commenter la décision</button>
+            </td>
           </tr>
         </tbody>
       </table>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders,HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import Article from '../model/Article';
+import { articleType } from '../enum/articleType';
 
 @Injectable({
   providedIn: 'root'
@@ -21,13 +22,16 @@ export class ArticleService {
     return this.http.get(this.baseUrl+`${idArticle}`);
   }
 
-
   updateOneArticle(article:Article): Observable<Object> {
     return this.http.put(this.baseUrl+"modification/"+`${article.idArticle}`, article);
   }
 
   getArticlesAwaitingValidation(): Observable<any> {
     return this.http.get(this.baseUrl+ "pending");
+  }
+
+  comment(idArticle:number, comAdmin:string): Observable<Object> {
+    return this.http.put(this.baseUrl + "comment-decision/" +`${idArticle}` + "/" + `${comAdmin}`, { observe: 'response' });
   }
 
   reject(idArticle:number): Observable<Object> {

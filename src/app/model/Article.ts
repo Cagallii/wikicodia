@@ -26,5 +26,6 @@ export default class Article {
     framework:Framework[];
     auteur: UserCreate;
     type: TypeArticle;
-    categorie:Category;    
+    categorie:Category;
+    comAdmin: string;    
 }

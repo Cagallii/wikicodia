@@ -158,11 +158,13 @@ export class CreateArticleComponent implements OnInit {
             this.newArticle.contenu = this.createArticleForm.controls['content'].value;
             this.newArticle.dateCreation = null;
             this.newArticle.dateDerniereModif = null;
-      
+            this.newArticle.comAdmin = null;
+            
             this.newArticle.framework = this.allSelectedFram;
             this.newArticle.langage = this.allSelectedLang;
       
-            this.articleService.create(this.newArticle).subscribe(data=>(console.log(data))   ,    error => console.log(error)
+            this.articleService.create(this.newArticle).subscribe(
+              data=>(console.log(data)),error => console.log(error)
             );
 
             console.log(this.newArticle);

@@ -4,7 +4,6 @@
     <h3 *ngIf="authenticated">Bonjour [prenom]<!--{{ app.user.prenom }}--></h3>
 
     <!-- section accessible pour tout le monde -->
-    <!-- ajouter lien vers la page de recherche des articles -->
 
     <!-- accès au sous-menu réservé aux administrateurs -->
     <button *ngIf="adminConnected" mat-menu-item [matMenuTriggerFor]="subMenu">Admin</button>
