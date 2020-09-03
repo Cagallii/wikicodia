@@ -21,6 +21,9 @@
 </mat-dialog-content>
 
 <mat-dialog-actions>
+    <button mat-button mat-mini-fab matTooltip="Supprimer mon précédent Dislike" (click)="cancelPreviousDislike()" color="accent">
+        <mat-icon>delete_forever</mat-icon>
+    </button>
     <button mat-button mat-mini-fab matTooltip="Annuler" (click)="close()" color="accent">
         <mat-icon>cancel</mat-icon>
     </button>
