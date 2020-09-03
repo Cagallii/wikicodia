@@ -7,18 +7,17 @@
         <thead>
           <tr>
             <th>Titre</th>
-            <th>Auteur</th>
-            <th>En attente de publication?</th>
-            <th>Validé?</th>
+            <th>Type</th>
+            <th>Catégorie</th>
+            <th>Dernière modification</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let article of articles | async">
             <td>{{article.titre}}</td>
-            <td>{{article.auteur}}</td>
-            <td>{{article.estPublie}}</td>
-            <td>{{article.estValide}}</td>
-            
+            <td>{{article.type.libType}}</td>
+            <td>{{article.categorie.libCategorie}}</td>
+            <td>{{article.dateDerniereModif}}</td>      
             <td>
               <button (click)="validateArticle(article.idArticle)" class="btn btn-success">Valider</button>
             </td>
