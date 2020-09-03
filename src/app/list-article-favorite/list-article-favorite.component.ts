@@ -28,7 +28,7 @@ export class ListArticleFavoriteComponent implements OnInit {
 
   displayArticles(){
     
-    this.articlesFavoris = this.app.user.articlesFavoris;
+    //this.articlesFavoris = this.app.user.articlesFavoris;
     if (this.app.authenticated) {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
