@@ -44,5 +44,4 @@ export class ArticleService {
     return this.http.get(this.baseUrl + "mesarticles/" +`${userid}`);
   }
 
-
 }
