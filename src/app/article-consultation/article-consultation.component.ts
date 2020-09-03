@@ -38,7 +38,6 @@ import { VoteService } from "../services/vote.service";
   styleUrls: ["./article-consultation.component.css"],
 })
 export class ArticleConsultationComponent implements OnInit {
-  @Input()   oneArticle : Article;
 
   constructor(
     private dialog: MatDialog,
@@ -56,7 +55,7 @@ export class ArticleConsultationComponent implements OnInit {
   allLike: number = 0;
   allDislike: number = 0;
   dislikeComment: string = null;
-
+  oneArticle:Article;
   ngOnInit() {
 
     if (this.app.authenticated) {
@@ -67,10 +66,10 @@ export class ArticleConsultationComponent implements OnInit {
       this.dislikeComment = null;
 
       // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh
-      // this.route.params.subscribe(
-      //   (data: Article) => (this.oneArticle = data)
-      // );
-      this.oneArticle = this.oneArticle;
+      this.route.params.subscribe(
+        (data: Article) => (this.oneArticle = data)
+      );
+
 
       this.refreshDataArticle();
     } else {

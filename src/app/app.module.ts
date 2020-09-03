@@ -80,6 +80,7 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { ArticleCategoryComponent } from './article-category/article-category.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ListArticleAwaitingValidationComponent } from './list-article-awaiting-validation/list-article-awaiting-validation.component';
+import { ArticleConsultationMiniComponent } from './article-consultation-mini/article-consultation-mini.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -127,7 +128,8 @@ export class XhrInterceptor implements HttpInterceptor {
     UserSettingsComponent,
     ArticleCategoryComponent,
     HomePageComponent,
-    ListArticleAwaitingValidationComponent
+    ListArticleAwaitingValidationComponent,
+    ArticleConsultationMiniComponent
   ],
 
   imports: [
