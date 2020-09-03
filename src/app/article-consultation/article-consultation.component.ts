@@ -38,7 +38,6 @@ import { VoteService } from "../services/vote.service";
   styleUrls: ["./article-consultation.component.css"],
 })
 export class ArticleConsultationComponent implements OnInit {
-  @Input()   oneArticle : Article;
 
   constructor(
     private dialog: MatDialog,
@@ -67,10 +66,9 @@ export class ArticleConsultationComponent implements OnInit {
       this.dislikeComment = null;
 
       // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh
-      // this.route.params.subscribe(
-      //   (data: Article) => (this.gottenArticle = data)
-      // );
-      this.gottenArticle = this.oneArticle;
+      this.route.params.subscribe(
+        (data: Article) => (this.gottenArticle = data)
+      );
 
       this.refreshDataArticle();
     } else {

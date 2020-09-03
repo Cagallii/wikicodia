@@ -41,7 +41,7 @@ export class ArticleService {
   }
 
   getAllMyArticles(userid:number): Observable<Object> {
-    return this.http.get(this.baseUrl + "mesarticles" +`${userid}`);
+    return this.http.get(this.baseUrl + "mesarticles/" +`${userid}`);
   }
 
 
