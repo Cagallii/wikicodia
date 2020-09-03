@@ -44,4 +44,8 @@ export class ArticleService {
     return this.http.get(this.baseUrl + "mesarticles/" +`${userid}`);
   }
 
+  getMyFavoriteArticles(userId:number): Observable<Object>{
+    return this.http.get(this.baseUrl + "articlesFavoris/" + `${userId}`);
+  }
+
 }

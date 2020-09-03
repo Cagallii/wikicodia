@@ -12,7 +12,7 @@ import {  Router } from "@angular/router";
 })
 export class ListArticleFavoriteComponent implements OnInit {
 
-  articlesFavoris : any;
+  articlesFavoris : Article[];
   allMyArticles:Article[];
   autentificated: boolean = false;
   user: User = null;
@@ -33,7 +33,7 @@ export class ListArticleFavoriteComponent implements OnInit {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
       this.allMyArticles= new Array() ;
-      this.articleService.getAllMyArticles(this.user.idUtilisateur).subscribe((data:Article[])=>this.allMyArticles=data);
+      this.articleService.getMyFavoriteArticles(this.user.idUtilisateur).subscribe((data:Article[])=>this.articlesFavoris=data);
     } else {
       this.router.navigateByUrl("/");
     }
