@@ -59,6 +59,7 @@
                 <mat-label>Language</mat-label>
                 <mat-select formControlName="language"
                             [(ngModel)]="advancedSearchObject.language"
+                            (selectionChange)="onLanguageChange($event.value)"
                             multiple>
                   <mat-option *ngFor='let language of listLanguage | async;' [value]="language.lang">
                       {{language.lang}} : {{ language.version }}
@@ -72,6 +73,7 @@
                 <mat-label>Framework</mat-label>
                 <mat-select formControlName="framework"
                             [(ngModel)]="advancedSearchObject.framework"
+                            (selectionChange)="onFrameworkChange($event.value)"
                             multiple>
                   <mat-option *ngFor='let framework of listFramework |async;' [value]="framework.framework">
                       {{ framework.framework }} : {{ framework.version }}
@@ -118,33 +120,15 @@
                 </mat-select>
               </mat-form-field>
         </div>
-
-
+        <div class="col-sm-12 col-md-4 col-lg-3">
+            <button class="btn btn-secondary btn-sm" mat-button matTooltip="Valider la recherche" type="submit" (click)="advancedSearch()">
+                Valider
+            </button>
+        </div>
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <button class="resetButton" mat-button matTooltip="Supprimer les filtres selectionnés" type="button" (click)="resetForm()">
                 <mat-icon color="primary">backspace</mat-icon>
             </button>
         </div>
-
     </div>
-
-    <!-- zone order by  -->
-    <!-- <div class="row orderTitle" *ngIf="showFilters">
-        <mat-divider></mat-divider>
-        <div>Trier par :</div>
-    </div>
-    <div class="row orderZone" *ngIf="showFilters">
-        <div class="col-3 orderCheckbox">
-            <div>Date de dernière modification</div>
-            <input type="checkbox" formControlName="orderByModif" (change)="onCheckboxChange($event)" />
-        </div>
-        <div class="col-3 orderCheckbox">
-            <div>Date de création</div>
-            <input type="checkbox" formControlName="orderByCrea" (change)="onCheckboxChange($event)" />
-        </div>
-        <div class="col-3 orderCheckbox">
-            <div>Popularité</div>
-            <input type="checkbox" formControlName="orderByLikes" (change)="onCheckboxChange($event)" />
-        </div>
-    </div> -->
 </form>
