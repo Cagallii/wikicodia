@@ -1,21 +1,20 @@
-<button (click)="highlight()">c est beau</button>
-<mat-card class="consultation-card" *ngIf='this.gottenArticle'>
+<mat-card class="consultation-card" *ngIf='this.oneArticle'>
   <mat-card-header>
     <mat-chip-list aria-label="">
       <mat-chip color="accent" selected (click)="actionLike()"> <mat-icon>thumb_up</mat-icon> | {{this.allLike}}  </mat-chip>
       <mat-chip color="accent" selected (click)="openDialog()"><mat-icon>thumb_down</mat-icon> | {{this.allDislike}}</mat-chip>
     </mat-chip-list>
-    <mat-card-title>{{this.gottenArticle.titre}}</mat-card-title>
-    <mat-card-subtitle>{{this.gottenArticle.description}}</mat-card-subtitle>
+    <mat-card-title>{{this.oneArticle.titre}}</mat-card-title>
+    <mat-card-subtitle>{{this.oneArticle.description}}</mat-card-subtitle>
   </mat-card-header>
   <mat-chip-list aria-label="">
-    <mat-chip color="accent" selected>Type : {{this.gottenArticle.type.libType}}</mat-chip>
-    <mat-chip color="accent" selected>Catégorie : {{this.gottenArticle.categorie.libCategorie}}</mat-chip>
-    <mat-chip color="accent" selected *ngFor="let lang of this.gottenArticle.langage" value="{{lang}}">{{lang.lang}} {{lang.version}}</mat-chip>
-    <mat-chip color="accent" selected *ngFor="let fram of this.gottenArticle.framework" value="{{fram}}">{{fram.framework}} {{fram.version}}</mat-chip>
-    <mat-chip color="accent" selected>Créé le {{this.gottenArticle.dateCreation}}</mat-chip>
-    <mat-chip color="accent" selected>Modifié le {{this.gottenArticle.dateDerniereModif}}</mat-chip>
-    <mat-chip color="accent" selected>Créé par {{this.gottenArticle.auteur.pseudo}}</mat-chip>
+    <mat-chip color="accent" selected>Type : {{this.oneArticle.type.libType}}</mat-chip>
+    <mat-chip color="accent" selected>Catégorie : {{this.oneArticle.categorie.libCategorie}}</mat-chip>
+    <mat-chip color="accent" selected *ngFor="let lang of this.oneArticle.langage" value="{{lang}}">{{lang.lang}} {{lang.version}}</mat-chip>
+    <mat-chip color="accent" selected *ngFor="let fram of this.oneArticle.framework" value="{{fram}}">{{fram.framework}} {{fram.version}}</mat-chip>
+    <mat-chip color="accent" selected>Créé le {{this.oneArticle.dateCreation}}</mat-chip>
+    <mat-chip color="accent" selected>Modifié le {{this.oneArticle.dateDerniereModif}}</mat-chip>
+    <mat-chip color="accent" selected>Créé par {{this.oneArticle.auteur.pseudo}}</mat-chip>
   </mat-chip-list>
   <br />
 
@@ -26,17 +25,21 @@
   <mat-divider></mat-divider>
 
   <mat-card-actions>
-      <button mat-mini-fab matTooltip="Modifier cet article" color="primary">
-        <mat-icon>create</mat-icon>
-      </button>
+    <button *ngIf='this.isPromoteButtonAvailable' mat-mini-fab matTooltip="Promouvoir cet article" (click)='promoteArticle(this.oneArticle.idArticle)' color="primary">
+      <mat-icon>loyalty</mat-icon>
+    </button>
 
-      <button mat-mini-fab matTooltip="Imprimer l'article" color="primary">
-        <mat-icon>print</mat-icon>
-      </button>
+    <button mat-mini-fab matTooltip="Modifier cet article" color="primary">
+      <mat-icon>create</mat-icon>
+    </button>
 
-      <button mat-mini-fab matTooltip="Ajouter cet article à la liste de mes favoris" color="accent">
-        <mat-icon>add</mat-icon>
-      </button>
+    <button mat-mini-fab matTooltip="Imprimer l'article" color="primary">
+      <mat-icon>print</mat-icon>
+    </button>
+
+    <button mat-mini-fab matTooltip="Ajouter cet article à la liste de mes favoris" color="accent">
+      <mat-icon>add</mat-icon>
+    </button>
   </mat-card-actions>
 
 </mat-card>

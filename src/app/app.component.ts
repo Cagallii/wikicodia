@@ -20,6 +20,7 @@ export class AppComponent {
       //deconnecte l utilisateur et redirige vers la page d acceuille
       this.app.authenticated = false;
       this.router.navigateByUrl('/');
+      window.location.reload();
     });
   }
 

@@ -1,0 +1,27 @@
+<div id="container">
+    <h1>Dé-promouvoir un article</h1>
+    <div class="panel panel-primary">
+        <div class="panel-body">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let article of promotedArticles">
+                <td (click)="goToArticle(article.idArticle)">{{article.titre}}</td>
+                <td (click)="goToArticle(article.idArticle)">{{article.auteur.pseudo}}</td>
+                <td (click)="goToArticle(article.idArticle)"> <div id="description">{{article.description}}</div></td>
+                <td>
+                    <button (click)="unPromoteArticle(article.idArticle)" class="btn btn-danger">Dé-promouvoir</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        </div>
+    </div>
+</div>
+
