@@ -26,7 +26,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>Type d'article</mat-label>
                 <mat-select formControlName="type">
-                    <mat-option *ngFor="let value of variableBidon" value="{{ value }}">
+                    <mat-option *ngFor="let value of allType" value="{{ value }}">
                         {{ value }}
                     </mat-option>
                 </mat-select>
@@ -36,7 +36,7 @@
             <mat-form-field appearance="fill">
                 <mat-label>Catégorie d'article</mat-label>
                 <mat-select formControlName="category">
-                    <mat-option *ngFor="let value of variableBidon" value="{{ value }}">
+                    <mat-option *ngFor="let value of allCategory" value="{{ value }}">
                         {{ value }}
                     </mat-option>
                 </mat-select>

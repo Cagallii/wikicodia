@@ -29,5 +29,6 @@ export default class UserCreate {
     langage : Language[];
     type : TypeArticle[];
     categorie : Category[];
+    articlesFavoris : Article[];
 
 }
