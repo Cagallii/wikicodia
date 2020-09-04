@@ -65,12 +65,11 @@ export class ArticleConsultationComponent implements OnInit, DoCheck {
 
 
   ngDoCheck(){
-    console.log("boooom");
     this.highlight();
   }
 
   highlight(){
-    console.log("higzqdqzdqzd");
+    console.log("highlight launch");
     Prism.highlightAll();
   }
 
