@@ -131,7 +131,7 @@ export class XhrInterceptor implements HttpInterceptor {
     ArticleCategoryComponent,
     HomePageComponent,
     ListArticleAwaitingValidationComponent,
-    MarkdownPipe
+    MarkdownPipe,
     ArticleConsultationMiniComponent,
     ArticleStopPromoComponent
 
