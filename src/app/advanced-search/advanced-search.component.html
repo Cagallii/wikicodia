@@ -1,4 +1,4 @@
-<form [formGroup]="searchForm" class="maincontainer" (ngSubmit)="onSubmit()">
+<form [formGroup]="searchForm" class="maincontainer" (Submit)="advancedSearch()" (keyup.enter)="advancedSearch()">
     <!-- <a routerLink="/goHome"><h1>Wikicodia</h1></a> -->
     <div class="row searchZone">
         <div class="col-lg-10 col-md-10 col-sm-12 searchInput">
@@ -33,59 +33,46 @@
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Date de création</mat-label>
-                <mat-select formControlName="dateCrea">
-                    <mat-option value="none"> Toutes </mat-option>
-                  <mat-option *ngFor='let value of counter;' value="{{value}}">
-                      {{value}}
-                  </mat-option>
-                </mat-select>
+                <input matInput [matDatepicker]="picker" 
+                                formControlName="dateCrea"
+                                [(ngModel)]="advancedSearchObject.dateCreate">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
               </mat-form-field>
         </div>
-
-        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+        
+         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
-                <mat-label>Dernière modification</mat-label>
-                <mat-select formControlName="dateModif">
-                    <mat-option value="none"> Toutes </mat-option>
-                  <mat-option *ngFor='let value of counter;' value="{{value}}">
-                      {{value}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <mat-label>Date de modification</mat-label>
+                <input matInput [matDatepicker]="picker2" 
+                                formControlName="dateModif"
+                                [(ngModel)]="advancedSearchObject.datelastModif">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
         </div>
 
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Language</mat-label>
-                <mat-select formControlName="language">
-                    <mat-option value="none"> Tous </mat-option>
-                  <mat-option *ngFor='let value of listAllLanguages;' value="{{value}}">
-                      {{value}}
+                <mat-select formControlName="language"
+                            [(ngModel)]="advancedSearchObject.language"
+                            multiple>
+                  <mat-option *ngFor='let language of listLanguage | async;' [value]="language.lang">
+                      {{language.lang}} : {{ language.version }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
         </div>
-
-        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <mat-form-field appearance="fill">
-                <mat-label>Version du language</mat-label>
-                <mat-select formControlName="version">
-                    <mat-option value="none"> Toutes </mat-option>
-                  <mat-option *ngFor='let value of counter;' value="{{value}}">
-                      {{value}}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
-
 
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Framework</mat-label>
-                <mat-select formControlName="framework">
-                    <mat-option value="none"> Tous </mat-option>
-                  <mat-option *ngFor='let value of listAllFramework;' value="{{value}}">
-                      {{value}}
+                <mat-select formControlName="framework"
+                            [(ngModel)]="advancedSearchObject.framework"
+                            multiple>
+                  <mat-option *ngFor='let framework of listFramework |async;' [value]="framework.framework">
+                      {{ framework.framework }} : {{ framework.version }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -94,10 +81,10 @@
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Catégorie</mat-label>
-                <mat-select formControlName="category">
-                    <mat-option value="none"> Toutes </mat-option>
-                  <mat-option *ngFor='let value of listAllCategory;' value="{{value}}">
-                      {{value}}
+                <mat-select formControlName="category"
+                            [(ngModel)]="advancedSearchObject.category">
+                  <mat-option *ngFor='let category of listCategory| async;' [value]="category.libCategorie">
+                      {{category.libCategorie}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -106,11 +93,13 @@
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Popularités</mat-label>
-                <mat-select formControlName="likes">
-                    <mat-option value="none"> Tous </mat-option>
-                  <mat-option *ngFor='let value of listAllNbLikes;' value="{{value}}">
-                      {{value}}
-                  </mat-option>
+                <mat-select formControlName="likes"
+                            [(ngModel)]="advancedSearchObject.popularity"
+                            multiple>
+                    <mat-option value="Tous"> Tous </mat-option>
+                    <mat-option value="Nouveau"> Nouveau </mat-option>
+                    <mat-option value="Populaire"> Populaire </mat-option>
+                    <mat-option value="Très populaire"> Très populaire </mat-option>
                 </mat-select>
               </mat-form-field>
         </div>
@@ -118,10 +107,11 @@
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Type</mat-label>
-                <mat-select formControlName="type">
-                    <mat-option value="none"> Tous </mat-option>
-                  <mat-option *ngFor='let value of listAllType;' value="{{value}}">
-                      {{value}}
+                <mat-select formControlName="type"
+                            [(ngModel)]="advancedSearchObject.type"
+                            multiple>
+                  <mat-option *ngFor='let type of listType | async;' [value]="type.libType">
+                      {{type.libType}}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -129,7 +119,7 @@
 
 
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <button class="resetButton" mat-button matTooltip="Supprimer les filtres selectionnés" type="button" (click)="onReset()">
+            <button class="resetButton" mat-button matTooltip="Supprimer les filtres selectionnés" type="button" (click)="resetForm()">
                 <mat-icon color="primary">backspace</mat-icon>
             </button>
         </div>
