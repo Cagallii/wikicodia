@@ -16,7 +16,7 @@
                 <td (click)="goToArticle(article.idArticle)">{{article.auteur.pseudo}}</td>
                 <td (click)="goToArticle(article.idArticle)"> <div id="description">{{article.description}}</div></td>
                 <td>
-                    <button (click)="unPromoteArticle(article)" class="btn btn-danger">Dé-promouvoir</button>
+                    <button (click)="unPromoteArticle(article.idArticle)" class="btn btn-danger">Dé-promouvoir</button>
                 </td>
             </tr>
             </tbody>

@@ -66,9 +66,9 @@ export class ArticleStopPromoComponent implements OnInit {
     this.router.navigate(['articleConsultation', params]);
   }
 
-  unPromoteArticle(article){
-    console.log(article);
-    this.articleService.setArticlePromotion(article).subscribe(
+  unPromoteArticle(articleId){
+    console.log(articleId);
+    this.articleService.setArticlePromotion(articleId).subscribe(
       response => {
         console.log(response);
         this.router.navigateByUrl("/");
