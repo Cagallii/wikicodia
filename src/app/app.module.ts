@@ -81,6 +81,7 @@ import { ArticleCategoryComponent } from './article-category/article-category.co
 import { HomePageComponent } from './home-page/home-page.component';
 import { ListArticleAwaitingValidationComponent } from './list-article-awaiting-validation/list-article-awaiting-validation.component';
 import { ArticleConsultationMiniComponent } from './article-consultation-mini/article-consultation-mini.component';
+import { ArticleStopPromoComponent } from './article-stop-promo/article-stop-promo.component';
 
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -129,7 +130,8 @@ export class XhrInterceptor implements HttpInterceptor {
     ArticleCategoryComponent,
     HomePageComponent,
     ListArticleAwaitingValidationComponent,
-    ArticleConsultationMiniComponent
+    ArticleConsultationMiniComponent,
+    ArticleStopPromoComponent
   ],
 
   imports: [

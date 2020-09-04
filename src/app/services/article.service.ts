@@ -48,4 +48,12 @@ export class ArticleService {
     return this.http.get(this.baseUrl + "articlesFavoris/" + `${userId}`);
   }
 
+  getPromotedArticles() : Observable<Object> {
+    return this.http.get(this.baseUrl + "articlesPromus");
+  }
+
+  setArticlePromotion(article : Article) {
+    return this.http.put(this.baseUrl + "togglePromotion" , article);
+  }
+
 }

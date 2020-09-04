@@ -32,8 +32,10 @@ export class ListArticleFavoriteComponent implements OnInit {
     if (this.app.authenticated) {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
-      this.allMyArticles= new Array() ;
-      this.articleService.getMyFavoriteArticles(this.user.idUtilisateur).subscribe((data:Article[])=>this.articlesFavoris=data);
+      this.articleService.getMyFavoriteArticles(this.user.idUtilisateur)
+      .subscribe(
+        ( data : Article[] ) => this.articlesFavoris = data
+      );
     } else {
       this.router.navigateByUrl("/");
     }

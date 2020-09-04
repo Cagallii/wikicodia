@@ -26,6 +26,7 @@ import { AddTypeComponent } from "./add-type/add-type.component";
 import { AddLanguageComponent } from "./add-language/add-language.component";
 import { AddFrameworkComponent } from "./add-framework/add-framework.component";
 import { RegisterComponent } from './register/register.component';
+import { ArticleStopPromoComponent } from './article-stop-promo/article-stop-promo.component';
 
 const routes: Routes = [
   { path: "userProfil",component : UserProfilComponent},
@@ -49,6 +50,7 @@ const routes: Routes = [
   { path: "goHome",component: HomePageComponent},
   { path: "register",component: RegisterComponent},
   { path: "profil",component: UserProfilComponent},
+  { path: "stopPromo", component: ArticleStopPromoComponent}
 ];
 @NgModule({
   declarations: [],
