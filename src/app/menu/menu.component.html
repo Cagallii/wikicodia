@@ -1,7 +1,7 @@
 <button (click)="switchDisplay()" mat-button [matMenuTriggerFor]="menu">Menu</button>
 <mat-menu #menu="matMenu">
     <mat-icon *ngIf="authenticated" routerLink="userProfil">face</mat-icon>
-    <h3 *ngIf="authenticated">Bonjour [prenom]<!--{{ app.user.prenom }}--></h3>
+    <h3 *ngIf="authenticated">Bonjour {{ user.pseudo }}</h3>
 
     <!-- section accessible pour tout le monde -->
     <!-- ajouter lien vers la page de recherche des articles -->
