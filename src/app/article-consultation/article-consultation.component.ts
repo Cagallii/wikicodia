@@ -56,6 +56,8 @@ export class ArticleConsultationComponent implements OnInit {
   allDislike: number = 0;
   dislikeComment: string = null;
   oneArticle:Article;
+  isPromoteButtonAvailable:boolean = false;
+
   ngOnInit() {
 
     if (this.app.authenticated) {
@@ -67,10 +69,12 @@ export class ArticleConsultationComponent implements OnInit {
 
       // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh
       this.route.params.subscribe(
-        (data: Article) => (this.oneArticle = data)
+        (data: Article) => {
+          this.oneArticle = data;
+        }
+
       );
-
-
+      
       this.refreshDataArticle();
     } else {
       this.router.navigateByUrl("/");
@@ -186,6 +190,12 @@ export class ArticleConsultationComponent implements OnInit {
   refreshDataArticle() {
     this.articleService.getOneArticle(this.oneArticle.idArticle).subscribe((data: Article) => {
       this.oneArticle = data;
+      
+      if(this.user.role.role == "admin" && this.oneArticle.estPromu == false){
+        this.isPromoteButtonAvailable = true;
+      } else {
+        this.isPromoteButtonAvailable = false;
+      }
       console.log(this.oneArticle);
       console.log("data from refresh :");
       console.log(data);
@@ -242,7 +252,15 @@ export class ArticleConsultationComponent implements OnInit {
     });
   }
 
-  
+  promoteArticle(articleId : Number){
+    console.log(articleId);
+    this.articleService.setArticlePromotion(articleId).subscribe(
+      response => {
+        console.log(response);
+        this.router.navigateByUrl("/");
+      }
+    )
+  }
 
 }
 

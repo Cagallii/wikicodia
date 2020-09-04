@@ -52,8 +52,8 @@ export class ArticleService {
     return this.http.get(this.baseUrl + "articlesPromus");
   }
 
-  setArticlePromotion(article : Article) {
-    return this.http.put(this.baseUrl + "togglePromotion" , article);
+  setArticlePromotion(articleId : Number) : Observable<Object> {
+    return this.http.put(this.baseUrl + "togglePromotion/" + `${articleId}` , {observe: 'response'});
   }
 
 }
