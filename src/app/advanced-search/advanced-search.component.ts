@@ -1,7 +1,17 @@
 import { Component, OnInit, Output, EventEmitter,Input} from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatSlideToggleChange } from '@angular/material';
-
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {Search} from '../model/Search';
+import { CategoryService } from '../services/category.service';
+import { FrameworkService } from '../services/framework.service';
+import { LanguageService } from '../services/language.service';
+import { TypeService } from '../services/type.service';
+import Category from '../model/Category';
+import Framework from '../model/Framework';
+import Type from '../model/TypeArticle';
+import Language from '../model/Language';
+import { Observable } from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-advanced-search',
@@ -13,75 +23,88 @@ export class AdvancedSearchComponent implements OnInit {
   @Output()
   readonly darkModeSwitched = new EventEmitter<boolean>();
 
-
-  constructor(private formBuilder: FormBuilder) { }
-
-  searchForm: FormGroup;
+  public listCategory:Observable<Category[]>;
+  public listFramework:Observable<Framework[]>;
+  public listLanguage:Observable<Language[]>;
+  public listType:Observable<Type[]>;
+  public nbLike: any;
+  public advancedSearchObject = new Search();
+  public searchForm: FormGroup;
+  public versionToShow: string;
   submitted:boolean = false;
   showFilters:boolean = false;
 
   counter;
   // A remplacer par une recuperation du back ou d'un service
-  listAllLanguages;
-  listAllFramework;
-  listAllCategory;
-  listAllNbLikes;
-  listAllType;
 
-
-
+  constructor(
+    private formBuilder: FormBuilder,
+    private categoriesService: CategoryService,
+    private frameworkService: FrameworkService,
+    private langageService: LanguageService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private typeService: TypeService) { }
 
   ngOnInit() {
 
-    this.counter = ["Tous","Java","Javascript","C#","C","C++","Typescript","Go","Ruby","Python"];
-        // auto-generation de la liste deroulante pour la date de créa
-    // for(let i = 0; i<100; i++){
-    //   this.counter.push("0");
-    // }
-    // A remplacer par une recuperation du back ou d'un service
-    this.listAllLanguages = ["Tous","Java","Javascript","C#","C","C++","Typescript","Go","Ruby","Python"];
-    this.listAllFramework = ["Tous","Spring","Angular","AngularJS","Symphony","Laravel","Bootstrap","JQuery"];
-    this.listAllCategory = ["Tous","Tuto","Erreur"];
-    this.listAllNbLikes = ["Tous","Nouveau","Populaire","Très populaire"];
-    this.listAllType = ["Tous","Populaire","Très populaire"];
-
-
     this.searchForm = this.formBuilder.group({
-      searchWords:[""],
-      dateCrea: [this.counter[0]],
-      dateModif: [this.listAllLanguages[0]],
-      language: [this.listAllLanguages[0]],
-      version: [this.listAllLanguages[0]],
-      framework: [this.listAllFramework[0]],
-      category: [this.listAllCategory[0]],
-      likes: [this.listAllNbLikes[0]],
-      type: [this.listAllType[0]],
-      orderByModif: [false],
-      orderByCrea: [false],
-      orderByLikes: [false]
+      searchWords:[''],
+      dateCrea: [''],
+      dateModif: [''],
+      language: [''],
+      framework: [''],
+      category: [''],
+      likes: [''],
+      type: [''],
+      orderByModif: [''],
+      orderByCrea: [''],
+      orderByLikes: ['']
     });
 
+    this.listCategory = this.categoriesService.getAll();
+    this.listFramework = this.frameworkService.getAll();
+    this.listLanguage = this.langageService.getAll();
+    this.listType = this.typeService.getAll();
+    this.nbLike = ["Tous","Nouveau","Populaire","Très populaire"];
   }
-
 
   addFilters(){
-    console.log(this.showFilters);
     this.showFilters=!this.showFilters;
-    console.log("hello");
-    console.log(this.showFilters);
-    console.log(JSON.stringify(this.searchForm.value['dateCrea'], null, 4));
-  }
-
-  onCheckboxChange($event){
-    //alert(JSON.stringify(this.searchForm.value['language'][0], null, 4));
   }
 
   // convenience getter for easy access to form fields
   get f() { return this.searchForm.controls; }
 
-  onSubmit() {
-    this.submitted = true;
+  public paramAdvancedSearch():void{
+    this.router.navigate([''],{
+      queryParams: {
+        dateCreate : this.advancedSearchObject.dateCreate, 
+        datelastModif: this.advancedSearchObject.dateModif,
+        language: this.advancedSearchObject.language,
+        version: this.advancedSearchObject.version,
+        framework: this.advancedSearchObject.framework,
+        category:this.advancedSearchObject.category,
+        popularity: this.advancedSearchObject.popularity,
+        type:this.advancedSearchObject.type,
+      }
+    })
+  }
 
+  advancedSearch(): void {
+    this.submitted = true;
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.advancedSearchObject ={
+        dateCreate : params.dateCrea, 
+        dateModif: params.dateModif,
+        language: params.language,
+        version: params.version,
+        framework: params.framework,
+        category:params.category,
+        popularity: params.popularity,
+        type:params.type
+      }
+    })
     // stop here if form is invalid
     // if (this.searchForm.invalid) {
     //   return;
@@ -91,13 +114,8 @@ export class AdvancedSearchComponent implements OnInit {
     //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.searchForm.value, null, 4));
   }
 
-  onReset() {
+  public resetForm(): void {
     this.submitted = false;
     this.searchForm.reset();
   }
-
-
-
-
-
 }
