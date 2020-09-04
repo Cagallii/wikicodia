@@ -30,9 +30,6 @@ export class AdvancedSearchComponent implements OnInit {
   submitted:boolean = false;
   showFilters:boolean = false;
 
-  counter;
-  // A remplacer par une recuperation du back ou d'un service
-
   constructor(
     private formBuilder: FormBuilder,
     private categoriesService: CategoryService,
@@ -87,7 +84,7 @@ export class AdvancedSearchComponent implements OnInit {
     })
   }
 
-  advancedSearch(): void {
+  public advancedSearch(): void {
     this.submitted = true;
     this.activatedRoute.queryParams.subscribe(params => {
       this.advancedSearchObject ={
@@ -101,17 +98,23 @@ export class AdvancedSearchComponent implements OnInit {
         type:params.type
       }
     })
-    // stop here if form is invalid
-    // if (this.searchForm.invalid) {
-    //   return;
-    // }
-
-    // display form values on success
+    
     alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.searchForm.value, null, 4));
+  }
+
+  public onLanguageChange() : void{
+    this.searchForm.get('framework').disable();
+    return;
+  }
+  public onFrameworkChange() : void{
+    this.searchForm.get('language').disable();
+    return;
   }
 
   public resetForm(): void {
     this.submitted = false;
     this.searchForm.reset();
+    this.searchForm.get('framework').enable();
+    this.searchForm.get('language').enable();
   }
 }
