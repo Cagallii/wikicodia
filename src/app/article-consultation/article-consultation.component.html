@@ -19,7 +19,7 @@
   <br />
 
   <mat-card-content>
-    <div>{{this.oneArticle.contenu}}</div>
+    <div [innerHTML]="this.gottenArticle.contenu" ></div>
   </mat-card-content>
 
   <mat-divider></mat-divider>
@@ -43,7 +43,4 @@
   </mat-card-actions>
 
 </mat-card>
-
-
-
-    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+<!-- <div mat-card-avatar class="example-header-image"></div> -->
