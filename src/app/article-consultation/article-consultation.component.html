@@ -1,3 +1,4 @@
+<button (click)="highlight()">c est beau</button>
 <mat-card class="consultation-card" *ngIf='this.gottenArticle'>
   <mat-card-header>
     <mat-chip-list aria-label="">
@@ -19,7 +20,7 @@
   <br />
 
   <mat-card-content>
-    <div>{{this.gottenArticle.contenu}}</div>
+    <div [innerHTML]="this.gottenArticle.contenu" ></div>
   </mat-card-content>
 
   <mat-divider></mat-divider>
@@ -39,7 +40,4 @@
   </mat-card-actions>
 
 </mat-card>
-
-
-
-    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+<!-- <div mat-card-avatar class="example-header-image"></div> -->

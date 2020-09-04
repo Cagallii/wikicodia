@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from "@angular/core";
+import { Component, OnInit, Inject, AfterViewInit, Renderer2, AfterContentInit, DoCheck } from "@angular/core";
 import {
   MatDialog,
   MatDialogRef,
@@ -6,7 +6,7 @@ import {
   MatDialogConfig,
 } from "@angular/material/dialog";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, NavigationStart, Event as NavigationEvent, NavigationEnd } from "@angular/router";
 import Article from "../model/Article";
 import { AppService } from "../app.service";
 import User from "../model/UserCreate";
@@ -14,6 +14,9 @@ import { UserService } from "../services/user.service";
 import Vote from "../model/Vote";
 import { ArticleService } from "../services/article.service";
 import { VoteService } from "../services/vote.service";
+import * as marked from "marked";
+import { DOCUMENT } from '@angular/common';
+import * as prism from '../../assets/prismjs/prism.js';
 
 // exemple de récupération de data :
 
@@ -31,13 +34,15 @@ import { VoteService } from "../services/vote.service";
 //   });
 
 // }
+declare var Prism; 
 
 @Component({
   selector: "app-article-consultation",
   templateUrl: "./article-consultation.component.html",
   styleUrls: ["./article-consultation.component.css"],
 })
-export class ArticleConsultationComponent implements OnInit {
+export class ArticleConsultationComponent implements OnInit, DoCheck {
+
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -45,7 +50,7 @@ export class ArticleConsultationComponent implements OnInit {
     private app: AppService,
     private userService: UserService,
     private articleService: ArticleService,
-    private voteService: VoteService
+    private voteService: VoteService,
   ) {}
 
   gottenArticle: Article;
@@ -54,6 +59,17 @@ export class ArticleConsultationComponent implements OnInit {
   allLike: number = 0;
   allDislike: number = 0;
   dislikeComment: string = null;
+
+
+  ngDoCheck(){
+    console.log("boooom");
+    this.highlight();
+  }
+
+  highlight(){
+    console.log("higzqdqzdqzd");
+    Prism.highlightAll();
+  }
 
   ngOnInit() {
 
@@ -182,8 +198,12 @@ export class ArticleConsultationComponent implements OnInit {
   }
 
   refreshDataArticle() {
-    this.articleService.getOneArticle(1).subscribe((data: Article) => {
+    this.articleService.getOneArticle(9).subscribe((data: Article) => {
       this.gottenArticle = data;
+
+      if (this.gottenArticle.contenu && this.gottenArticle.contenu.length > 0) {
+        this.gottenArticle.contenu = marked(this.gottenArticle.contenu);
+      }
       console.log(this.gottenArticle);
       console.log("data from refresh :");
       console.log(data);
