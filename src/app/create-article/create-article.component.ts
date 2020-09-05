@@ -22,6 +22,8 @@ import { FrameworkService } from "../services/framework.service";
 import { TypeService } from "../services/type.service";
 import Langage from "../model/Language";
 import TypeArticle from "../model/TypeArticle";
+import { MatSelect,MatSelectChange} from '@angular/material';
+
 
 import {
   ViewChild,
@@ -155,6 +157,30 @@ console.log(this.createArticleForm.controls["languages"].value.length)
 }
   }
 
+  onCloseMethod(){
+    if(this.createArticleForm.controls["languages"].valid){
+      this.allSelectedLangLib = new Array();
+      this.createArticleForm.controls["languages"].value.forEach(langlib => {
+        this.allSelectedLangLib.push(langlib);
+      });
+    }
+
+    if(this.createArticleForm.controls["frameworks"].value.length>0){
+      this.allSelectedFramLib = new Array();
+      this.createArticleForm.controls["frameworks"].value.forEach(framlib => {
+        this.allSelectedFramLib.push(framlib);
+      });
+    }
+
+    console.log(this.allSelectedLangLib);
+    console.log(this.allSelectedFramLib);
+  }
+
+
+  addVersion(){
+
+  }
+
   // getErrorMessage() {
   //   if (this.createArticleForm.value.title.hasError('required')) {
   //     return 'You must enter a value';
@@ -197,6 +223,9 @@ console.log(this.createArticleForm.controls["languages"].value.length)
   // }
 
   onSubmit() {
+    // this.allSelectedLangLib.forEach((langlib ) => this.createArticleForm.addControl(langlib, new FormControl('', Validators.required)));
+
+
     if (this.createArticleForm.invalid) {
       return;
     } else if (this.app.authenticated) {
@@ -238,6 +267,8 @@ console.log(this.createArticleForm.controls["languages"].value.length)
   }
 
   onSubmitGlobally() {
+    // this.allSelectedLangLib.forEach((langlib ) => this.createArticleForm .addControl(langlib, new FormControl('', [Validators.required])));
+
     if (this.createArticleForm.invalid) {
       return;
     } else if (this.app.authenticated) {
