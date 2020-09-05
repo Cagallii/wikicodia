@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, AfterViewInit, Renderer2, AfterContentInit, DoCheck } from "@angular/core";
+import { Component, OnInit, Inject, AfterViewInit, Renderer2, AfterContentInit, DoCheck, AfterViewChecked } from "@angular/core";
 import {
   MatDialog,
   MatDialogRef,
@@ -17,6 +17,7 @@ import { VoteService } from "../services/vote.service";
 import * as marked from "marked";
 import { DOCUMENT } from '@angular/common';
 import * as prism from '../../assets/prismjs/prism.js';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 // exemple de récupération de data :
 
@@ -42,7 +43,7 @@ declare var Prism;
   styleUrls: ["./article-consultation.component.css"],
 })
 
-export class ArticleConsultationComponent implements OnInit, DoCheck {
+export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private dialog: MatDialog,
@@ -52,6 +53,7 @@ export class ArticleConsultationComponent implements OnInit, DoCheck {
     private userService: UserService,
     private articleService: ArticleService,
     private voteService: VoteService,
+    private sanitizer: DomSanitizer
   ) {}
 
   // oneArticle: Article = this.oneArticle;
@@ -62,9 +64,9 @@ export class ArticleConsultationComponent implements OnInit, DoCheck {
   dislikeComment: string = null;
   oneArticle:Article;
   isPromoteButtonAvailable:boolean = false;
+  mardownContenu: SafeHtml;
 
-
-  ngDoCheck(){
+  ngAfterViewChecked(){
     this.highlight();
   }
 
@@ -207,7 +209,7 @@ export class ArticleConsultationComponent implements OnInit, DoCheck {
       this.oneArticle = data;
   
       if (this.oneArticle.contenu && this.oneArticle.contenu.length > 0) {
-        this.oneArticle.contenu = marked(this.oneArticle.contenu);
+        this.mardownContenu = this.sanitizer.bypassSecurityTrustHtml(marked(this.oneArticle.contenu));
       }
       
       if(this.user.role.role == "admin" && this.oneArticle.estPromu == false){
