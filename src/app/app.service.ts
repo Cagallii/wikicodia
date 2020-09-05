@@ -36,9 +36,7 @@ export class AppService {
         }).subscribe(response => {
 
             this.http.get('user').subscribe(
-                response => {
-                    console.log(response);
-                    
+                response => {                    
                     if (response['authenticated']) {
                         this.authenticated = true;
                         this.user = new User();

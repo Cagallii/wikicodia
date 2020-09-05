@@ -30,5 +30,5 @@ export default class UserCreate {
     type : TypeArticle[];
     categorie : Category[];
     articlesFavoris : Article[];
-
+    
 }
