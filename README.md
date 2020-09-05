@@ -9,6 +9,7 @@ npm install jquery@ --save
 npm install popper.js --save
 npm install jquery -- save
 npm install hammerjs -- save
+npm install marked
 
 ## Development server
 
