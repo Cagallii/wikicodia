@@ -8,6 +8,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { CreateArticleComponent } from "./create-article/create-article.component";
+import { CommentArticleComponent } from "./comment-article/comment-article.component";
 import { ListArticleCreatedComponent } from "./list-article-created/list-article-created.component";
 import { UserSettingsComponent } from "./user-settings/user-settings.component";
 import { AdministratorRoleManagementComponent } from "./administrator-role-management/administrator-role-management.component";
@@ -27,6 +28,7 @@ import { AddLanguageComponent } from "./add-language/add-language.component";
 import { AddFrameworkComponent } from "./add-framework/add-framework.component";
 import { RegisterComponent } from './register/register.component';
 import { ArticleStopPromoComponent } from './article-stop-promo/article-stop-promo.component';
+import { CarouselArticleComponent } from './carousel-article/carousel-article.component';
 
 const routes: Routes = [
   { path: "userProfil",component : UserProfilComponent},
@@ -42,6 +44,7 @@ const routes: Routes = [
   { path: "connexion", component: LoginComponent },
   { path: "articleConsultation", component: ArticleConsultationComponent},
   { path: "createArticle", component: CreateArticleComponent },
+  { path: "commentArticle/:id", component: CommentArticleComponent },
   { path: "createdArticles", component: ListArticleCreatedComponent},
   { path: "articles/pending", component: ListArticleAwaitingValidationComponent},
   { path: "userSettings",component: UserSettingsComponent },
@@ -49,7 +52,7 @@ const routes: Routes = [
   { path: "AddOrEditCategory",component: ArticleCategoryComponent},
   { path: "goHome",component: HomePageComponent},
   { path: "register",component: RegisterComponent},
-  { path: "profil",component: UserProfilComponent},
+  { path: "profil",component: UserProfilComponent}
   { path: "stopPromo", component: ArticleStopPromoComponent}
 ];
 @NgModule({

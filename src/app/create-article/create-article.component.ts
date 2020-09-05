@@ -250,7 +250,7 @@ console.log(this.createArticleForm.controls["languages"].value.length)
       ].value;
       this.newArticle.dateCreation = null;
       this.newArticle.dateDerniereModif = null;
-
+      this.newArticle.comAdmin = null;
       this.newArticle.framework = this.allSelectedFramComplet
   ;
       this.newArticle.langage = this.allSelectedLangComplet;

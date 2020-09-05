@@ -1,19 +1,30 @@
 <mat-card class="consultation-card" *ngIf='this.oneArticle' (click)="goToArticle(this.oneArticle.idArticle)">
-    <mat-card-header>
-      <mat-card-title>{{this.oneArticle.titre}}</mat-card-title>
-      <mat-card-subtitle>{{this.oneArticle.description}}</mat-card-subtitle>
-    </mat-card-header>
-    <mat-chip-list aria-label="">
-      <mat-chip color="accent" selected>Type : {{this.oneArticle.type.libType}}</mat-chip>
-      <mat-chip color="accent" selected>Catégorie : {{this.oneArticle.categorie.libCategorie}}</mat-chip>
-      <mat-chip color="accent" selected *ngFor="let lang of this.oneArticle.langage" value="{{lang}}">{{lang.lang}} {{lang.version}}</mat-chip>
-      <mat-chip color="accent" selected *ngFor="let fram of this.oneArticle.framework" value="{{fram}}">{{fram.framework}} {{fram.version}}</mat-chip>
-      <mat-chip color="accent" selected>Créé le {{this.oneArticle.dateCreation}}</mat-chip>
-      <mat-chip color="accent" selected>Modifié le {{this.oneArticle.dateDerniereModif}}</mat-chip>
-      <mat-chip color="accent" selected>Créé par {{this.oneArticle.auteur.pseudo}}</mat-chip>
-    </mat-chip-list>
-    <br />
-  </mat-card>
+  
+  <mat-card-header>
+    <mat-card-title>{{this.oneArticle.titre}}</mat-card-title>
+    <mat-card-subtitle>{{this.oneArticle.description}}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-chip-list aria-label="">
+    <mat-chip color="accent" selected>Type : {{this.oneArticle.type.libType}}</mat-chip>
+    <mat-chip color="accent" selected>Catégorie : {{this.oneArticle.categorie.libCategorie}}</mat-chip>
+    <mat-chip color="accent" selected *ngFor="let lang of this.oneArticle.langage" value="{{lang}}">{{lang.lang}} {{lang.version}}</mat-chip>
+    <mat-chip color="accent" selected *ngFor="let fram of this.oneArticle.framework" value="{{fram}}">{{fram.framework}} {{fram.version}}</mat-chip>
+    <mat-chip color="accent" selected>Créé le {{this.oneArticle.dateCreation}}</mat-chip>
+    <mat-chip color="accent" selected>Modifié le {{this.oneArticle.dateDerniereModif}}</mat-chip>
+    <mat-chip color="accent" selected>Créé par {{this.oneArticle.auteur.pseudo}}</mat-chip>
+  </mat-chip-list>
+  
+  <br />
+  <br />
+
+  <mat-chip-list>
+    <mat-chip color="primary" selected (click)="validateArticle(this.oneArticle.idArticle)">Valider</mat-chip>
+    <mat-chip color="warn" selected (click)="rejectArticle(this.oneArticle.idArticle)">Rejeter</mat-chip>
+    <mat-chip color="accent" selected [routerLink]="['/commentArticle', this.oneArticle.idArticle]">Commenter la décision</mat-chip>
+  </mat-chip-list>
+
+</mat-card>
   
   
   

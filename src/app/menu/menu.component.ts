@@ -32,7 +32,7 @@ export class MenuComponent implements OnInit {
     this.authenticated = this.app.authenticated;
     this.user = this.app.user;
     
-    if (this.app.user.role.role == "admin"){
+    if (this.authenticated && this.app.user.role.role == "admin"){
       this.adminConnected = true;
     } else {
       this.adminConnected = false;

@@ -3,31 +3,10 @@
       <h2>Articles en attente de validation</h2>
     </div>
     <div class="panel-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Titre</th>
-            <th>Auteur</th>
-            <th>En attente de publication?</th>
-            <th>Validé?</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let article of articles | async">
-            <td>{{article.titre}}</td>
-            <td>{{article.auteur}}</td>
-            <td>{{article.estPublie}}</td>
-            <td>{{article.estValide}}</td>
-            
-            <td>
-              <button (click)="validateArticle(article.idArticle)" class="btn btn-success">Valider</button>
-            </td>
-            <td>
-                <button (click)="rejectArticle(article.idArticle)" class="btn btn-danger">Rejeter</button>
-            </td>
-            
-          </tr>
-        </tbody>
-      </table>
+      <app-article-consultation-mini class="col-12" *ngFor="let article of allMyArticles" [oneArticle]="article">
+      </app-article-consultation-mini>
     </div>
-  </div>
+</div>
+
+  
+

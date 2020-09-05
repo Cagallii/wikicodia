@@ -1,11 +1,11 @@
 <div class="container">
     <div class="alert alert-danger" [hidden]="!error">
-        Erreure de connexion
+        Erreur de connexion
     </div>
     <form [formGroup]="loginForm">
         <h2>Se connecter</h2>
         <div *ngIf="app.wrongPassword" class="alert-msg">
-            <p>L'email ou le mot de passe n est pas correcte</p>
+            <p>L'email et/ou le mot de passe sont incorrects.</p>
         </div>
         <mat-form-field appearance="fill" class="full-width-input">
             <mat-label>E-mail</mat-label>

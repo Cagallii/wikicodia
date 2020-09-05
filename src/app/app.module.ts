@@ -83,15 +83,48 @@ import { ListArticleAwaitingValidationComponent } from './list-article-awaiting-
 import { MarkdownPipe } from './markdown.pipe';
 import { ArticleConsultationMiniComponent } from './article-consultation-mini/article-consultation-mini.component';
 import { ArticleStopPromoComponent } from './article-stop-promo/article-stop-promo.component';
+import { CommentArticleComponent } from './comment-article/comment-article.component';
 
+// Imports pour l'interception des erreurs
+import { HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { retry, catchError } from 'rxjs/operators';
+
+/**
+ * Classe permettant d'afficher un message d'erreur pour l'utilisateur, notamment lorsqu'on a une exception côté serveur
+ */
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    /*
     const xhr = req.clone({
       headers: req.headers.set('X-Requested-With', 'XMLHttpRequest')
     });
-    return next.handle(xhr);
+    */
+    return next.handle(req).pipe(
+      retry(1),
+      catchError((error: HttpErrorResponse) => {
+        let errorMessage = '';
+        if (error.error instanceof ErrorEvent) {
+          // client-side error
+          errorMessage = `Error: ${error.error.message}`;
+        }else {
+          // server-side error
+          errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+          // Suppression de la popup au lancement de l'appli (403 - forbidden)
+          if (errorMessage.includes('user: 403 Forbidden')){
+            return throwError(errorMessage);
+          }
+          // Message spécifique aux erreurs sur la page des articles en attente de validation
+          if (errorMessage.includes('articles/reject')){
+            errorMessage = "Action impossible! Veuillez d'abord renseigner un commentaire pour justifier le rejet de cet article.";
+          }
+        }
+        window.alert(errorMessage);
+        return throwError(errorMessage);
+      })
+    );
   }
 }
 
@@ -134,7 +167,7 @@ export class XhrInterceptor implements HttpInterceptor {
     MarkdownPipe,
     ArticleConsultationMiniComponent,
     ArticleStopPromoComponent
-
+    CommentArticleComponent
   ],
 
   imports: [
@@ -191,7 +224,8 @@ export class XhrInterceptor implements HttpInterceptor {
     PortalModule,
     ScrollingModule,
   ],
-  providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }],
+  providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }
+  ],
   entryComponents: [ArticleConsultationComponentDialog],
   bootstrap: [AppComponent],
 })
