@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import User from '../model/UserCreate';
 import Category from '../model/Category';
 import * as moment from 'moment';
+import { category } from '../enum/category';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +65,34 @@ export class UserService {
 
   }
 
+  /**
+   * Gestion des preferences
+   */
+
   getAuteurs(auteurIds : Number[]): Observable<any>{
     return this.http.post(`${this.baseUrl}/trouverDesAuteurs` , auteurIds);
+  }
+
+  
+  getUserCategorie(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/categories/${id}`);
+  }
+
+  getUserFramework(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/framework/${id}`);
+  }
+
+  getUserLangage(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/langage/${id}`);
+  }
+
+  getUserType(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/type/${id}`);
+  }
+
+  getUserPreferences(u: User){
+    this.getUserCategorie(u.idUtilisateur).subscribe(
+      categorie => console.log(categorie) 
+    );
   }
 }
