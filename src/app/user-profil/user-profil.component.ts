@@ -48,11 +48,18 @@ export class UserProfilComponent implements OnInit {
 
   ngOnInit() {
     this.autentificated = this.app.authenticated;
-    this.user = this.app.user;
     this.categories = this.categoriesService.getAll();
     this.framework = this.frameworkService.getAll();
     this.language = this.langageService.getAll();
     this.type = this.typeService.getAll();
+
+    console.log(this.app.user.idUtilisateur);
+    console.log("app user");
+    console.log(this.app.user);
+    console.log("utilisateur profil :");
+    console.log(this.user);
+    
+    this.userService.getUserPreferences(this.app.user);
 
     if (this.app.authenticated) {
       // editon utilisateur
