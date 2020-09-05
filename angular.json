@@ -27,10 +27,14 @@
               {
                 "input": "src/my-theme.scss"
               },
+              "src/assets/prismjs/prism.css",
               "src/styles.scss",
               "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
+              {
+                "input": "src/assets/prismjs/prism.js"
+              },
               "node_modules/jquery/dist/jquery.min.js",
               "node_modules/popper.js/dist/umd/popper.min.js",
               "node_modules/bootstrap/dist/js/bootstrap.min.js"

@@ -63,4 +63,8 @@ export class UserService {
     u.categorie = user['categorie'];
 
   }
+
+  getAuteurs(auteurIds : Number[]): Observable<any>{
+    return this.http.post(`${this.baseUrl}/trouverDesAuteurs` , auteurIds);
+  }
 }

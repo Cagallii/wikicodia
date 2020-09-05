@@ -33,6 +33,11 @@ mat-select{
     width: 100%;
 }
 
+.addVersion{
+    display: inline-block;
+    margin: 2em;
+}
+
 
 /* .mat-form-field {
     display: inline-block;

@@ -7,6 +7,9 @@ pour installer jquery , bootstrap et propper :
 npm install bootstrap@4.5.0  --save
 npm install jquery@ --save
 npm install popper.js --save
+npm install jquery -- save
+npm install hammerjs -- save
+npm install marked
 
 ## Development server
 

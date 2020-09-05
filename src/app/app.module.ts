@@ -80,7 +80,9 @@ import { UserSettingsComponent } from './user-settings/user-settings.component';
 import { ArticleCategoryComponent } from './article-category/article-category.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { ListArticleAwaitingValidationComponent } from './list-article-awaiting-validation/list-article-awaiting-validation.component';
+import { MarkdownPipe } from './markdown.pipe';
 import { ArticleConsultationMiniComponent } from './article-consultation-mini/article-consultation-mini.component';
+import { ArticleStopPromoComponent } from './article-stop-promo/article-stop-promo.component';
 import { CommentArticleComponent } from './comment-article/comment-article.component';
 
 // Imports pour l'interception des erreurs
@@ -89,7 +91,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
 /**
- * Classe permettant d'afficher un message d'erreur pour l'utilisateur, notamment lorsqu'on a une exception cÃ´tÃ© serveur
+ * Classe permettant d'afficher un message d'erreur pour l'utilisateur, notamment lorsqu'on a une exception côté serveur
  */
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -114,7 +116,7 @@ export class XhrInterceptor implements HttpInterceptor {
           if (errorMessage.includes('user: 403 Forbidden')){
             return throwError(errorMessage);
           }
-          // Message spÃ©cifique aux erreurs sur la page des articles en attente de validation
+          // Message spécifique aux erreurs sur la page des articles en attente de validation
           if (errorMessage.includes('articles/reject')){
             errorMessage = "Action impossible! Veuillez d'abord renseigner un commentaire pour justifier le rejet de cet article.";
           }
@@ -162,7 +164,9 @@ export class XhrInterceptor implements HttpInterceptor {
     ArticleCategoryComponent,
     HomePageComponent,
     ListArticleAwaitingValidationComponent,
+    MarkdownPipe,
     ArticleConsultationMiniComponent,
+    ArticleStopPromoComponent
     CommentArticleComponent
   ],
 

@@ -23,136 +23,66 @@
 
             <!-- zone des selects -->
 
-            <mat-form-field appearance="fill">
+            <mat-form-field >
                 <mat-label>Type d'article</mat-label>
                 <mat-select formControlName="type">
-                    <mat-option *ngFor="let value of allType" value="{{ value }}">
-                        {{ value }}
+                    <mat-option *ngFor="let value of allType" value="{{value}}">
+                        {{value}}
                     </mat-option>
                 </mat-select>
                 <mat-error align="end" *ngIf="hasError('type', 'required')">Ce champs est requis</mat-error>
             </mat-form-field>
 
-            <mat-form-field appearance="fill">
+            <mat-form-field >
                 <mat-label>Catégorie d'article</mat-label>
                 <mat-select formControlName="category">
-                    <mat-option *ngFor="let value of allCategory" value="{{ value }}">
-                        {{ value }}
+                    <mat-option *ngFor="let value of allCategory" value="{{value}}">
+                        {{value}}
                     </mat-option>
                 </mat-select>
                 <mat-error align="end" *ngIf="hasError('category', 'required')">Ce champs est requis</mat-error>
             </mat-form-field>
 
-            <mat-divider></mat-divider>
-            <br />
-            <br />
 
-
-
-
-
-
-
-
-            <div class="row addLangOrFramRow">
-
-
-                <div class="col-lg-12 col-md-12 col-sm-12 ">
-                    <p>Liste des languages utilisés dans l'article </p>
-                </div>
-
-                <div class="col-lg-5 col-md-5 col-sm-7 largeInput">
-                    <!-- <mat-label>Language utilisé</mat-label> -->
-                    <input matInput type="text" placeholder="Language utilisé" [(ngModel)]="selectedLang"
-                        [ngModelOptions]="{ standalone: true }" />
-                </div>
-
-                <div class="col-lg-5 col-md-5 col-sm-3 largeInput">
-                    <!-- <mat-label>Version</mat-label> -->
-                    <input matInput type="text" placeholder="Version du language" [(ngModel)]="selectedLangVersion"
-                        [ngModelOptions]="{ standalone: true }" />
-                </div>
-
-                <div class="col-lg-2 col-md-2 col-sm-2 searchBtns">
-                    <button mat-button matTooltip="Ajouter ce language" type="button" (click)="addOneLanguage()">
-                        <mat-icon color="primary">add</mat-icon>
-                    </button>
-                </div>
-            </div>
-
-            <br />
-
-            <mat-form-field appearance="fill">
-                <!-- <mat-label>Languages Selectionnés</mat-label> -->
-                <mat-chip-list class="langageList">
-                    <mat-chip *ngFor="let langage of allSelectedLang" value="{{ langage }}" color="accent" selected>
-                        {{ langage.lang}} {{langage.version}}
-                        <button class="removeBtn" mat-button matTooltip="Retirer ce language" type="button"
-                            (click)="removeOneLanguage(langage)">
-                            <mat-icon color="primary">remove</mat-icon>
-                        </button>
-                    </mat-chip>
-                </mat-chip-list>
-                <!-- <mat-error align="end" *ngIf="hasError('langages', 'required')">Il est impératif de préciser les
-                    languages et frameworks utilisés</mat-error> -->
+            <mat-form-field matTooltip="Selectionnez les différents languages abordés dans cet article">
+                <mat-label>Langages</mat-label>
+                <mat-select formControlName="languages" multiple (closed)="onCloseMethod()">
+                    <mat-option *ngFor="let value of allLanguages" value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end" *ngIf="hasError('languages', 'required')">Ce champs est requis</mat-error>
             </mat-form-field>
 
 
-            <br />
-            <mat-divider></mat-divider>
-            <br />
 
-
-            <div class="row addLangOrFramRow">
-
-                <div class="col-lg-12 col-md-12 col-sm-12 ">
-                    <p>Liste des frameworks utilisés dans l'article </p>
-                </div>
-
-                <div class="col-lg-5 col-md-5 col-sm-7 largeInput">
-                    <!-- <mat-label>Language utilisé</mat-label> -->
-                    <input matInput type="text" placeholder="Framework utilisé" [(ngModel)]="selectedFram"
-                        [ngModelOptions]="{ standalone: true }" />
-                </div>
-
-                <div class="col-lg-5 col-md-5 col-sm-3 largeInput">
-                    <!-- <mat-label>Version</mat-label> -->
-                    <input matInput type="text" placeholder="Version du framework" [(ngModel)]="selectedFramVersion"
-                        [ngModelOptions]="{standalone:true}">
-                </div>
-
-                <div class="col-lg-2 col-md-2 col-sm-2 searchBtns">
-                    <button mat-button matTooltip="Ajouter ce framework" type="button" (click)="addOneFramework()">
-                        <mat-icon color="primary">add</mat-icon>
-                    </button>
-                </div>
-
-
-
-            <!-- affichage des languages et versions selectionnés -->
-            <br />
-
-            <mat-form-field appearance="fill">
-                <!-- <mat-label>Frameworks Selectionnés</mat-label> -->
-                    <mat-chip-list >
-                        <mat-chip *ngFor="let framew of allSelectedFram" value="{{framew}}" color="accent" selected>
-                            {{framew.framework}} {{framew.version}}
-                            <button class="removeBtn" mat-button matTooltip="Retirer ce framework" type="button"
-                                (click)="removeOneFramework(framew)">
-                                <mat-icon color="primary">remove</mat-icon>
-                            </button>
-                        </mat-chip>
-                    </mat-chip-list>
-                    <!-- <mat-error align="end" *ngIf="hasError('frameworks', 'required')">Il est impératif de préciser les
-                        languages et frameworks utilisés</mat-error> -->
+            <mat-form-field matTooltip="Selectionnez les différents frameworks abordés dans cet article">
+                <mat-label>Frameworks</mat-label>
+                <mat-select formControlName="frameworks" multiple (closed)="onCloseMethod()">
+                    <mat-option *ngFor="let value of allFrameworks" value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
 
 
+            <br>
+            <mat-divider></mat-divider>
+            <br />
+
+            <!-- *ngIf="this.allSelectedLangLib.length>0" -->
+            <div class="addVersion" *ngFor="let langlib of allSelectedLangLib">
+                <mat-form-field class="smallInput" matTooltip="Indiquez les version des différents languages selectionnés" *ngIf="this.allSelectedLangLib.length>0">
+                        {{langlib}}  version : <input matInput type="text"/>
+                    <!-- <mat-error align="end" *ngIf="hasError({{langlib}}, 'required')">Ce champs est requis</mat-error> -->
+                </mat-form-field>
             </div>
+
 
             <br />
             <mat-divider></mat-divider>
             <br />
+
 
 
             <!-- fin de zone des selects -->

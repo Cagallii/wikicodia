@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Inject } from "@angular/core";
+import { Component, OnInit, Inject, AfterViewInit, Renderer2, AfterContentInit, DoCheck, AfterViewChecked } from "@angular/core";
 import {
   MatDialog,
   MatDialogRef,
@@ -6,7 +6,7 @@ import {
   MatDialogConfig,
 } from "@angular/material/dialog";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
+import { ActivatedRoute, Router, NavigationStart, Event as NavigationEvent, NavigationEnd } from "@angular/router";
 import Article from "../model/Article";
 import { AppService } from "../app.service";
 import User from "../model/UserCreate";
@@ -14,6 +14,10 @@ import { UserService } from "../services/user.service";
 import Vote from "../model/Vote";
 import { ArticleService } from "../services/article.service";
 import { VoteService } from "../services/vote.service";
+import * as marked from "marked";
+import { DOCUMENT } from '@angular/common';
+import * as prism from '../../assets/prismjs/prism.js';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 // exemple de récupération de data :
 
@@ -31,13 +35,15 @@ import { VoteService } from "../services/vote.service";
 //   });
 
 // }
+declare var Prism; 
 
 @Component({
   selector: "app-article-consultation",
   templateUrl: "./article-consultation.component.html",
   styleUrls: ["./article-consultation.component.css"],
 })
-export class ArticleConsultationComponent implements OnInit {
+
+export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private dialog: MatDialog,
@@ -46,7 +52,8 @@ export class ArticleConsultationComponent implements OnInit {
     private app: AppService,
     private userService: UserService,
     private articleService: ArticleService,
-    private voteService: VoteService
+    private voteService: VoteService,
+    private sanitizer: DomSanitizer
   ) {}
 
   // oneArticle: Article = this.oneArticle;
@@ -56,6 +63,18 @@ export class ArticleConsultationComponent implements OnInit {
   allDislike: number = 0;
   dislikeComment: string = null;
   oneArticle:Article;
+  isPromoteButtonAvailable:boolean = false;
+  mardownContenu: SafeHtml;
+
+  ngAfterViewChecked(){
+    this.highlight();
+  }
+
+  highlight(){
+    console.log("highlight launch");
+    Prism.highlightAll();
+  }
+
   ngOnInit() {
 
     if (this.app.authenticated) {
@@ -67,10 +86,12 @@ export class ArticleConsultationComponent implements OnInit {
 
       // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh
       this.route.params.subscribe(
-        (data: Article) => (this.oneArticle = data)
+        (data: Article) => {
+          this.oneArticle = data;
+        }
+
       );
-
-
+      
       this.refreshDataArticle();
     } else {
       this.router.navigateByUrl("/");
@@ -186,6 +207,16 @@ export class ArticleConsultationComponent implements OnInit {
   refreshDataArticle() {
     this.articleService.getOneArticle(this.oneArticle.idArticle).subscribe((data: Article) => {
       this.oneArticle = data;
+  
+      if (this.oneArticle.contenu && this.oneArticle.contenu.length > 0) {
+        this.mardownContenu = this.sanitizer.bypassSecurityTrustHtml(marked(this.oneArticle.contenu));
+      }
+      
+      if(this.user.role.role == "admin" && this.oneArticle.estPromu == false){
+        this.isPromoteButtonAvailable = true;
+      } else {
+        this.isPromoteButtonAvailable = false;
+      }
       console.log(this.oneArticle);
       console.log("data from refresh :");
       console.log(data);
@@ -242,7 +273,15 @@ export class ArticleConsultationComponent implements OnInit {
     });
   }
 
-  
+  promoteArticle(articleId : Number){
+    console.log(articleId);
+    this.articleService.setArticlePromotion(articleId).subscribe(
+      response => {
+        console.log(response);
+        this.router.navigateByUrl("/");
+      }
+    )
+  }
 
 }
 
