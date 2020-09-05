@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { ArticleService } from '../services/article.service';
+import { AppService } from "../app.service";
 import Article from './../model/Article'
 import { Router } from '@angular/router';
 
@@ -11,36 +12,23 @@ import { Router } from '@angular/router';
 })
 export class ListArticleAwaitingValidationComponent implements OnInit {
 
-  articles: Observable<Article[]>;
+  allMyArticles:Article[];
+  authenticated: boolean = false;
 
-  constructor(private articleService: ArticleService, private router: Router) { }
+  constructor(private articleService: ArticleService, private router: Router, private app: AppService) { }
 
   ngOnInit() {
     this.reloadData();
   }
 
   reloadData() {
-    this.articles = this.articleService.getArticlesAwaitingValidation();
+    if (this.app.authenticated) {
+        this.authenticated = this.app.authenticated;
+        this.allMyArticles= new Array() ;
+        this.articleService.getArticlesAwaitingValidation().subscribe((data:Article[])=>this.allMyArticles=data);
+    } else {
+      this.router.navigateByUrl("/");
+    }
   }
-
-  rejectArticle(id: number) {
-    this.articleService.reject(id)
-    .subscribe(
-      data => {
-        console.log(data);
-        this.reloadData();
-      },
-      error => console.log(error));
-  }
-
-  validateArticle(id: number) {
-    this.articleService.validate(id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
-  }
-
+  
 }

@@ -27,6 +27,7 @@ import { AddTypeComponent } from "./add-type/add-type.component";
 import { AddLanguageComponent } from "./add-language/add-language.component";
 import { AddFrameworkComponent } from "./add-framework/add-framework.component";
 import { RegisterComponent } from './register/register.component';
+import { CarouselArticleComponent } from './carousel-article/carousel-article.component';
 
 const routes: Routes = [
   { path: "userProfil",component : UserProfilComponent},
@@ -50,7 +51,7 @@ const routes: Routes = [
   { path: "AddOrEditCategory",component: ArticleCategoryComponent},
   { path: "goHome",component: HomePageComponent},
   { path: "register",component: RegisterComponent},
-  { path: "profil",component: UserProfilComponent},
+  { path: "profil",component: UserProfilComponent}
 ];
 @NgModule({
   declarations: [],
