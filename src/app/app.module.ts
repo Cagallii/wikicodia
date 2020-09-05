@@ -91,7 +91,7 @@ import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
 /**
- * Classe permettant d'afficher un message d'erreur pour l'utilisateur, notamment lorsqu'on a une exception côté serveur
+ * Classe permettant d'afficher un message d'erreur pour l'utilisateur, notamment lorsqu'on a une exception cï¿½tï¿½ serveur
  */
 @Injectable()
 export class XhrInterceptor implements HttpInterceptor {
@@ -116,7 +116,7 @@ export class XhrInterceptor implements HttpInterceptor {
           if (errorMessage.includes('user: 403 Forbidden')){
             return throwError(errorMessage);
           }
-          // Message spécifique aux erreurs sur la page des articles en attente de validation
+          // Message spï¿½cifique aux erreurs sur la page des articles en attente de validation
           if (errorMessage.includes('articles/reject')){
             errorMessage = "Action impossible! Veuillez d'abord renseigner un commentaire pour justifier le rejet de cet article.";
           }
@@ -166,7 +166,7 @@ export class XhrInterceptor implements HttpInterceptor {
     ListArticleAwaitingValidationComponent,
     MarkdownPipe,
     ArticleConsultationMiniComponent,
-    ArticleStopPromoComponent
+    ArticleStopPromoComponent,
     CommentArticleComponent
   ],
 

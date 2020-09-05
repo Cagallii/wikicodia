@@ -52,7 +52,7 @@ const routes: Routes = [
   { path: "AddOrEditCategory",component: ArticleCategoryComponent},
   { path: "goHome",component: HomePageComponent},
   { path: "register",component: RegisterComponent},
-  { path: "profil",component: UserProfilComponent}
+  { path: "profil",component: UserProfilComponent},
   { path: "stopPromo", component: ArticleStopPromoComponent}
 ];
 @NgModule({

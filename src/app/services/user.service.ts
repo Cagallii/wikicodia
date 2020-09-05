@@ -32,9 +32,15 @@ export class UserService {
 
   modification(user: User): Observable<any> {
     //user.dateInscription.add(1);
-    console.log(moment(user.dateInscription).add(2, "d"));
     console.log(user.dateDerniereConnexion);
     return this.http.put(`${this.baseUrl}/modification`, user);
+  }
+
+  modificationDate(user: User): Observable<any> {
+    //user.dateInscription.add(1);
+    console.log(moment(user.dateInscription).add(2, "d"));
+    console.log(user.dateDerniereConnexion);
+    return this.http.put(`${this.baseUrl}/modification-date`, user);
   }
 
   setCategories(categorie: Category, user: User){

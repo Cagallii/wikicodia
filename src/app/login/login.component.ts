@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     this.app.authenticate(this.credentials, () => {
       //on set la derniere date de connexion
       this.app.user.dateDerniereConnexion = moment();
-      this.userService.modification(this.app.user).subscribe(
+      this.userService.modificationDate(this.app.user).subscribe(
         
         data => {
           console.log(data);
