@@ -67,4 +67,13 @@ export class ArticleService {
     return this.http.put(this.baseUrl + "togglePromotion/" + `${articleId}` , {observe: 'response'});
   }
 
+  getArticlesAccordingPreferences(userId : Number) : Observable<Object> {
+    return this.http.get(this.baseUrl + "articlesSuggeres/" + `${userId}`);
+  }
+
+  getNewArticles() : Observable<Object> {
+    return this.http.get(this.baseUrl + "articlesRecents");
+  }
+  
+
 }

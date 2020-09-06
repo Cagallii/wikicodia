@@ -35,6 +35,7 @@ import * as prism from '../../assets/prismjs/prism.js';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import UserCreate from "../model/UserCreate";
+import { truncateSync } from 'fs';
 
 
 // exemple de récupération de data :
@@ -133,11 +134,26 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   }
 
   publishArticle() {
+    // if(this.oneArticle.)
     console.log("publish cliked");
+    this.oneArticle.estPublie = true;
+    this.articleService
+    .updateOneArticle(this.oneArticle)
+    .subscribe((data) => {
+      console.log(data);
+      this.refreshDataArticle();
+    });
   }
 
   unpublishArticle() {
     console.log("unpublish cliked");
+    this.oneArticle.estPublie = false;
+    this.articleService
+    .updateOneArticle(this.oneArticle)
+    .subscribe((data) => {
+      console.log(data);
+      this.refreshDataArticle();
+    });
   }
 
   formatDataWithAuteur(idarticle) {
@@ -277,6 +293,15 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     console.log(this.oneArticle);
     console.log("data from refresh :");
     // console.log(data);
+
+    if(this.oneArticle.estPublie===true){
+      this.isUnpublishButtonAvailable = true;
+      this.isPublishButtonAvailable = false;
+    } else {
+      this.isUnpublishButtonAvailable = false;
+      this.isPublishButtonAvailable = true;
+    }
+
     this.refreshLikeArticle();
     // });
   }
@@ -345,7 +370,6 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     this.location.back();
   }
 }
-
 
 @Component({
   selector: "app-article-consultation-dialog",
