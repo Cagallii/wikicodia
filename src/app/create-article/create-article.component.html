@@ -46,7 +46,7 @@
 
             <mat-form-field matTooltip="Selectionnez les différents languages abordés dans cet article">
                 <mat-label>Langages</mat-label>
-                <mat-select formControlName="languages" multiple (closed)="onCloseMethod()">
+                <mat-select formControlName="languages"  (closed)="onCloseMethod()">
                     <mat-option *ngFor="let value of allLanguages" value="{{value}}">
                         {{value}}
                     </mat-option>
@@ -56,32 +56,57 @@
 
 
 
-            <mat-form-field matTooltip="Selectionnez les différents frameworks abordés dans cet article">
+            <mat-form-field matTooltip="Selectionnez le framework abordé dans cet article s'il y en a un">
                 <mat-label>Frameworks</mat-label>
-                <mat-select formControlName="frameworks" multiple (closed)="onCloseMethod()">
+                <mat-select formControlName="frameworks" (closed)="onCloseMethod()">
                     <mat-option *ngFor="let value of allFrameworks" value="{{value}}">
                         {{value}}
                     </mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field> 
 
 
             <br>
             <mat-divider></mat-divider>
             <br />
 
-            <!-- *ngIf="this.allSelectedLangLib.length>0" -->
-            <div class="addVersion" *ngFor="let langlib of allSelectedLangLib">
-                <mat-form-field class="smallInput" matTooltip="Indiquez les version des différents languages selectionnés" *ngIf="this.allSelectedLangLib.length>0">
-                        {{langlib}}  version : <input matInput type="text"/>
-                    <!-- <mat-error align="end" *ngIf="hasError({{langlib}}, 'required')">Ce champs est requis</mat-error> -->
+            <!-- <div *ngIf="this.allSelectedLangLib.length>0" > -->
+                <div class="addVersion" *ngIf='this.createArticleForm.controls["languages"].value'>
+                <mat-form-field class="smallInput" matTooltip="Indiquez la version du language selectionné">
+                        {{this.createArticleForm.controls["languages"].value}}  version : <input matInput type="text" formControlName="languagesVersion">
+                    <mat-error align="end" *ngIf="hasError('languagesVersion', 'required')">Ce champs est requis</mat-error>
                 </mat-form-field>
+                <br />
+                <mat-divider></mat-divider>
+                <br />
             </div>
+        <!-- </div> -->
+
+            <!-- *ngIf="this.allSelectedFramLib.length>0"  -->
+            <!-- <div *ngIf="this.allSelectedFramLib.length>0" > -->
+            <div class="addVersion" *ngIf='this.createArticleForm.controls["frameworks"].value'>
+                <mat-form-field class="smallInput" matTooltip="Indiquez la version du frameworks selectionnés">
+                        {{this.createArticleForm.controls["frameworks"].value}}  version : <input matInput type="text" formControlName="frameworksVersion">
+                    <mat-error align="end" *ngIf="hasError('frameworksVersion', 'required')">Ce champs est requis</mat-error>
+                </mat-form-field>
+
+                <br />
+                <mat-divider></mat-divider>
+                <br />
+            </div>
+        <!-- </div> -->
+
+            <!-- <div class="addVersion" *ngFor="let langlib of allSelectedLangLib; let i = index">
+                <mat-form-field class="smallInput" matTooltip="Indiquez les versions des différents languages selectionnés">
+                        {{langlib}}  version : <input matInput type="text" formControl="languagesv">
+                    <mat-error align="end" *ngIf="hasError(languagesv', 'required')">Ce champs est requis</mat-error>
+
+                </mat-form-field>
+            </div> -->
 
 
-            <br />
-            <mat-divider></mat-divider>
-            <br />
+
+
 
 
 

@@ -22,8 +22,8 @@ export default class Article {
     estPromu:Boolean;
     estValide:Boolean;
     vote:Vote[];
-    langage:Language[];
-    framework:Framework[];
+    langage:Language;
+    framework:Framework;
     auteur: UserCreate;
     type: TypeArticle;
     categorie:Category;
