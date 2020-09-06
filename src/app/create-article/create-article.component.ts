@@ -25,7 +25,6 @@ import Langage from "../model/Language";
 import TypeArticle from "../model/TypeArticle";
 import { MatSelect,MatSelectChange} from '@angular/material';
 
-
 import {
   ViewChild,
   ViewChildren,
@@ -399,7 +398,6 @@ onCloseMethod(){
   }
 
   onCancel() {
-    this.createArticleForm.reset();
     this.router.navigateByUrl("/");
   }
 

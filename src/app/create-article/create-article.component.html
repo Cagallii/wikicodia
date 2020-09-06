@@ -126,14 +126,18 @@
         <mat-card-actions>
             <button type="submit" value="submit" mat-raised-button color="primary" (click)="onSubmitGlobally()"
                 matTooltip="Sauvegarder mon article et le rendre accessible et consultable par la communauté">
-                Valider et publier
+                Sauvegarder et publier
             </button>
             <button type="submit" value="submit" mat-raised-button color="primary" (click)="onSubmit()"
                 matTooltip="Sauvegarder mon article sans le partager avec la communauté">
                 Sauvegarder
             </button>
+            <button type="button" mat-raised-button color="accent" (click)="onReset()"
+                matTooltip="Effacer les données saisies">
+                Rafraîchir
+            </button>
             <button type="button" mat-raised-button color="warn" (click)="onCancel()"
-                matTooltip="Le contenu présenté est bien pertinent">
+                matTooltip="Revenir à la page d'accueil sans enregistrer">
                 Annuler
             </button>
         </mat-card-actions>

@@ -344,6 +344,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   goBack() {
     this.location.back();
   }
+}
 
 
 @Component({
