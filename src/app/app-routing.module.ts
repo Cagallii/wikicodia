@@ -29,6 +29,7 @@ import { AddFrameworkComponent } from "./add-framework/add-framework.component";
 import { RegisterComponent } from './register/register.component';
 import { ArticleStopPromoComponent } from './article-stop-promo/article-stop-promo.component';
 import { CarouselArticleComponent } from './carousel-article/carousel-article.component';
+import { ArticleSuggestionHomeComponent } from './article-suggestion-home/article-suggestion-home.component'
 
 const routes: Routes = [
   { path: "userProfil",component : UserProfilComponent},
@@ -53,7 +54,8 @@ const routes: Routes = [
   { path: "goHome",component: HomePageComponent},
   { path: "register",component: RegisterComponent},
   { path: "profil",component: UserProfilComponent},
-  { path: "stopPromo", component: ArticleStopPromoComponent}
+  { path: "stopPromo", component: ArticleStopPromoComponent},
+  { path: "articleSuggestion", component: ArticleSuggestionHomeComponent}
 ];
 @NgModule({
   declarations: [],

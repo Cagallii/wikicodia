@@ -1,1 +1,17 @@
-<p>article-suggestion-home works!</p>
+<h1 style="text-align: center;">Accueil</h1>
+
+<div id="container">
+    <h3 class="title" style="text-align: center;">Articles selon vos préférences</h3>
+    <div class="subContainer">
+        <app-article-consultation-mini class="col-12" *ngFor="let articl of articlesAccordingPreferences" [oneArticle]="articl"></app-article-consultation-mini>
+    </div>
+    <h3 class="title" style="text-align: center;">Articles promus</h3>
+    <div class="subContainer">
+        <app-article-consultation-mini class="col-12" *ngFor="let articl of promotedArticles" [oneArticle]="articl"></app-article-consultation-mini>
+    </div>
+    <h3 class="title" style="text-align: center;">Articles récents</h3>
+    <div class="subContainer">
+        <app-article-consultation-mini class="col-12" *ngFor="let articl of newArticles" [oneArticle]="articl"></app-article-consultation-mini>
+    </div>
+</div>
+
