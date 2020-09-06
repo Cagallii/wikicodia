@@ -35,7 +35,7 @@ import * as prism from '../../assets/prismjs/prism.js';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import UserCreate from "../model/UserCreate";
-import { truncateSync } from 'fs';
+// import { truncateSync } from 'fs';
 
 
 // exemple de récupération de data :
@@ -86,6 +86,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 
   isUnpublishButtonAvailable: boolean = false;
   isPublishButtonAvailable: boolean = false;
+  dataRefreshed:boolean=false;
 
   ngAfterViewChecked() {
     this.highlight();
@@ -107,6 +108,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.oneArticle = new Article();
       this.isUnpublishButtonAvailable = false;
       this.isPublishButtonAvailable = false;
+      this.dataRefreshed=false;
 
       // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh
       this.route.params.subscribe(
@@ -123,37 +125,29 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
               console.log(data);
               this.refreshDataArticle();
             },
-            (error) => console.log(error)
+            (error) => {console.log("EEEEEReure avec le articleService.getOneArticle(idart).subscribe");console.log(error);}
           );
         },
-        (error) => console.log(error)
+        (error) => {console.log("EEEEEReure avec le this.route.params.subscribe");console.log(error);}
       );
     } else {
       this.router.navigateByUrl("/");
     }
   }
 
-  publishArticle() {
-    // if(this.oneArticle.)
-    console.log("publish cliked");
-    this.oneArticle.estPublie = true;
-    this.articleService
-    .updateOneArticle(this.oneArticle)
-    .subscribe((data) => {
-      console.log(data);
-      this.refreshDataArticle();
-    });
-  }
-
-  unpublishArticle() {
-    console.log("unpublish cliked");
-    this.oneArticle.estPublie = false;
-    this.articleService
-    .updateOneArticle(this.oneArticle)
-    .subscribe((data) => {
-      console.log(data);
-      this.refreshDataArticle();
-    });
+    /**
+   * Publication d'un article sauvegardé ou remise au statut invisible 
+   * @param id de l'article à publier / dépublier
+   */
+  toggleVisibilityArticle(){
+    this.articleService.toggleVisibility(this.oneArticle.idArticle)
+    .subscribe(
+      data => {
+        console.log(data);
+        this.refreshDataArticle();
+      },
+      error => console.log(error)
+    );
   }
 
   formatDataWithAuteur(idarticle) {
@@ -165,8 +159,9 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       arrayIdAut.push(idaut);
       this.userService.getAuteurs(arrayIdAut).subscribe(
         (aut: UserCreate) => {
-          console.log(aut);
+          console.log(aut[0]);
           this.oneArticle.auteur = aut[0];
+          this.dataRefreshed=true;
         },
         (error) => console.log(error)
       );
@@ -277,6 +272,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   refreshDataArticle() {
     // this.articleService.getOneArticle(this.oneArticle.idArticle).subscribe((data: Article) => {
     // this.oneArticle = data;
+    this.dataRefreshed =false;
     this.formatDataWithAuteur(this.oneArticle.idArticle);
 
     if (this.oneArticle.contenu && this.oneArticle.contenu.length > 0) {

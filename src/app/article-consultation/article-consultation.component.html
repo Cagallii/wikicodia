@@ -1,4 +1,4 @@
-<mat-card class="consultation-card" *ngIf='this.oneArticle.idArticle'>
+<mat-card class="consultation-card" *ngIf='this.dataRefreshed===true'>
   <mat-card-header>
     <mat-chip-list aria-label="">
       <mat-chip color="accent" selected (click)="actionLike()"> <mat-icon>thumb_up</mat-icon> | {{this.allLike}}  </mat-chip>
@@ -29,11 +29,11 @@
       <mat-icon>loyalty</mat-icon>
     </button>
 
-    <button *ngIf='this.isPublishButtonAvailable' mat-mini-fab matTooltip="Publier cet article" (click)='publishArticle()' color="primary">
+    <button *ngIf='this.isPublishButtonAvailable' mat-mini-fab matTooltip="Publier cet article" (click)='toggleVisibilityArticle()' color="primary">
       <mat-icon>lock_open</mat-icon>
     </button>
 
-    <button *ngIf='this.isUnpublishButtonAvailable' mat-mini-fab matTooltip="Rendre cet article privé" (click)='unpublishArticle()' color="primary">
+    <button *ngIf='this.isUnpublishButtonAvailable' mat-mini-fab matTooltip="Rendre cet article privé" (click)='toggleVisibilityArticle()' color="primary">
       <mat-icon>lock</mat-icon>
     </button>
 
