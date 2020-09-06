@@ -15,6 +15,10 @@ export class AppComponent {
     this.app.checkIfLogged();
   }
   
+  ngOnInit(){
+    this.router.navigateByUrl('/articleSuggestion');
+  }
+
   logout() {
     this.http.post('logout', {}).subscribe( response => {
       //deconnecte l utilisateur et redirige vers la page d acceuille

@@ -23,12 +23,13 @@ export class ArticleSuggestionHomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.displayPromotedArticles();
+    this.displayNewArticles();
     if (this.app.authenticated) {
       this.authenticated = this.app.authenticated;
       this.user = this.app.user;
       this.displaySuggestedArticles();
-      this.displayPromotedArticles();
-      this.displayNewArticles();
+      
     }
   }
 

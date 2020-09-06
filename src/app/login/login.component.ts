@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit {
         }
       );
       //route de redirection apres la connexion
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/articleSuggestion');
     });
     return false;
   }

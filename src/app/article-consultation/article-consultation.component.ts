@@ -82,6 +82,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   oneArticle: Article;
   isPromoteButtonAvailable: boolean = false;
   mardownContenu: SafeHtml;
+  isFavoriteButtonAvailable : boolean = false;
 
   isUnpublishButtonAvailable: boolean = false;
   isPublishButtonAvailable: boolean = false;
@@ -122,6 +123,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
             (data: Article) => {
               this.oneArticle = data;
               console.log(data);
+              this.determineIfArticleAlreadyFavorite(data);
               this.refreshDataArticle();
             },
             (error) => console.log(error)
@@ -132,6 +134,33 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     } else {
       this.router.navigateByUrl("/");
     }
+  }
+
+  determineIfArticleAlreadyFavorite(article : Article){
+    if(this.app.authenticated){
+      this.articleService.getArticlesFavoritesIds(this.app.user.idUtilisateur).subscribe(
+        (data : any[]) => {
+          if(data.includes(article.idArticle)){
+            this.isFavoriteButtonAvailable = false;
+          } else {
+            this.isFavoriteButtonAvailable = true;
+          }
+        }
+      )
+    }
+  }
+
+  addToFavorites(article : Article){
+    if(this.app.authenticated){
+      this.articleService.setArticleToMyFavorite(this.app.user.idUtilisateur , article).subscribe(
+        response => {
+          console.log(response);
+        }
+      )
+    } else {
+      this.router.navigateByUrl("/connexion");
+    }
+    
   }
 
   publishArticle() {

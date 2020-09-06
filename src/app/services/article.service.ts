@@ -75,5 +75,12 @@ export class ArticleService {
     return this.http.get(this.baseUrl + "articlesRecents");
   }
   
+  getArticlesFavoritesIds(userId : Number) : Observable<Object> {
+    return this.http.get(this.baseUrl + "articlesFavorisIds/" + `${userId}`);
+  }
+
+  setArticleToMyFavorite(userId : Number , article : Article) : Observable<Object> {
+    return this.http.put(this.baseUrl + "ajouterAuxFavoris/" + `${userId}` , article);
+  }
 
 }
