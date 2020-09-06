@@ -68,14 +68,21 @@ export class CreateArticleComponent implements OnInit {
   allFrameworks: string[] =new Array();
   allType: string[] =new Array();
   allCategory: string[] =new Array();
-  allSelectedLangLib: string[] =new Array();
-  allSelectedFramLib: string[] =new Array();
-  allSelectedLangVers: string[] =new Array();
-  allSelectedFramVers: string[] =new Array();
+
+  selectedLangLib:string ="";
+  selectedFramLib:string ="";
+  selectedLangVers:string ="";
+  selectedFramVers:string ="";
+
+
+  // allSelectedLangLib: string[] =new Array();
+  // allSelectedFramLib: string[] =new Array();
+  // allSelectedLangVers: string[] =new Array();
+  // allSelectedFramVers: string[] =new Array();
   autentificated: boolean = false;
   user: User = null;
-  allSelectedLangComplet: Language[] = new Array();
-  allSelectedFramComplet: Framework[] = new Array();
+  // allSelectedLangComplet: Language[] = new Array();
+  // allSelectedFramComplet: Framework[] = new Array();
 
   ngOnInit() {
     if (this.app.authenticated) {
@@ -86,13 +93,19 @@ export class CreateArticleComponent implements OnInit {
       this.allType = new Array();
       this.allCategory = new Array();
 
-      this.allSelectedLangLib =new Array();
-      this.allSelectedFramLib =new Array();
-      this.allSelectedLangVers =new Array();
-      this.allSelectedFramVers =new Array();
-      this.allSelectedLangComplet = new Array();
-      this.allSelectedFramComplet = new Array();
-      this.languagesVersionFormArray = new FormArray([]);
+      this.selectedLangLib ="";
+      this.selectedFramLib ="";
+      this.selectedLangVers ="";
+      this.selectedFramVers ="";
+
+
+
+      // this.allSelectedLangLib =new Array();
+      // this.allSelectedFramLib =new Array();
+      // this.allSelectedLangVers =new Array();
+      // this.allSelectedFramVers =new Array();
+      // this.allSelectedLangComplet = new Array();
+      // this.allSelectedFramComplet = new Array();
 
 
 
@@ -123,7 +136,7 @@ export class CreateArticleComponent implements OnInit {
 
       this.createArticleForm = new FormGroup({
         title: new FormControl("", [Validators.required]),
-        multiSelectControl: new FormControl("", [Validators.required]),
+        // multiSelectControl: new FormControl("", [Validators.required]),
         description: new FormControl("", [
           Validators.required,
           Validators.minLength(100),
@@ -133,7 +146,7 @@ export class CreateArticleComponent implements OnInit {
         languages: new FormControl('', [Validators.required]),
         languagesVersion: new FormControl('', [Validators.required]),
         frameworks: new FormControl(''),
-        // frameworksVersion: new FormControl(''),
+        frameworksVersion: new FormControl(''),
         content: new FormControl("", [
           Validators.required,
           Validators.minLength(100),
@@ -149,51 +162,17 @@ export class CreateArticleComponent implements OnInit {
   }
 
 
-//   openChange($event: boolean) {
-//     if ($event) {
-// console.log(this.createArticleForm.controls["languages"].value.length)    
-// }
-//   }
-
-
 onCloseMethod(){
-  if(this.createArticleForm.controls["languages"].valid){
-    this.allSelectedLangLib = new Array();
-    let langlib = this.createArticleForm.controls["languages"].value;
-    if(this.allSelectedLangLib.indexOf(langlib)){
-      console.log("valeur langage inchangée");
-    }
-    else{
-      this.allSelectedLangLib = new Array();
-      this.allSelectedLangLib.push(langlib);
-    }
-
-  }
-
   if(this.createArticleForm.controls["frameworks"].value){
-    this.allSelectedFramLib = new Array();
-    let framelib = this.createArticleForm.controls["languages"].value;
-    if(this.allSelectedFramLib.indexOf(framelib)){
-      console.log("valeur frameworks inchangée");
+      this.createArticleForm.removeControl("frameworksVersion");
+      this.createArticleForm.addControl("frameworksVersion",new FormControl('', [Validators.required]))
     }
-    else{
-      this.allSelectedFramLib = new Array();
-      this.allSelectedFramLib.push(framelib);
-      this.createArticleForm.addControl("frameworksVersion",new FormControl(framelib, [Validators.required]))
-    }
-
-  }
   else if(!this.createArticleForm.controls["frameworks"].value) {
-    this.allSelectedFramLib = new Array();
     this.createArticleForm.removeControl("frameworksVersion");
+    this.createArticleForm.addControl("frameworksVersion",new FormControl(''));
   }
-  
-  if(this.createArticleForm.controls["frameworks"].value.length>0){
-    this.allSelectedFramLib = new Array();
-    this.allSelectedFramLib.push(this.createArticleForm.controls["frameworks"].value);
-  }
-  console.log(this.allSelectedLangLib);
-  console.log(this.allSelectedFramLib);
+  console.log('this.createArticleForm.controls');
+  console.log(this.createArticleForm.controls);
 }
 
 
@@ -307,16 +286,14 @@ onCloseMethod(){
   // }
 
   onSubmit() {
-    // this.allSelectedLangLib.forEach((langlib ) => this.createArticleForm.addControl(langlib, new FormControl('', Validators.required)));
-
-
-    if (this.createArticleForm.invalid) {
-      console.log("invalid");
+    if (this.createArticleForm.valid === false) {
+      console.log("invalid : !this.createArticleForm.valid  ");
       return;
     } else if (this.app.authenticated) {
+
+    //  if (this.app.authenticated) {
       this.newArticle = new Article();
 
-      // TODO : recuperer l'auteur coté front
       this.newArticle.auteur = this.user;
       this.newArticle.description = this.createArticleForm.controls[
         "description"
@@ -336,31 +313,34 @@ onCloseMethod(){
       this.newArticle.dateCreation = null;
       this.newArticle.dateDerniereModif = null;
       this.newArticle.comAdmin = null;
-      this.newArticle.framework = this.allSelectedFramComplet
-  ;
-      this.newArticle.langage = this.allSelectedLangComplet;
 
-      this.articleService.create(this.newArticle).subscribe(
-        (data) => console.log(data),
-        (error) => console.log(error)
-      );
+      let fram = new Framework();
+      fram.framework= this.createArticleForm.controls["frameworks"].value;
+      fram.version= this.createArticleForm.controls["frameworksVersion"].value;
+      this.newArticle.framework = fram;
+      let lang = new Language();
+      lang.lang = this.createArticleForm.controls[
+        "languages"
+      ].value;
+      lang.version = this.createArticleForm.controls[
+        "languagesVersion"
+      ].value;
+      this.newArticle.langage = lang;
 
-      console.log(this.newArticle);
+      this.createArticle(this.newArticle);
+
     } else {
       console.log("rien :else ");
     }
   }
 
   onSubmitGlobally() {
-    // this.allSelectedLangLib.forEach((langlib ) => this.createArticleForm .addControl(langlib, new FormControl('', [Validators.required])));
-
-    if (this.createArticleForm.invalid) {
-      console.log("invalid");
+    if (this.createArticleForm.valid === false) {
+      console.log("invalid : !this.createArticleForm.valid  ");
       return;
     } else if (this.app.authenticated) {
       this.newArticle = new Article();
 
-      // TODO : recuperer l'auteur coté front
       this.newArticle.auteur = this.user;
       this.newArticle.description = this.createArticleForm.controls[
         "description"
@@ -380,19 +360,38 @@ onCloseMethod(){
       this.newArticle.dateCreation = null;
       this.newArticle.dateDerniereModif = null;
 
-      this.newArticle.framework = this.allSelectedFramComplet
-  ;
-      this.newArticle.langage = this.allSelectedLangComplet;
+      let fram = new Framework();
+      fram.framework= this.createArticleForm.controls["frameworks"].value;
+      fram.version= this.createArticleForm.controls["frameworksVersion"].value;
+      this.newArticle.framework = fram;
+      let lang = new Language();
+      lang.lang = this.createArticleForm.controls[
+        "languages"
+      ].value;
+      lang.version = this.createArticleForm.controls[
+        "languagesVersion"
+      ].value;
+      this.newArticle.langage = lang;
 
-      this.articleService.create(this.newArticle).subscribe(
-        (data) => console.log(data),
-        (error) => console.log(error)
-      );
+      this.createArticle(this.newArticle);
 
-      console.log(this.newArticle);
     } else {
       console.log("rien :else ");
     }
+  }
+
+  createArticle(article:Article){
+    this.articleService.create(article).subscribe(
+      (data:Article) => {console.log(data); this.goToArticle(data.idArticle)},
+      (error) => console.log(error),
+    );
+
+    console.log(article);
+  }
+
+  goToArticle(idArticle){
+    let params = {idArticle:idArticle}
+    this.router.navigate(['articleConsultation', params]);
   }
 
   onReset() {
@@ -401,6 +400,7 @@ onCloseMethod(){
 
   onCancel() {
     this.createArticleForm.reset();
+    this.router.navigateByUrl("/");
   }
 
 }
