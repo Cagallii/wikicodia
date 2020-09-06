@@ -17,7 +17,7 @@
                 <textarea matInput type="text" placeholder="Description de l'article" formControlName="description"
                     id="description" cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="100"></textarea>
                 <mat-error align="end" *ngIf="hasError('description', 'required')">Ce champs est requis</mat-error>
-                <mat-error align="end" *ngIf="hasError('description', 'minlength')">Un minimum de 100 caractères est
+                <mat-error align="end" *ngIf="hasError('description', 'minlength')">Un minimum de 30 caractères est
                     requis</mat-error>
             </mat-form-field>
 
