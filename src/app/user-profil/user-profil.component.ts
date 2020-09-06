@@ -53,15 +53,11 @@ export class UserProfilComponent implements OnInit {
     this.language = this.langageService.getAll();
     this.type = this.typeService.getAll();
 
-    console.log(this.app.user.idUtilisateur);
-    console.log("app user");
-    console.log(this.app.user);
-    console.log("utilisateur profil :");
-    console.log(this.user);
-    
-    this.userService.getUserPreferences(this.app.user);
-
     if (this.app.authenticated) {
+
+      let modifUser = new User;
+      this.userService.hydrateByConnectedUser(modifUser, this.app.user);
+      this.user = modifUser;
       // editon utilisateur
       this.editForm = this.formBuilder.group({
         idUtilisateur: ['', Validators.required],
@@ -102,6 +98,7 @@ export class UserProfilComponent implements OnInit {
 
   modification(){    
     console.log(this.user);
+    this.userService.setUserPreferences(this.user, this.user.categorie, this.user.framework, this.user.langage, this.user.type)
     this.userService.modification(this.user)
     .subscribe(
       data => console.log(data),
@@ -309,7 +306,7 @@ export class UserProfilComponent implements OnInit {
     
 
     if(mdpConfirmation === mdpNew && mdpNew !== ""){
-      this.user.motDePasse = mdpNew;
+      this.user.motDePasse = window.btoa(mdpNew);
       this.modification();
       this.eventFire(document.querySelector("#changeMdp-close"), 'click')
     }else{
