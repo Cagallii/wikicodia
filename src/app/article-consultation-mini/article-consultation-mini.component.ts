@@ -28,7 +28,7 @@ export class ArticleConsultationMiniComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private router: Router,
-    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute,
     private app: AppService,
     private userService: UserService,
     private articleService: ArticleService,
@@ -42,6 +42,9 @@ export class ArticleConsultationMiniComponent implements OnInit {
   articles: Observable<Article[]>;
   isPublished: boolean = false;
   confirmation: string;
+  url: string;
+  isPageMyArticles: boolean = false;
+  isPagePendingArticles: boolean = false;
 
   ngOnInit() {
     if (this.app.authenticated) {
@@ -54,8 +57,11 @@ export class ArticleConsultationMiniComponent implements OnInit {
       if (this.oneArticle.estPublie){
         this.isPublished = true;
       }
-      if (this.user == this.oneArticle.auteur){
-        this.authorConnected = true;
+      this.url = String(this.activatedRoute.snapshot.url);
+      if (this.url.includes("pending")){
+        this.isPagePendingArticles = true;
+      } else if (this.url.includes("createdArticles")){
+        this.isPageMyArticles = true;
       }
     } else {
       this.router.navigateByUrl("/");

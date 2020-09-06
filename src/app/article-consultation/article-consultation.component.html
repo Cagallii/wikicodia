@@ -29,6 +29,11 @@
       <mat-icon>loyalty</mat-icon>
     </button>
 
+
+    <button *ngIf='!this.isPromoteButtonAvailable' mat-mini-fab matTooltip="Ne plus promouvoir cet article" (click)='promoteArticle(this.oneArticle.idArticle)' color="accent">
+      <mat-icon>loyalty</mat-icon>
+    </button>
+
     <button *ngIf='this.isPublishButtonAvailable' mat-mini-fab matTooltip="Publier cet article" (click)='toggleVisibilityArticle()' color="primary">
       <mat-icon>lock_open</mat-icon>
     </button>
@@ -52,5 +57,5 @@
 
 </mat-card>
 
-<button type="button" (click)="goBack()"> Revenir à la liste</button>
+<button type="button" mat-raised-button color="accent" (click)="goBack()"> Revenir à la liste</button>
 <!-- <div mat-card-avatar class="example-header-image"></div> -->

@@ -35,7 +35,7 @@ import * as prism from '../../assets/prismjs/prism.js';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import UserCreate from "../model/UserCreate";
-// import { truncateSync } from 'fs';
+
 
 
 // exemple de récupération de data :
@@ -104,8 +104,10 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.allLike = 0;
       this.allDislike = 0;
       this.dislikeComment = null;
-      this.isPromoteButtonAvailable = false;
       this.oneArticle = new Article();
+      if (!this.oneArticle.estPromu){
+        this.isPromoteButtonAvailable = true;
+      }
       this.isUnpublishButtonAvailable = false;
       this.isPublishButtonAvailable = false;
       this.dataRefreshed=false;
