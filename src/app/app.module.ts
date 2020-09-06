@@ -43,6 +43,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+
 import { AppComponent } from "./app.component";
 import { AboutComponent } from "./about/about.component";
 import { AdministratorRoleManagementComponent } from "./administrator-role-management/administrator-role-management.component";
@@ -61,6 +62,7 @@ import { AdvancedSearchComponent } from "./advanced-search/advanced-search.compo
 import { QuickSearchComponent } from "./quick-search/quick-search.component";
 import { SearchResultComponent } from "./search-result/search-result.component";
 import { ToolbarComponent } from "./toolbar/toolbar.component";
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { AdminCategoryMgmtComponent } from './admin-category-mgmt/admin-category-mgmt.component';
@@ -89,6 +91,7 @@ import { CommentArticleComponent } from './comment-article/comment-article.compo
 import { HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+
 
 /**
  * Classe permettant d'afficher un message d'erreur pour l'utilisateur, notamment lorsqu'on a une exception c�t� serveur
@@ -167,7 +170,8 @@ export class XhrInterceptor implements HttpInterceptor {
     MarkdownPipe,
     ArticleConsultationMiniComponent,
     ArticleStopPromoComponent,
-    CommentArticleComponent
+    CommentArticleComponent,
+    ConfirmationDialogComponent
   ],
 
   imports: [
@@ -226,7 +230,7 @@ export class XhrInterceptor implements HttpInterceptor {
   ],
   providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }
   ],
-  entryComponents: [ArticleConsultationComponentDialog],
+  entryComponents: [ArticleConsultationComponentDialog, ConfirmationDialogComponent],
   bootstrap: [AppComponent],
 })
 

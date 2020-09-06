@@ -15,6 +15,7 @@ import Vote from "../model/Vote";
 import { ArticleService } from "../services/article.service";
 import { VoteService } from "../services/vote.service";
 import { Observable } from "rxjs";
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-article-consultation-mini',
@@ -39,6 +40,7 @@ export class ArticleConsultationMiniComponent implements OnInit {
   user: User = null;
   articles: Observable<Article[]>;
   isPublished: boolean = false;
+  confirmation: string;
 
   ngOnInit() {
     if (this.app.authenticated) {
@@ -66,14 +68,31 @@ export class ArticleConsultationMiniComponent implements OnInit {
    * @param id de l'article à supprimer
    */
   deleteArticle(id: number) {
-    this.articleService.delete(id)
-    .subscribe(
-      data => {
-        console.log(data);
-        this.reloadData();
-      },
-      error => console.log(error)
-    );
+    this.openDialog();
+    console.log(this.confirmation);
+    if (this.confirmation != null){
+      this.articleService.delete(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error)
+      );
+    }
+  }
+
+  /**
+   * Popup de confirmation de la suppression d'un article
+   * @param id 
+   */
+
+  openDialog() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      this.confirmation = result;
+    });
   }
 
   /**
