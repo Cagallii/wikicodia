@@ -1,1 +1,8 @@
-<app-article-consultation-mini class="col-12" *ngFor="let articl of articlesFavoris" [oneArticle]="articl"></app-article-consultation-mini>
+<div class="panel panel-primary">
+    <div class="panel-heading">
+      <h2>Articles favoris</h2>
+    </div>
+    <div class="panel-body">
+        <app-article-consultation-mini class="col-12" *ngFor="let article of articlesFavoris" [oneArticle]="article"></app-article-consultation-mini>
+    </div>
+</div>

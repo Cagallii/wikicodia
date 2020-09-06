@@ -37,6 +37,7 @@ export class ArticleConsultationMiniComponent implements OnInit {
 
   authenticated: boolean = false;
   adminConnected: boolean = false;
+  authorConnected: boolean = false;
   user: User = null;
   articles: Observable<Article[]>;
   isPublished: boolean = false;
@@ -53,12 +54,15 @@ export class ArticleConsultationMiniComponent implements OnInit {
       if (this.oneArticle.estPublie){
         this.isPublished = true;
       }
+      if (this.user == this.oneArticle.auteur){
+        this.authorConnected = true;
+      }
     } else {
       this.router.navigateByUrl("/");
     }
   }
 
-  goToArticle(idArticle){
+  goToArticle(idArticle:number){
     let params = {idArticle:idArticle}
     this.router.navigate(['articleConsultation', params]);
   }

@@ -1,4 +1,4 @@
-<mat-card class="consultation-card" *ngIf='this.oneArticle'>
+<mat-card class="consultation-card" *ngIf='this.oneArticle.idArticle'>
   <mat-card-header>
     <mat-chip-list aria-label="">
       <mat-chip color="accent" selected (click)="actionLike()"> <mat-icon>thumb_up</mat-icon> | {{this.allLike}}  </mat-chip>
@@ -51,4 +51,6 @@
   </mat-card-actions>
 
 </mat-card>
+
+<button type="button" (click)="goBack()"> Revenir à la liste</button>
 <!-- <div mat-card-avatar class="example-header-image"></div> -->

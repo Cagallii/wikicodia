@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 })
 export class ListArticleAwaitingValidationComponent implements OnInit {
 
-  allMyArticles:Article[];
+  allPendingArticles:Article[];
   authenticated: boolean = false;
 
   constructor(private articleService: ArticleService, private router: Router, private app: AppService) { }
@@ -24,8 +24,8 @@ export class ListArticleAwaitingValidationComponent implements OnInit {
   reloadData() {
     if (this.app.authenticated) {
         this.authenticated = this.app.authenticated;
-        this.allMyArticles= new Array() ;
-        this.articleService.getArticlesAwaitingValidation().subscribe((data:Article[])=>this.allMyArticles=data);
+        this.allPendingArticles= new Array() ;
+        this.articleService.getArticlesAwaitingValidation().subscribe((data:Article[])=>this.allPendingArticles=data);
     } else {
       this.router.navigateByUrl("/");
     }

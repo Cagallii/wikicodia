@@ -139,7 +139,7 @@ export class CreateArticleComponent implements OnInit {
         // multiSelectControl: new FormControl("", [Validators.required]),
         description: new FormControl("", [
           Validators.required,
-          Validators.minLength(100),
+          Validators.minLength(30),
         ]),
         type: new FormControl("", [Validators.required]),
         category: new FormControl("", [Validators.required]),
