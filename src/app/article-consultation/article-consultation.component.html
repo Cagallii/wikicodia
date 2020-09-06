@@ -29,6 +29,10 @@
       <mat-icon>loyalty</mat-icon>
     </button>
 
+    <button *ngIf='!this.isPromoteButtonAvailable' mat-mini-fab matTooltip="Ne plus promouvoir cet article" (click)='promoteArticle(this.oneArticle.idArticle)' color="accent">
+      <mat-icon>loyalty</mat-icon>
+    </button>
+
     <button *ngIf='this.isPublishButtonAvailable' mat-mini-fab matTooltip="Publier cet article" (click)='publishArticle()' color="primary">
       <mat-icon>lock_open</mat-icon>
     </button>
