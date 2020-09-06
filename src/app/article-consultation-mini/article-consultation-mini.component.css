@@ -1,0 +1,17 @@
+mat-card-title{
+    word-wrap    : break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
+mat-card-subtitle{
+    word-wrap    : break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
+mat-card-content{
+    word-wrap    : break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}

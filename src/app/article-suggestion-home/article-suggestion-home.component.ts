@@ -4,6 +4,7 @@ import { AppService } from '../app.service';
 import Article from "../model/Article";
 import User from "../model/UserCreate";
 
+
 @Component({
   selector: 'app-article-suggestion-home',
   templateUrl: './article-suggestion-home.component.html',
