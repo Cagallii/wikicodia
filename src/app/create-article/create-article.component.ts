@@ -190,9 +190,7 @@ onCloseMethod(){
   
   if(this.createArticleForm.controls["frameworks"].value.length>0){
     this.allSelectedFramLib = new Array();
-    this.createArticleForm.controls["frameworks"].value.forEach(framlib => {
-      this.allSelectedFramLib.push(framlib);
-    });
+    this.allSelectedFramLib.push(this.createArticleForm.controls["frameworks"].value);
   }
   console.log(this.allSelectedLangLib);
   console.log(this.allSelectedFramLib);
@@ -201,71 +199,71 @@ onCloseMethod(){
 
 
 
-  onCloseMethodOLD(){
-    if(this.createArticleForm.controls["languages"].valid){
-      this.allSelectedLangLib = new Array();
-      this.languagesVersionFormArray.clear();
-      this.createArticleForm.controls["languages"].value.forEach(langlib => {
-        // const newControle = new FormControl("", [Validators.required]);
-        this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]))
+  // onCloseMethodOLD(){
+  //   if(this.createArticleForm.controls["languages"].valid){
+  //     this.allSelectedLangLib = new Array();
+  //     this.languagesVersionFormArray.clear();
+  //     this.createArticleForm.controls["languages"].value.forEach(langlib => {
+  //       // const newControle = new FormControl("", [Validators.required]);
+  //       this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]))
 
 
 
-        // this.languagesVersionFormArray.push(newControle);
-        this.allSelectedLangLib.push(langlib);
-      });
-      this.createArticleForm.controls["languagesVersion"] = this.languagesVersionFormArray ;
-      console.log('this.createArticleForm.controls["languagesVersion"].value');
-      console.log(this.createArticleForm.controls["languagesVersion"].value);
-      console.log('this.createArticleForm.controls["languagesVersion"]');
-      console.log(this.createArticleForm.controls["languagesVersion"]);
-      let  lv = this.createArticleForm.controls["languagesVersion"].value;
-      // console.log('LV[0] : ');
-      // console.log(lv[0]);
-      console.log('this.createArticleForm.controls["languagesVersion"][0]');
-      console.log(this.createArticleForm.controls["languagesVersion"][0]);
-      // console.log('this.languagesVersionFormArray.value');
-      // console.log(this.languagesVersionFormArray.value);
-      // console.log('this.languagesVersionFormArray');
-      // console.log(this.languagesVersionFormArray);
-    }
+  //       // this.languagesVersionFormArray.push(newControle);
+  //       this.allSelectedLangLib.push(langlib);
+  //     });
+  //     this.createArticleForm.controls["languagesVersion"] = this.languagesVersionFormArray ;
+  //     console.log('this.createArticleForm.controls["languagesVersion"].value');
+  //     console.log(this.createArticleForm.controls["languagesVersion"].value);
+  //     console.log('this.createArticleForm.controls["languagesVersion"]');
+  //     console.log(this.createArticleForm.controls["languagesVersion"]);
+  //     let  lv = this.createArticleForm.controls["languagesVersion"].value;
+  //     // console.log('LV[0] : ');
+  //     // console.log(lv[0]);
+  //     console.log('this.createArticleForm.controls["languagesVersion"][0]');
+  //     console.log(this.createArticleForm.controls["languagesVersion"][0]);
+  //     // console.log('this.languagesVersionFormArray.value');
+  //     // console.log(this.languagesVersionFormArray.value);
+  //     // console.log('this.languagesVersionFormArray');
+  //     // console.log(this.languagesVersionFormArray);
+  //   }
 
-    if(this.createArticleForm.controls["frameworks"].value.length>0){
-      this.allSelectedFramLib = new Array();
-      this.createArticleForm.controls["frameworks"].value.forEach(framlib => {
-        this.allSelectedFramLib.push(framlib);
-      });
-    }
-    console.log(this.allSelectedLangLib);
-    console.log(this.allSelectedFramLib);
-  }
-
-
+  //   if(this.createArticleForm.controls["frameworks"].value.length>0){
+  //     this.allSelectedFramLib = new Array();
+  //     this.createArticleForm.controls["frameworks"].value.forEach(framlib => {
+  //       this.allSelectedFramLib.push(framlib);
+  //     });
+  //   }
+  //   console.log(this.allSelectedLangLib);
+  //   console.log(this.allSelectedFramLib);
+  // }
 
 
 
 
-  onChangeMethod(){
-    if(this.createArticleForm.controls["languages"].valid){
-      // this.allSelectedLangLib = new Array();
-      // this.languagesVersionFormArray.clear();
-      this.createArticleForm.controls["languages"].value.forEach(langlib => {
-        // const newControle = new FormControl("", [Validators.required]);
-        if(!this.allSelectedLangLib.indexOf(langlib)){
-          console.log("ajout d'un controle pour  : "+langlib)
-          this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]));
-          this.allSelectedLangLib.push(langlib);
-        }
-
-        this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]))
 
 
+  // onChangeMethod(){
+  //   if(this.createArticleForm.controls["languages"].valid){
+  //     // this.allSelectedLangLib = new Array();
+  //     // this.languagesVersionFormArray.clear();
+  //     this.createArticleForm.controls["languages"].value.forEach(langlib => {
+  //       // const newControle = new FormControl("", [Validators.required]);
+  //       if(!this.allSelectedLangLib.indexOf(langlib)){
+  //         console.log("ajout d'un controle pour  : "+langlib)
+  //         this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]));
+  //         this.allSelectedLangLib.push(langlib);
+  //       }
 
-        // this.languagesVersionFormArray.push(newControle);
-        this.allSelectedLangLib.push(langlib);
-      });
-    }
-  }
+  //       this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]))
+
+
+
+  //       // this.languagesVersionFormArray.push(newControle);
+  //       this.allSelectedLangLib.push(langlib);
+  //     });
+  //   }
+  // }
 
   // getErrorMessage() {
   //   if (this.createArticleForm.value.title.hasError('required')) {

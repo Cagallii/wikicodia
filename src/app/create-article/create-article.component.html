@@ -70,8 +70,8 @@
             <mat-divider></mat-divider>
             <br />
 
-            
-            <div class="addVersion" *ngFor="let langlib of allSelectedLangLib; index as i" *ngIf="this.allSelectedLangLib.length>0" >
+            <div *ngIf="this.allSelectedLangLib.length>0" >
+                <div class="addVersion" *ngFor="let langlib of allSelectedLangLib; index as i" >
                 <mat-form-field class="smallInput" matTooltip="Indiquez les versions des différents languages selectionnés">
                         {{langlib}}  version : <input matInput type="text" formControlName="languagesVersion">
                     <mat-error align="end" *ngIf="hasError('languagesVersion', 'required')">Ce champs est requis</mat-error>
@@ -81,8 +81,11 @@
                 <mat-divider></mat-divider>
                 <br />
             </div>
+        </div>
 
-            <div class="addVersion" *ngFor="let framlib of allSelectedFramLib; index as i" *ngIf="this.allSelectedFramLib.length>0" >
+            <!-- *ngIf="this.allSelectedFramLib.length>0"  -->
+            <div *ngIf="this.allSelectedFramLib.length>0" >
+            <div class="addVersion" *ngFor="let framlib of allSelectedFramLib; index as i" >
                 <mat-form-field class="smallInput" matTooltip="Indiquez les versions des différents frameworks selectionnés">
                         {{framlib}}  version : <input matInput type="text" formControlName="frameworksVersion">
                     <mat-error align="end" *ngIf="hasError('frameworksVersion', 'required')">Ce champs est requis</mat-error>
@@ -92,6 +95,8 @@
                 <mat-divider></mat-divider>
                 <br />
             </div>
+        </div>
+
             <!-- <div class="addVersion" *ngFor="let langlib of allSelectedLangLib; let i = index">
                 <mat-form-field class="smallInput" matTooltip="Indiquez les versions des différents languages selectionnés">
                         {{langlib}}  version : <input matInput type="text" formControl="languagesv">
