@@ -35,7 +35,6 @@ import * as prism from '../../assets/prismjs/prism.js';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import UserCreate from "../model/UserCreate";
-import { truncateSync } from 'fs';
 
 
 // exemple de récupération de data :
