@@ -18,7 +18,7 @@
   <br />
   <br />
 
-  <mat-chip-list *ngIf="!adminConnected">
+  <mat-chip-list *ngIf="!adminConnected || !authorConnected">
     <mat-chip *ngIf="!this.oneArticle.estPublie" color="primary" selected (click)="toggleVisibilityArticle(this.oneArticle.idArticle)">Publier</mat-chip>
     <mat-chip *ngIf="this.oneArticle.estPublie" color="primary" selected (click)="toggleVisibilityArticle(this.oneArticle.idArticle)">Rendre invisible</mat-chip>
     <mat-chip color="accent" selected>Modifier</mat-chip>
