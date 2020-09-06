@@ -134,7 +134,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   }
 
   publishArticle() {
-    if(this.oneArticle.)
+    // if(this.oneArticle.)
     console.log("publish cliked");
     this.oneArticle.estPublie = true;
     this.articleService
@@ -369,7 +369,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   goBack() {
     this.location.back();
   }
-
+}
 
 @Component({
   selector: "app-article-consultation-dialog",
