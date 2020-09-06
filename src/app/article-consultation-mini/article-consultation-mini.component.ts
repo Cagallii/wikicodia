@@ -35,6 +35,7 @@ export class ArticleConsultationMiniComponent implements OnInit {
   ) { }
 
   authenticated: boolean = false;
+  adminConnected: boolean = false;
   user: User = null;
   articles: Observable<Article[]>;
 
@@ -43,6 +44,9 @@ export class ArticleConsultationMiniComponent implements OnInit {
       this.authenticated = this.app.authenticated;
       this.user = this.app.user;
       this.oneArticle.idArticle;
+      if (this.authenticated && this.app.user.role.role == "admin"){
+        this.adminConnected = true;
+      }
     } else {
       this.router.navigateByUrl("/");
     }

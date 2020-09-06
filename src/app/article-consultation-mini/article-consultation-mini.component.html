@@ -18,7 +18,7 @@
   <br />
   <br />
 
-  <mat-chip-list>
+  <mat-chip-list *ngIf="adminConnected">
     <mat-chip color="primary" selected (click)="validateArticle(this.oneArticle.idArticle)">Valider</mat-chip>
     <mat-chip color="warn" selected (click)="rejectArticle(this.oneArticle.idArticle)">Rejeter</mat-chip>
     <mat-chip color="accent" selected [routerLink]="['/commentArticle', this.oneArticle.idArticle]">Commenter la décision</mat-chip>
