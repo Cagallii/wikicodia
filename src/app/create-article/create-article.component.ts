@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import {
   FormBuilder,
   FormGroup,
+  FormArray,
   Validators,
   FormControl,
 } from "@angular/forms";
@@ -58,13 +59,10 @@ export class CreateArticleComponent implements OnInit {
     private typeService: TypeService,
   ) {}
 
-  createArticleForm: FormGroup;
+  createArticleForm: FormGroup ;
+  languagesVersionFormArray:FormArray ;
   newArticle: Article = new Article();
 
-  // fwAndLangAndVersionSelected: Boolean = false;
-
-  isLangSelected:boolean =false;
-  isFramSelected:boolean=false;
 
   allLanguages: string[] =new Array();
   allFrameworks: string[] =new Array();
@@ -94,9 +92,9 @@ export class CreateArticleComponent implements OnInit {
       this.allSelectedFramVers =new Array();
       this.allSelectedLangComplet = new Array();
       this.allSelectedFramComplet = new Array();
+      this.languagesVersionFormArray = new FormArray([]);
 
-      this.isLangSelected =false;
-      this.isFramSelected=false;
+
 
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
@@ -135,7 +133,7 @@ export class CreateArticleComponent implements OnInit {
         languages: new FormControl('', [Validators.required]),
         languagesVersion: new FormControl('', [Validators.required]),
         frameworks: new FormControl(''),
-        frameworksVersion: new FormControl(''),
+        // frameworksVersion: new FormControl(''),
         content: new FormControl("", [
           Validators.required,
           Validators.minLength(100),
@@ -151,35 +149,121 @@ export class CreateArticleComponent implements OnInit {
   }
 
 
-  openChange($event: boolean) {
-    if ($event) {
-console.log(this.createArticleForm.controls["languages"].value.length)    
-}
-  }
+//   openChange($event: boolean) {
+//     if ($event) {
+// console.log(this.createArticleForm.controls["languages"].value.length)    
+// }
+//   }
 
-  onCloseMethod(){
-    if(this.createArticleForm.controls["languages"].valid){
+
+onCloseMethod(){
+  if(this.createArticleForm.controls["languages"].valid){
+    this.allSelectedLangLib = new Array();
+    let langlib = this.createArticleForm.controls["languages"].value;
+    if(this.allSelectedLangLib.indexOf(langlib)){
+      console.log("valeur langage inchangée");
+    }
+    else{
       this.allSelectedLangLib = new Array();
-      this.createArticleForm.controls["languages"].value.forEach(langlib => {
-        this.allSelectedLangLib.push(langlib);
-      });
+      this.allSelectedLangLib.push(langlib);
     }
 
-    if(this.createArticleForm.controls["frameworks"].value.length>0){
+  }
+
+  if(this.createArticleForm.controls["frameworks"].value){
+    this.allSelectedFramLib = new Array();
+    let framelib = this.createArticleForm.controls["languages"].value;
+    if(this.allSelectedFramLib.indexOf(framelib)){
+      console.log("valeur frameworks inchangée");
+    }
+    else{
       this.allSelectedFramLib = new Array();
-      this.createArticleForm.controls["frameworks"].value.forEach(framlib => {
-        this.allSelectedFramLib.push(framlib);
-      });
+      this.allSelectedFramLib.push(framelib);
+      this.createArticleForm.addControl("frameworksVersion",new FormControl(framelib, [Validators.required]))
     }
 
-    console.log(this.allSelectedLangLib);
-    console.log(this.allSelectedFramLib);
   }
-
-
-  addVersion(){
-
+  else if(!this.createArticleForm.controls["frameworks"].value) {
+    this.allSelectedFramLib = new Array();
+    this.createArticleForm.removeControl("frameworksVersion");
   }
+  
+  if(this.createArticleForm.controls["frameworks"].value.length>0){
+    this.allSelectedFramLib = new Array();
+    this.allSelectedFramLib.push(this.createArticleForm.controls["frameworks"].value);
+  }
+  console.log(this.allSelectedLangLib);
+  console.log(this.allSelectedFramLib);
+}
+
+
+
+
+  // onCloseMethodOLD(){
+  //   if(this.createArticleForm.controls["languages"].valid){
+  //     this.allSelectedLangLib = new Array();
+  //     this.languagesVersionFormArray.clear();
+  //     this.createArticleForm.controls["languages"].value.forEach(langlib => {
+  //       // const newControle = new FormControl("", [Validators.required]);
+  //       this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]))
+
+
+
+  //       // this.languagesVersionFormArray.push(newControle);
+  //       this.allSelectedLangLib.push(langlib);
+  //     });
+  //     this.createArticleForm.controls["languagesVersion"] = this.languagesVersionFormArray ;
+  //     console.log('this.createArticleForm.controls["languagesVersion"].value');
+  //     console.log(this.createArticleForm.controls["languagesVersion"].value);
+  //     console.log('this.createArticleForm.controls["languagesVersion"]');
+  //     console.log(this.createArticleForm.controls["languagesVersion"]);
+  //     let  lv = this.createArticleForm.controls["languagesVersion"].value;
+  //     // console.log('LV[0] : ');
+  //     // console.log(lv[0]);
+  //     console.log('this.createArticleForm.controls["languagesVersion"][0]');
+  //     console.log(this.createArticleForm.controls["languagesVersion"][0]);
+  //     // console.log('this.languagesVersionFormArray.value');
+  //     // console.log(this.languagesVersionFormArray.value);
+  //     // console.log('this.languagesVersionFormArray');
+  //     // console.log(this.languagesVersionFormArray);
+  //   }
+
+  //   if(this.createArticleForm.controls["frameworks"].value.length>0){
+  //     this.allSelectedFramLib = new Array();
+  //     this.createArticleForm.controls["frameworks"].value.forEach(framlib => {
+  //       this.allSelectedFramLib.push(framlib);
+  //     });
+  //   }
+  //   console.log(this.allSelectedLangLib);
+  //   console.log(this.allSelectedFramLib);
+  // }
+
+
+
+
+
+
+  // onChangeMethod(){
+  //   if(this.createArticleForm.controls["languages"].valid){
+  //     // this.allSelectedLangLib = new Array();
+  //     // this.languagesVersionFormArray.clear();
+  //     this.createArticleForm.controls["languages"].value.forEach(langlib => {
+  //       // const newControle = new FormControl("", [Validators.required]);
+  //       if(!this.allSelectedLangLib.indexOf(langlib)){
+  //         console.log("ajout d'un controle pour  : "+langlib)
+  //         this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]));
+  //         this.allSelectedLangLib.push(langlib);
+  //       }
+
+  //       this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]))
+
+
+
+  //       // this.languagesVersionFormArray.push(newControle);
+  //       this.allSelectedLangLib.push(langlib);
+  //     });
+  //   }
+  // }
 
   // getErrorMessage() {
   //   if (this.createArticleForm.value.title.hasError('required')) {
@@ -227,6 +311,7 @@ console.log(this.createArticleForm.controls["languages"].value.length)
 
 
     if (this.createArticleForm.invalid) {
+      console.log("invalid");
       return;
     } else if (this.app.authenticated) {
       this.newArticle = new Article();
@@ -270,6 +355,7 @@ console.log(this.createArticleForm.controls["languages"].value.length)
     // this.allSelectedLangLib.forEach((langlib ) => this.createArticleForm .addControl(langlib, new FormControl('', [Validators.required])));
 
     if (this.createArticleForm.invalid) {
+      console.log("invalid");
       return;
     } else if (this.app.authenticated) {
       this.newArticle = new Article();
