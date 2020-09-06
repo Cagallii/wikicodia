@@ -10,10 +10,10 @@
   <mat-chip-list aria-label="">
     <mat-chip color="accent" selected>Type : {{this.oneArticle.type.libType}}</mat-chip>
     <mat-chip color="accent" selected>Catégorie : {{this.oneArticle.categorie.libCategorie}}</mat-chip>
-    <mat-chip color="accent" selected *ngFor="let lang of this.oneArticle.langage" value="{{lang}}">{{lang.lang}} {{lang.version}}</mat-chip>
-    <mat-chip color="accent" selected *ngFor="let fram of this.oneArticle.framework" value="{{fram}}">{{fram.framework}} {{fram.version}}</mat-chip>
+    <mat-chip color="accent" selected >Langage : {{this.oneArticle.langage.lang}} {{this.oneArticle.langage.version}}</mat-chip>
+    <mat-chip color="accent" selected *ngIf="this.oneArticle.frameworks!==null">Framework : {{this.oneArticle.framework.framework}} {{this.oneArticle.framework.version}}</mat-chip>
     <mat-chip color="accent" selected>Créé le {{this.oneArticle.dateCreation}}</mat-chip>
-    <mat-chip color="accent" selected>Modifié le {{this.oneArticle.dateDerniereModif}}</mat-chip>
+    <mat-chip color="accent" selected *ngIf="this.oneArticle.dateDerniereModif!==null">Dernière modification le {{this.oneArticle.dateDerniereModif}}</mat-chip>
     <mat-chip color="accent" selected>Créé par {{this.oneArticle.auteur.pseudo}}</mat-chip>
   </mat-chip-list>
   <br />
@@ -27,6 +27,14 @@
   <mat-card-actions>
     <button *ngIf='this.isPromoteButtonAvailable' mat-mini-fab matTooltip="Promouvoir cet article" (click)='promoteArticle(this.oneArticle.idArticle)' color="primary">
       <mat-icon>loyalty</mat-icon>
+    </button>
+
+    <button *ngIf='this.isPublishButtonAvailable' mat-mini-fab matTooltip="Publier cet article" (click)='publishArticle()' color="primary">
+      <mat-icon>lock_open</mat-icon>
+    </button>
+
+    <button *ngIf='this.isUnpublishButtonAvailable' mat-mini-fab matTooltip="Rendre cet article privé" (click)='unpublishArticle()' color="primary">
+      <mat-icon>lock</mat-icon>
     </button>
 
     <button mat-mini-fab matTooltip="Modifier cet article" color="primary">

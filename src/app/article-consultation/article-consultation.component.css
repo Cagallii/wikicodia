@@ -16,6 +16,24 @@ mat-card-actions{
     margin: 0em; */
 }
 
+mat-card-title{
+    word-wrap    : break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
+mat-card-subtitle{
+    word-wrap    : break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
+mat-card-content{
+    word-wrap    : break-word;
+    overflow-wrap: break-word;
+    word-break: break-all;
+}
+
 button{
     margin-right: 2em;
     justify-content: center;
@@ -39,6 +57,9 @@ mat-dialog-actions{
 
 .textareaformfield{
     width: 100%;
+        word-wrap    : break-word;
+        overflow-wrap: break-word;
+        word-break: break-all;
 }
 
 .checkboxDialog{
