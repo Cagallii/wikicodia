@@ -53,6 +53,14 @@ export class UserProfilComponent implements OnInit {
     this.language = this.langageService.getAll();
     this.type = this.typeService.getAll();
 
+    console.log(this.app.user.idUtilisateur);
+    console.log("app user");
+    console.log(this.app.user);
+    console.log("utilisateur profil :");
+    console.log(this.user);
+    
+    this.userService.getUserPreferences(this.app.user);
+
     if (this.app.authenticated) {
 
       let modifUser = new User;
