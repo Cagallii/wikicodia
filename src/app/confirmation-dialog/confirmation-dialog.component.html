@@ -1,0 +1,9 @@
+
+<h2 mat-dialog-title style="background-color: crimson; color: whitesmoke; text-align: center; padding: 10px;">Confirmer la suppression</h2>
+<mat-dialog-content class="mat-typography">
+  <p>Etes-vous sûr(e) de vouloir supprimer cet incroyable article ?</p>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button color="warn" mat-button mat-dialog-close>Non, surtout pas!</button>
+  <button color="primary" mat-button [mat-dialog-close]="true" cdkFocusInitial>On a dit "Poubelle"!</button>
+</mat-dialog-actions>

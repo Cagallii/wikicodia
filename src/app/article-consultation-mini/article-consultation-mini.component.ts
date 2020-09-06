@@ -15,6 +15,7 @@ import Vote from "../model/Vote";
 import { ArticleService } from "../services/article.service";
 import { VoteService } from "../services/vote.service";
 import { Observable } from "rxjs";
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
   selector: 'app-article-consultation-mini',
@@ -38,6 +39,8 @@ export class ArticleConsultationMiniComponent implements OnInit {
   adminConnected: boolean = false;
   user: User = null;
   articles: Observable<Article[]>;
+  isPublished: boolean = false;
+  confirmation: string;
 
   ngOnInit() {
     if (this.app.authenticated) {
@@ -47,6 +50,9 @@ export class ArticleConsultationMiniComponent implements OnInit {
       if (this.authenticated && this.app.user.role.role == "admin"){
         this.adminConnected = true;
       }
+      if (this.oneArticle.estPublie){
+        this.isPublished = true;
+      }
     } else {
       this.router.navigateByUrl("/");
     }
@@ -55,6 +61,53 @@ export class ArticleConsultationMiniComponent implements OnInit {
   goToArticle(idArticle){
     let params = {idArticle:idArticle}
     this.router.navigate(['articleConsultation', params]);
+  }
+
+  /**
+   * Suppression d'un article par son auteur depuis la page "mes articles" 
+   * @param id de l'article à supprimer
+   */
+  deleteArticle(id: number) {
+    this.openDialog();
+    console.log(this.confirmation);
+    if (this.confirmation != null){
+      this.articleService.delete(id)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.reloadData();
+        },
+        error => console.log(error)
+      );
+    }
+  }
+
+  /**
+   * Popup de confirmation de la suppression d'un article
+   * @param id 
+   */
+
+  openDialog() {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent);
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      this.confirmation = result;
+    });
+  }
+
+  /**
+   * Publication d'un article sauvegardé ou remise au statut invisible 
+   * @param id de l'article à publier / dépublier
+   */
+  toggleVisibilityArticle(id : number){
+    this.articleService.toggleVisibility(id)
+    .subscribe(
+      data => {
+        console.log(data);
+        this.reloadData();
+      },
+      error => console.log(error)
+    );
   }
 
   /**
@@ -68,7 +121,7 @@ export class ArticleConsultationMiniComponent implements OnInit {
     .subscribe(
       data => {
         console.log(data);
-        this.reloadData();
+        this.reloadDataAfterAdminDecision();
       },
       error => console.log(error)
     );
@@ -83,7 +136,7 @@ export class ArticleConsultationMiniComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          this.reloadData();
+          this.reloadDataAfterAdminDecision();
         },
         error => console.log(error)
       );
@@ -93,11 +146,22 @@ export class ArticleConsultationMiniComponent implements OnInit {
    * Méthode pour forcer le rafraîchissement du composant list-article-awaiting-validation associé à la route '/articles/pending'
    * après une validation ou un rejet d'article par l'admin
    */
-  reloadData() {
+  reloadDataAfterAdminDecision() {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate(['/articles/pending']);
   }
+
+  /**
+   * Méthode pour forcer le rafraîchissement du composant list-article-created associé à la route '/createdArticles'
+   * après une validation ou un rejet d'article par l'admin
+   */
+  reloadData() {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['/createdArticles']);
+  }
+
   
 
 }
