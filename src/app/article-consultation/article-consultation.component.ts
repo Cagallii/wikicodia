@@ -1,4 +1,13 @@
-import { Component, OnInit, Inject, AfterViewInit, Renderer2, AfterContentInit, DoCheck, AfterViewChecked } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Inject,
+  AfterViewInit,
+  Renderer2,
+  AfterContentInit,
+  DoCheck,
+  AfterViewChecked,
+} from "@angular/core";
 import {
   MatDialog,
   MatDialogRef,
@@ -6,7 +15,13 @@ import {
   MatDialogConfig,
 } from "@angular/material/dialog";
 import { FormBuilder, FormGroup } from "@angular/forms";
-import { ActivatedRoute, Router, NavigationStart, Event as NavigationEvent, NavigationEnd } from "@angular/router";
+import {
+  ActivatedRoute,
+  Router,
+  NavigationStart,
+  Event as NavigationEvent,
+  NavigationEnd,
+} from "@angular/router";
 import Article from "../model/Article";
 import { AppService } from "../app.service";
 import User from "../model/UserCreate";
@@ -19,6 +34,8 @@ import { DOCUMENT } from '@angular/common';
 import * as prism from '../../assets/prismjs/prism.js';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Location } from '@angular/common';
+import UserCreate from "../model/UserCreate";
+
 
 // exemple de récupération de data :
 
@@ -36,16 +53,14 @@ import { Location } from '@angular/common';
 //   });
 
 // }
-declare var Prism; 
+declare var Prism;
 
 @Component({
   selector: "app-article-consultation",
   templateUrl: "./article-consultation.component.html",
   styleUrls: ["./article-consultation.component.css"],
 })
-
 export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
-
   constructor(
     private dialog: MatDialog,
     private router: Router,
@@ -64,25 +79,23 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   allLike: number = 0;
   allDislike: number = 0;
   dislikeComment: string = null;
-  oneArticle:Article;
-  isPromoteButtonAvailable:boolean = false;
+  oneArticle: Article;
+  isPromoteButtonAvailable: boolean = false;
   mardownContenu: SafeHtml;
 
-  isUnpublishButtonAvailable:boolean=false;
-  isPublishButtonAvailable : boolean = false;
+  isUnpublishButtonAvailable: boolean = false;
+  isPublishButtonAvailable: boolean = false;
 
-
-  ngAfterViewChecked(){
+  ngAfterViewChecked() {
     this.highlight();
   }
 
-  highlight(){
+  highlight() {
     console.log("highlight launch");
-    // Prism.highlightAll();
+    Prism.highlightAll();
   }
 
   ngOnInit() {
-
     if (this.app.authenticated) {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
@@ -90,32 +103,58 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.allDislike = 0;
       this.dislikeComment = null;
       this.isPromoteButtonAvailable = false;
-    
-      this.isUnpublishButtonAvailable=false;
+      this.oneArticle = new Article();
+      this.isUnpublishButtonAvailable = false;
       this.isPublishButtonAvailable = false;
-
 
       // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh
       this.route.params.subscribe(
         (data) => {
-          this.articleService.getOneArticle(data.idArticle).subscribe(
-          (art:Article) => {console.log(art); this.oneArticle = art},
-          (error) => console.log(error),)
-        }
+          console.log(
+            "AAAAAAAAA data du param de routing data['idArticle'] : "
+          );
+          let idart: number = data["idArticle"];
+          console.log(idart);
+
+          this.articleService.getOneArticle(idart).subscribe(
+            (data: Article) => {
+              this.oneArticle = data;
+              console.log(data);
+              this.refreshDataArticle();
+            },
+            (error) => console.log(error)
+          );
+        },
+        (error) => console.log(error)
       );
-      
-      this.refreshDataArticle();
     } else {
       this.router.navigateByUrl("/");
     }
   }
 
-  publishArticle(){
-    console.log("publish cliked")
+  publishArticle() {
+    console.log("publish cliked");
   }
 
-  unpublishArticle(){
-    console.log("unpublish cliked")
+  unpublishArticle() {
+    console.log("unpublish cliked");
+  }
+
+  formatDataWithAuteur(idarticle) {
+    this.articleService.getOneArticle(idarticle).subscribe((art: Article) => {
+      console.log(art);
+      this.oneArticle = art;
+      let idaut = art.auteur;
+      let arrayIdAut = new Array();
+      arrayIdAut.push(idaut);
+      this.userService.getAuteurs(arrayIdAut).subscribe(
+        (aut: UserCreate) => {
+          console.log(aut);
+          this.oneArticle.auteur = aut[0];
+        },
+        (error) => console.log(error)
+      );
+    });
   }
 
   actionLike() {
@@ -152,7 +191,6 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     }
   }
 
-
   actionDislike() {
     var voteOfUser = this.oneArticle.vote.find(
       (vot) => vot.utilisateur.idUtilisateur === this.user.idUtilisateur
@@ -163,9 +201,10 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       // return
     }
     // modification du dislike si cliqué par quelqu'un l'ayant déjà disliké
-    else if (voteOfUser && this.dislikeComment!=="cancel") {
-
-      console.log("OPTION 2 : modification du dislike si cliqué par quelqu'un l'ayant déjà disliké");
+    else if (voteOfUser && this.dislikeComment !== "cancel") {
+      console.log(
+        "OPTION 2 : modification du dislike si cliqué par quelqu'un l'ayant déjà disliké"
+      );
       var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
       var modifiedVote = new Vote();
       modifiedVote.commentaire = this.dislikeComment;
@@ -180,68 +219,66 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
           this.refreshDataArticle();
         });
       console.log(this.oneArticle);
-    } 
-        // l'utilisateur clique sur suppression du dislike
-    else if(this.dislikeComment==="cancel"){
-      console.log("OPTION 3 : utilisateur clique sur suppression du dislike")
+    }
+    // l'utilisateur clique sur suppression du dislike
+    else if (this.dislikeComment === "cancel") {
+      console.log("OPTION 3 : utilisateur clique sur suppression du dislike");
 
       var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
       this.oneArticle.vote.splice(indexOfVote, 1);
       this.articleService
-      .updateOneArticle(this.oneArticle)
-      .subscribe((data) => {
-        console.log(data);
-        this.refreshDataArticle();
-      });
+        .updateOneArticle(this.oneArticle)
+        .subscribe((data) => {
+          console.log(data);
+          this.refreshDataArticle();
+        });
       console.log(this.oneArticle);
-    }
-    else {
-      console.log("OPTION 4 : else final ")
+    } else {
+      console.log("OPTION 4 : else final ");
       this.createVote();
       console.log(this.user);
       console.log(this.oneArticle);
     }
   }
 
-  createVote(){
+  createVote() {
     var newVote = new Vote();
     newVote.commentaire = this.dislikeComment;
-    if(this.dislikeComment === null){
+    if (this.dislikeComment === null) {
       newVote.liked = true;
-    }
-    else {
+    } else {
       newVote.liked = false;
-
     }
     newVote.utilisateur = this.user;
     console.log(newVote);
     this.oneArticle.vote.push(newVote);
-    this.articleService
-    .updateOneArticle(this.oneArticle)
-    .subscribe((data) => {
+    this.articleService.updateOneArticle(this.oneArticle).subscribe((data) => {
       console.log(data);
       this.refreshDataArticle();
     });
   }
 
   refreshDataArticle() {
-    this.articleService.getOneArticle(this.oneArticle.idArticle).subscribe((data: Article) => {
-      this.oneArticle = data;
-  
-      if (this.oneArticle.contenu && this.oneArticle.contenu.length > 0) {
-        this.mardownContenu = this.sanitizer.bypassSecurityTrustHtml(marked(this.oneArticle.contenu));
-      }
-      
-      if(this.user.role.role == "admin" && this.oneArticle.estPromu == false){
-        this.isPromoteButtonAvailable = true;
-      } else {
-        this.isPromoteButtonAvailable = false;
-      }
-      console.log(this.oneArticle);
-      console.log("data from refresh :");
-      console.log(data);
-      this.refreshLikeArticle();
-    });
+    // this.articleService.getOneArticle(this.oneArticle.idArticle).subscribe((data: Article) => {
+    // this.oneArticle = data;
+    this.formatDataWithAuteur(this.oneArticle.idArticle);
+
+    if (this.oneArticle.contenu && this.oneArticle.contenu.length > 0) {
+      this.mardownContenu = this.sanitizer.bypassSecurityTrustHtml(
+        marked(this.oneArticle.contenu)
+      );
+    }
+
+    if (this.user.role.role == "admin" && this.oneArticle.estPromu == false) {
+      this.isPromoteButtonAvailable = true;
+    } else {
+      this.isPromoteButtonAvailable = false;
+    }
+    console.log(this.oneArticle);
+    console.log("data from refresh :");
+    // console.log(data);
+    this.refreshLikeArticle();
+    // });
   }
 
   refreshLikeArticle() {
@@ -293,14 +330,12 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     });
   }
 
-  promoteArticle(articleId : Number){
+  promoteArticle(articleId: Number) {
     console.log(articleId);
-    this.articleService.setArticlePromotion(articleId).subscribe(
-      response => {
-        console.log(response);
-        this.router.navigateByUrl("/");
-      }
-    )
+    this.articleService.setArticlePromotion(articleId).subscribe((response) => {
+      console.log(response);
+      this.router.navigateByUrl("/");
+    });
   }
 
   /**
@@ -310,7 +345,6 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     this.location.back();
   }
 
-}
 
 @Component({
   selector: "app-article-consultation-dialog",

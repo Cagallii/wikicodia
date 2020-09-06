@@ -62,7 +62,7 @@ export class ArticleConsultationMiniComponent implements OnInit {
     }
   }
 
-  goToArticle(idArticle){
+  goToArticle(idArticle:number){
     let params = {idArticle:idArticle}
     this.router.navigate(['articleConsultation', params]);
   }
