@@ -18,6 +18,13 @@
   <br />
   <br />
 
+  <mat-chip-list *ngIf="!adminConnected">
+    <mat-chip *ngIf="!this.oneArticle.estPublie" color="primary" selected (click)="toggleVisibilityArticle(this.oneArticle.idArticle)">Publier</mat-chip>
+    <mat-chip *ngIf="this.oneArticle.estPublie" color="primary" selected (click)="toggleVisibilityArticle(this.oneArticle.idArticle)">Rendre invisible</mat-chip>
+    <mat-chip color="accent" selected>Modifier</mat-chip>
+    <mat-chip color="warn" selected (click)="deleteArticle(this.oneArticle.idArticle)">Supprimer</mat-chip>
+  </mat-chip-list>
+
   <mat-chip-list *ngIf="adminConnected">
     <mat-chip color="primary" selected (click)="validateArticle(this.oneArticle.idArticle)">Valider</mat-chip>
     <mat-chip color="warn" selected (click)="rejectArticle(this.oneArticle.idArticle)">Rejeter</mat-chip>

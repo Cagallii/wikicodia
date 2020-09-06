@@ -27,8 +27,16 @@ export class ArticleService {
     return this.http.put(this.baseUrl+"modification/"+`${article.idArticle}`, article);
   }
 
+  toggleVisibility(idArticle:number){
+    return this.http.put(this.baseUrl + "toggle-visibility/" +`${idArticle}`, { observe: 'response' });
+  }
+
+  delete(idArticle:number){
+    return this.http.delete(this.baseUrl+"suppression/" + `${idArticle}`);
+  }
+
   getArticlesAwaitingValidation(): Observable<any> {
-    return this.http.get(this.baseUrl+ "pending");
+    return this.http.get(this.baseUrl + "pending");
   }
 
   comment(idArticle:number, comAdmin:string): Observable<Object> {
