@@ -30,10 +30,12 @@ import Vote from "../model/Vote";
 import { ArticleService } from "../services/article.service";
 import { VoteService } from "../services/vote.service";
 import * as marked from "marked";
-import { DOCUMENT } from "@angular/common";
-import * as prism from "../../assets/prismjs/prism.js";
-import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { DOCUMENT } from '@angular/common';
+import * as prism from '../../assets/prismjs/prism.js';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { Location } from '@angular/common';
 import UserCreate from "../model/UserCreate";
+
 
 // exemple de récupération de data :
 
@@ -67,7 +69,8 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     private userService: UserService,
     private articleService: ArticleService,
     private voteService: VoteService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private location: Location
   ) {}
 
   // oneArticle: Article = this.oneArticle;
@@ -334,7 +337,14 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.router.navigateByUrl("/");
     });
   }
-}
+
+  /**
+   * Retour à la pgae précédente au clic sur "Revenir à la liste"
+   */
+  goBack() {
+    this.location.back();
+  }
+
 
 @Component({
   selector: "app-article-consultation-dialog",

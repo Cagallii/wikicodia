@@ -115,11 +115,16 @@ export class XhrInterceptor implements HttpInterceptor {
         }else {
           // server-side error
           errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+
           // Suppression de la popup au lancement de l'appli (403 - forbidden)
           if (errorMessage.includes('user: 403 Forbidden')){
             return throwError(errorMessage);
           }
-          // Message sp�cifique aux erreurs sur la page des articles en attente de validation
+          // Suppression de la popup si pas d'articles dans les favoris
+          if (errorMessage.includes('articlesFavoris')){
+            return throwError(errorMessage);
+          }
+          // Message spécifique aux erreurs sur la page des articles en attente de validation
           if (errorMessage.includes('articles/reject')){
             errorMessage = "Action impossible! Veuillez d'abord renseigner un commentaire pour justifier le rejet de cet article.";
           }
