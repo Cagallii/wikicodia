@@ -66,13 +66,17 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   isPromoteButtonAvailable:boolean = false;
   mardownContenu: SafeHtml;
 
+  isUnpublishButtonAvailable:boolean=false;
+  isPublishButtonAvailable : boolean = false;
+
+
   ngAfterViewChecked(){
     this.highlight();
   }
 
   highlight(){
     console.log("highlight launch");
-    Prism.highlightAll();
+    // Prism.highlightAll();
   }
 
   ngOnInit() {
@@ -83,13 +87,19 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.allLike = 0;
       this.allDislike = 0;
       this.dislikeComment = null;
+      this.isPromoteButtonAvailable = false;
+    
+      this.isUnpublishButtonAvailable=false;
+      this.isPublishButtonAvailable = false;
+
 
       // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh
       this.route.params.subscribe(
-        (data: Article) => {
-          this.oneArticle = data;
+        (data) => {
+          this.articleService.getOneArticle(data.idArticle).subscribe(
+          (art:Article) => {console.log(art); this.oneArticle = art},
+          (error) => console.log(error),)
         }
-
       );
       
       this.refreshDataArticle();
@@ -97,6 +107,16 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.router.navigateByUrl("/");
     }
   }
+
+  publishArticle(){
+    console.log("publish cliked")
+  }
+
+  unpublishArticle(){
+    console.log("unpublish cliked")
+  }
+
+
 
   actionLike() {
     var voteOfUser = this.oneArticle.vote.find(
