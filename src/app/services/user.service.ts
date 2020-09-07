@@ -162,4 +162,8 @@ export class UserService {
   setUserType(id: number, typeId: TypeArticle[]): Observable<any> {
     return this.http.post(`${this.baseUrl}/set-type/${id}`, typeId);
   }
+
+  getLast5Articles(id: number): Observable<any>{
+    return this.http.get(`/articles/mesarticles-profil/${id}`)
+  }
 }

@@ -15,6 +15,7 @@ import { CategoryService } from '../services/category.service';
 import { FrameworkService } from '../services/framework.service';
 import { LanguageService } from '../services/language.service';
 import { TypeService } from '../services/type.service';
+import Article from '../model/Article';
 
 @Component({
   selector: 'app-user-profil',
@@ -34,6 +35,7 @@ export class UserProfilComponent implements OnInit {
   language: Observable<Language[]>;
   checkArray: FormArray;
   invalidePassword : Boolean = false;
+  cinqDerniersArticles : Observable<Article[]>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -52,16 +54,14 @@ export class UserProfilComponent implements OnInit {
     this.framework = this.frameworkService.getAll();
     this.language = this.langageService.getAll();
     this.type = this.typeService.getAll();
-
-    console.log(this.app.user.idUtilisateur);
-    console.log("app user");
-    console.log(this.app.user);
-    console.log("utilisateur profil :");
-    console.log(this.user);
-    
-    this.userService.getUserPreferences(this.app.user);
-
+ 
     if (this.app.authenticated) {
+      this.userService.getUserPreferences(this.app.user);
+      this.cinqDerniersArticles = this.userService.getLast5Articles(this.app.user.idUtilisateur);
+      console.log("app article");
+      this.cinqDerniersArticles.subscribe(
+        data => console.log(data)
+      )
 
       let modifUser = new User;
       this.userService.hydrateByConnectedUser(modifUser, this.app.user);
@@ -308,10 +308,6 @@ export class UserProfilComponent implements OnInit {
   changementMdp(){
     let mdpNew = this.mdpForm.value['newMdp'];
     let mdpConfirmation = this.mdpForm.value['confirmNewMdp'];
-
-    console.log(mdpNew);
-    console.log(mdpConfirmation);
-    
 
     if(mdpConfirmation === mdpNew && mdpNew !== ""){
       this.user.motDePasse = window.btoa(mdpNew);
