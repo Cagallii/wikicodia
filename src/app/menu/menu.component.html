@@ -1,4 +1,4 @@
-<button (click)="switchDisplay()" mat-button [matMenuTriggerFor]="menu">Menu</button>
+<button (click)="switchDisplay()" mat-button [matMenuTriggerFor]="menu"><img style="width:100px;" src="../assets/logo_wikicodia.png"></button>
 <mat-menu #menu="matMenu">
     <mat-icon *ngIf="authenticated" routerLink="userProfil">face</mat-icon>
     <h3 *ngIf="authenticated">Bonjour {{ user.pseudo }}</h3>

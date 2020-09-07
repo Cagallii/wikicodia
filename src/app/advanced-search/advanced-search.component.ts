@@ -83,7 +83,7 @@ export class AdvancedSearchComponent implements OnInit {
     // }
 
     // display form values on success
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.searchForm.value, null, 4));
+    //alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.searchForm.value, null, 4));
   }
 
   onReset() {

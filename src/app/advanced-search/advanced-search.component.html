@@ -1,8 +1,9 @@
 <form [formGroup]="searchForm" class="maincontainer" (ngSubmit)="onSubmit()">
     <!-- <a routerLink="/goHome"><h1>Wikicodia</h1></a> -->
     <div class="row searchZone">
-        <div class="col-lg-10 col-md-10 col-sm-12 searchInput">
-
+        <app-menu class="col-lg-1 col-md-1 col-sm-12"></app-menu>
+        <div class="col-lg-9 col-md-9 col-sm-12 searchInput">
+            
             <mat-form-field class="searchInput">
                 <mat-label>Rechercher</mat-label>
                 <input matInput formControlName="searchWords">
