@@ -4,6 +4,7 @@ import { AppService } from '../app.service';
 import Article from "../model/Article";
 import User from "../model/UserCreate";
 
+
 @Component({
   selector: 'app-article-suggestion-home',
   templateUrl: './article-suggestion-home.component.html',
@@ -29,7 +30,6 @@ export class ArticleSuggestionHomeComponent implements OnInit {
       this.authenticated = this.app.authenticated;
       this.user = this.app.user;
       this.displaySuggestedArticles();
-      
     }
   }
 
@@ -59,5 +59,4 @@ export class ArticleSuggestionHomeComponent implements OnInit {
       }
     )
   }
-
 }
