@@ -16,6 +16,8 @@ import { ArticleService } from "../services/article.service";
 import { VoteService } from "../services/vote.service";
 import { Observable } from "rxjs";
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
+import UserCreate from "../model/UserCreate";
+
 
 @Component({
   selector: 'app-article-consultation-mini',
@@ -50,7 +52,21 @@ export class ArticleConsultationMiniComponent implements OnInit {
     if (this.app.authenticated) {
       this.authenticated = this.app.authenticated;
       this.user = this.app.user;
-      this.oneArticle.idArticle;
+      // this.oneArticle.idArticle;
+      console.log("this.oneArticle.idArticle dans article mini ");
+      console.log(this.oneArticle.idArticle);
+
+      this.formatDataWithAuteur(this.oneArticle.idArticle)
+      // this.articleService.getOneArticle(this.oneArticle.idArticle).subscribe(
+      //   (data: Article) => {
+      //     this.oneArticle = data;
+      //     console.log(data);
+      //     this.determineIfArticleAlreadyFavorite(data);
+      //     this.refreshDataArticle();
+      //   },
+      //   (error) => console.log(error)
+      // );
+
       if (this.authenticated && this.app.user.role.role == "admin"){
         this.adminConnected = true;
       }
@@ -71,6 +87,24 @@ export class ArticleConsultationMiniComponent implements OnInit {
   goToArticle(idArticle:number){
     let params = {idArticle:idArticle}
     this.router.navigate(['articleConsultation', params]);
+  }
+
+
+  formatDataWithAuteur(idarticle) {
+    this.articleService.getOneArticle(idarticle).subscribe((art: Article) => {
+      console.log(art);
+      this.oneArticle = art;
+      let idaut = art.auteur;
+      let arrayIdAut = new Array();
+      arrayIdAut.push(idaut);
+      this.userService.getAuteurs(arrayIdAut).subscribe(
+        (aut: UserCreate) => {
+          console.log(aut);
+          this.oneArticle.auteur = aut[0];
+        },
+        (error) => console.log(error)
+      );
+    });
   }
 
   /**
