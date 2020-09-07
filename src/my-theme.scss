@@ -9,3 +9,4 @@ $my-app-warn: mat-palette($mat-wikicodia-palette-warn, 500);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 
 @include angular-material-theme($my-app-theme);
+
