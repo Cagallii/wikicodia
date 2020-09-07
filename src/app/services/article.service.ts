@@ -60,7 +60,7 @@ export class ArticleService {
   }
 
   getPromotedArticles() : Observable<Object> {
-    return this.http.get(this.baseUrl + "articlesPromus");
+    return this.http.get(this.baseUrl + "derniersArticlesPromus");
   }
 
   setArticlePromotion(articleId : Number) : Observable<Object> {
