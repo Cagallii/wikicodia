@@ -1,5 +1,5 @@
-<form [formGroup]="createArticleForm" class="maincontainer">
-    <mat-card class="creationCard">
+<form [formGroup]="createArticleForm" class="maincontainer" >
+    <mat-card class="creationCard" color="primary">
         <mat-card-header>
             <mat-card-title>Interface de création d'article</mat-card-title>
         </mat-card-header>
@@ -79,7 +79,7 @@
             <div class="selectZone">
 
                 <div class="nextToSomeone" *ngIf='this.createArticleForm.controls["languages"].value'>
-                    <mat-form-field class="smallInput" matTooltip="Indiquez la version du language selectionné">
+                    <mat-form-field class="smallInput" color="primary" matTooltip="Indiquez la version du language selectionné">
                         {{this.createArticleForm.controls["languages"].value}} version : <input matInput type="text"
                             formControlName="languagesVersion">
                         <mat-error align="end" *ngIf="hasError('languagesVersion', 'required')">Ce champs est requis

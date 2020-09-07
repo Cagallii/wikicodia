@@ -86,7 +86,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   oneArticle: Article;
   isPromoteButtonAvailable: boolean = false;
   mardownContenu: SafeHtml;
-  isFavoriteButtonAvailable : boolean = false;
+  isFavoriteButtonAvailable : boolean = true;
 
   isUnpublishButtonAvailable: boolean = false;
   isPublishButtonAvailable: boolean = false;
