@@ -97,43 +97,37 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   }
 
   ngOnInit() {
+    this.oneArticle = new Article();
     if (this.app.authenticated) {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
       this.allLike = 0;
       this.allDislike = 0;
       this.dislikeComment = null;
-      this.oneArticle = new Article();
       if (!this.oneArticle.estPromu){
         this.isPromoteButtonAvailable = true;
       }
       this.isUnpublishButtonAvailable = false;
       this.isPublishButtonAvailable = false;
-
-      // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh
-      this.route.params.subscribe(
-        (data) => {
-          console.log(
-            "AAAAAAAAA data du param de routing data['idArticle'] : "
-          );
-          let idart: number = data["idArticle"];
-          console.log(idart);
-
-          this.articleService.getOneArticle(idart).subscribe(
-            (data: Article) => {
-              this.oneArticle = data;
-              console.log(data);
-              this.determineIfArticleAlreadyFavorite(data);
-              this.refreshDataArticle();
-            },
-            (error) => console.log(error)
-          );
-        },
-        (error) => console.log(error)
-      );
-    } else {
-      this.router.navigateByUrl("/");
     }
+
+    // on recupere l'article selectionné précédemment et passé en param, penser à modifier aussi dans la fonction refresh
+    this.route.params.subscribe(
+      (data) => {
+        let idart: number = data["idArticle"];
+        this.articleService.getOneArticle(idart).subscribe(
+          (data: Article) => {
+            this.oneArticle = data;
+            if (this.app.authenticated){
+              this.determineIfArticleAlreadyFavorite(data);
+            }
+            this.refreshDataArticle();
+          },
+          (error) => console.log(error)
+        );
+      },
+      (error) => console.log(error)
+    );
   }
 
   determineIfArticleAlreadyFavorite(article : Article){
