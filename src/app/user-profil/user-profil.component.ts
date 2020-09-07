@@ -36,6 +36,7 @@ export class UserProfilComponent implements OnInit {
   checkArray: FormArray;
   invalidePassword : Boolean = false;
   cinqDerniersArticles : Observable<Article[]>;
+  articles: Article[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -60,8 +61,9 @@ export class UserProfilComponent implements OnInit {
       this.cinqDerniersArticles = this.userService.getLast5Articles(this.app.user.idUtilisateur);
       console.log("app article");
       this.cinqDerniersArticles.subscribe(
-        data => console.log(data)
+        data => this.articles = data
       )
+
 
       let modifUser = new User;
       this.userService.hydrateByConnectedUser(modifUser, this.app.user);

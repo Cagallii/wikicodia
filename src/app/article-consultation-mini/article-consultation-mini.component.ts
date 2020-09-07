@@ -60,7 +60,7 @@ export class ArticleConsultationMiniComponent implements OnInit {
       this.url = String(this.activatedRoute.snapshot.url);
       if (this.url.includes("pending")){
         this.isPagePendingArticles = true;
-      } else if (this.url.includes("createdArticles")){
+      } else if (this.url.includes("createdArticles") || this.url.includes("profil")){
         this.isPageMyArticles = true;
       }
     } else {
