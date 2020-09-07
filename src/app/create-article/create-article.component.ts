@@ -68,10 +68,10 @@ export class CreateArticleComponent implements OnInit {
   allType: string[] =new Array();
   allCategory: string[] =new Array();
 
-  selectedLangLib:string ="";
-  selectedFramLib:string ="";
-  selectedLangVers:string ="";
-  selectedFramVers:string ="";
+  // selectedLangLib:string ="";
+  // selectedFramLib:string ="";
+  // selectedLangVers:string ="";
+  // selectedFramVers:string ="";
 
 
   // allSelectedLangLib: string[] =new Array();
@@ -92,10 +92,10 @@ export class CreateArticleComponent implements OnInit {
       this.allType = new Array();
       this.allCategory = new Array();
 
-      this.selectedLangLib ="";
-      this.selectedFramLib ="";
-      this.selectedLangVers ="";
-      this.selectedFramVers ="";
+      // this.selectedLangLib ="";
+      // this.selectedFramLib ="";
+      // this.selectedLangVers ="";
+      // this.selectedFramVers ="";
 
 
 
@@ -175,114 +175,6 @@ onCloseMethod(){
 }
 
 
-
-
-  // onCloseMethodOLD(){
-  //   if(this.createArticleForm.controls["languages"].valid){
-  //     this.allSelectedLangLib = new Array();
-  //     this.languagesVersionFormArray.clear();
-  //     this.createArticleForm.controls["languages"].value.forEach(langlib => {
-  //       // const newControle = new FormControl("", [Validators.required]);
-  //       this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]))
-
-
-
-  //       // this.languagesVersionFormArray.push(newControle);
-  //       this.allSelectedLangLib.push(langlib);
-  //     });
-  //     this.createArticleForm.controls["languagesVersion"] = this.languagesVersionFormArray ;
-  //     console.log('this.createArticleForm.controls["languagesVersion"].value');
-  //     console.log(this.createArticleForm.controls["languagesVersion"].value);
-  //     console.log('this.createArticleForm.controls["languagesVersion"]');
-  //     console.log(this.createArticleForm.controls["languagesVersion"]);
-  //     let  lv = this.createArticleForm.controls["languagesVersion"].value;
-  //     // console.log('LV[0] : ');
-  //     // console.log(lv[0]);
-  //     console.log('this.createArticleForm.controls["languagesVersion"][0]');
-  //     console.log(this.createArticleForm.controls["languagesVersion"][0]);
-  //     // console.log('this.languagesVersionFormArray.value');
-  //     // console.log(this.languagesVersionFormArray.value);
-  //     // console.log('this.languagesVersionFormArray');
-  //     // console.log(this.languagesVersionFormArray);
-  //   }
-
-  //   if(this.createArticleForm.controls["frameworks"].value.length>0){
-  //     this.allSelectedFramLib = new Array();
-  //     this.createArticleForm.controls["frameworks"].value.forEach(framlib => {
-  //       this.allSelectedFramLib.push(framlib);
-  //     });
-  //   }
-  //   console.log(this.allSelectedLangLib);
-  //   console.log(this.allSelectedFramLib);
-  // }
-
-
-
-
-
-
-  // onChangeMethod(){
-  //   if(this.createArticleForm.controls["languages"].valid){
-  //     // this.allSelectedLangLib = new Array();
-  //     // this.languagesVersionFormArray.clear();
-  //     this.createArticleForm.controls["languages"].value.forEach(langlib => {
-  //       // const newControle = new FormControl("", [Validators.required]);
-  //       if(!this.allSelectedLangLib.indexOf(langlib)){
-  //         console.log("ajout d'un controle pour  : "+langlib)
-  //         this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]));
-  //         this.allSelectedLangLib.push(langlib);
-  //       }
-
-  //       this.createArticleForm.addControl(langlib,new FormControl("", [Validators.required]))
-
-
-
-  //       // this.languagesVersionFormArray.push(newControle);
-  //       this.allSelectedLangLib.push(langlib);
-  //     });
-  //   }
-  // }
-
-  // getErrorMessage() {
-  //   if (this.createArticleForm.value.title.hasError('required')) {
-  //     return 'You must enter a value';
-  //   }
-
-  //   return this.createArticleForm.value.title.hasError('email') ? 'Not a valid email' : '';
-  // }
-
-  // addOneLanguage() {
-  //   let newLang = new Language();
-  //   if (this.selectedLang && this.selectedLangVersion) {
-  //     newLang.lang = this.selectedLang.toLowerCase();
-  //     newLang.version = this.selectedLangVersion.toLowerCase();
-  //     this.allSelectedLangComplet.push(newLang);
-  //     // console.log(this.allSelectedLangComplet);
-  //   } else {
-  //     return;
-  //   }
-  // }
-
-  // removeOneLanguage(lang) {
-  //   // console.log(this.allSelectedLangComplet.indexOf(lang));
-  //   this.allSelectedLangComplet.splice(this.allSelectedLangComplet.indexOf(lang), 1);
-  // }
-
-  // addOneFramework() {
-  //   let newFram = new Framework();
-  //   if (this.selectedFram && this.selectedFramVersion) {
-  //     newFram.framework = this.selectedFram.toLowerCase();
-  //     newFram.version = this.selectedFramVersion.toLowerCase();
-  //     this.allSelectedFramComplet.push(newFram);
-  //     // console.log(this.allSelectedLangComplet);
-  //   } else {
-  //     return;
-  //   }
-  // }
-
-  // removeOneFramework(fram) {
-  //   this.allSelectedFramComplet.splice(this.allSelectedFramComplet.indexOf(fram), 1);
-  // }
 
   onSubmit() {
     if (this.createArticleForm.valid === false) {

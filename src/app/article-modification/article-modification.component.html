@@ -1,0 +1,184 @@
+<!-- <mat-card class="consultation-card" *ngIf='this.oneArticle.idArticle'>
+    <mat-card-header>
+      <mat-card-title>{{this.oneArticle.titre}}</mat-card-title>
+      <mat-card-subtitle>{{this.oneArticle.description}}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-chip-list aria-label="">
+      <mat-chip color="accent" selected *ngIf="this.oneArticle.type!==null">Type : {{this.oneArticle.type.libType}}</mat-chip>
+      <mat-chip color="accent" selected *ngIf="this.oneArticle.categorie!==null">Catégorie : {{this.oneArticle.categorie.libCategorie}}</mat-chip>
+      <mat-chip color="accent" selected *ngIf="this.oneArticle.langage!==null">Langage : {{this.oneArticle.langage.lang}} {{this.oneArticle.langage.version}}</mat-chip>
+      <mat-chip color="accent" selected *ngIf="this.oneArticle.frameworks!==null">Framework : {{this.oneArticle.framework.framework}} {{this.oneArticle.framework.version}}</mat-chip>
+      <mat-chip color="accent" selected *ngIf="this.oneArticle.dateCreation!==null">Créé le {{this.oneArticle.dateCreation}}</mat-chip>
+      <mat-chip color="accent" selected *ngIf="this.oneArticle.dateDerniereModif!==null">Dernière modification le {{this.oneArticle.dateDerniereModif}}</mat-chip>
+      <mat-chip color="accent" selected *ngIf="this.oneArticle.auteur!==null">Créé par {{this.oneArticle.auteur.pseudo}}</mat-chip>
+    </mat-chip-list>
+    <br />
+  
+    <mat-card-content>
+      <div [innerHTML]="this.mardownContenu" ></div>
+    </mat-card-content>
+  
+    <mat-divider></mat-divider>
+  
+    <mat-card-actions>
+      <button *ngIf='this.isPromoteButtonAvailable' mat-mini-fab matTooltip="Promouvoir cet article" (click)='promoteArticle(this.oneArticle.idArticle)' color="primary">
+        <mat-icon>loyalty</mat-icon>
+      </button>
+  
+      <button *ngIf='!this.isPromoteButtonAvailable' mat-mini-fab matTooltip="Ne plus promouvoir cet article" (click)='promoteArticle(this.oneArticle.idArticle)' color="accent">
+        <mat-icon>loyalty</mat-icon>
+      </button>
+  
+      <button *ngIf='this.isPublishButtonAvailable' mat-mini-fab matTooltip="Publier cet article" (click)='publishArticle()' color="primary">
+        <mat-icon>lock_open</mat-icon>
+      </button>
+  
+      <button *ngIf='this.isUnpublishButtonAvailable' mat-mini-fab matTooltip="Rendre cet article privé" (click)='unpublishArticle()' color="primary">
+        <mat-icon>lock</mat-icon>
+      </button>
+
+    </mat-card-actions>
+  
+  </mat-card>
+  
+  <button type="button" mat-raised-button color="accent" (click)="goBack()"> Revenir à la liste</button> -->
+
+
+
+
+
+
+
+
+
+<form [formGroup]="modifyArticleForm" class="maincontainer" *ngIf="this.valueUpdated===true">
+    <mat-card class="creationCard">
+        <mat-card-header>
+            <mat-card-title>Interface de modification d'article</mat-card-title>
+        </mat-card-header>
+
+        <mat-divider></mat-divider>
+        <br />
+
+        <mat-card-content>
+            <mat-form-field class="largeInput">
+                <input matInput type="text" placeholder="Titre de l'article" formControlName="title" id="title" />
+                <mat-error align="end" *ngIf="hasError('title', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="largeInput">
+                <textarea matInput type="text" placeholder="Description de l'article" formControlName="description"
+                    id="description" cdkTextareaAutosize cdkAutosizeMinRows="2" cdkAutosizeMaxRows="100"></textarea>
+                <mat-error align="end" *ngIf="hasError('description', 'required')">Ce champs est requis</mat-error>
+                <mat-error align="end" *ngIf="hasError('description', 'minlength')">Un minimum de 30 caractères est
+                    requis</mat-error>
+            </mat-form-field>
+
+            <!-- zone des selects -->
+
+            <mat-form-field>
+                <mat-label>Type d'article</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option *ngFor="let value of allType" value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end" *ngIf="hasError('type', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Catégorie d'article</mat-label>
+                <mat-select formControlName="category">
+                    <mat-option *ngFor="let value of allCategory" value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end" *ngIf="hasError('category', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+
+            <mat-form-field matTooltip="Selectionnez le language abordé dans cet article">
+                <mat-label>Langages</mat-label>
+                <mat-select formControlName="languages" (closed)="onCloseMethod()">
+                    <mat-option *ngFor="let value of allLanguages" value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+                <mat-error align="end" *ngIf="hasError('languages', 'required')">Ce champs est requis</mat-error>
+            </mat-form-field>
+
+
+
+            <mat-form-field matTooltip="Selectionnez le framework abordé dans cet article s'il y en a un">
+                <mat-label>Frameworks</mat-label>
+                <mat-select formControlName="frameworks" (closed)="onCloseMethod()">
+                    <mat-option *ngFor="let value of allFrameworks" value="{{value}}">
+                        {{value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+
+            <br>
+            <mat-divider></mat-divider>
+            <br />
+
+            <div class="addVersion" *ngIf='this.modifyArticleForm.controls["languages"].value'>
+                <mat-form-field class="smallInput" matTooltip="Indiquez la version du language selectionné">
+                    {{this.modifyArticleForm.controls["languages"].value}} version : <input matInput type="text"
+                        formControlName="languagesVersion">
+                    <mat-error align="end" *ngIf="hasError('languagesVersion', 'required')">Ce champs est requis
+                    </mat-error>
+                </mat-form-field>
+                <br />
+                <mat-divider></mat-divider>
+                <br />
+            </div>
+
+            <div class="addVersion" *ngIf='this.modifyArticleForm.controls["frameworks"].value'>
+                <mat-form-field class="smallInput" matTooltip="Indiquez la version du frameworks selectionnés">
+                    {{this.modifyArticleForm.controls["frameworks"].value}} version : <input matInput type="text"
+                        formControlName="frameworksVersion">
+                    <mat-error align="end" *ngIf="hasError('frameworksVersion', 'required')">Ce champs est requis
+                    </mat-error>
+                </mat-form-field>
+
+                <br />
+                <mat-divider></mat-divider>
+                <br />
+            </div>
+
+            <!-- fin de zone des selects -->
+
+            <mat-form-field class="largeInput">
+                <textarea matInput type="text" placeholder="Contenu de l'article" formControlName="content"
+                    id="description" cdkTextareaAutosize cdkAutosizeMinRows="20"></textarea>
+                <mat-error align="end" *ngIf="hasError('content', 'required')">Ce champs est requis</mat-error>
+                <mat-error align="end" *ngIf="hasError('content', 'minlength')">Un minimum de 100 caractères est requis
+                </mat-error>
+            </mat-form-field>
+
+        </mat-card-content>
+
+
+        <mat-card-actions>
+            <button type="submit" value="submit" mat-raised-button color="primary" (click)="onSubmitGlobally()"
+                matTooltip="Sauvegarder mon article et le rendre accessible et consultable par la communauté">
+                Sauvegarder et publier
+            </button>
+            <button type="submit" value="submit" mat-raised-button color="primary" (click)="onSubmit()"
+                matTooltip="Sauvegarder mon article sans le partager avec la communauté">
+                Sauvegarder
+            </button>
+            <button type="button" mat-raised-button color="accent" (click)="onReset()"
+                matTooltip="Effacer les données saisies">
+                Rafraîchir
+            </button>
+            <button type="button" mat-raised-button color="warn" (click)="onCancel()"
+                matTooltip="Revenir à la page d'accueil sans enregistrer">
+                Annuler
+            </button>
+        </mat-card-actions>
+
+    </mat-card>
+</form>

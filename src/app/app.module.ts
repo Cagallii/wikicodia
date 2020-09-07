@@ -91,6 +91,7 @@ import { CommentArticleComponent } from './comment-article/comment-article.compo
 import { HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { ArticleModificationComponent } from './article-modification/article-modification.component';
 
 
 /**
@@ -184,7 +185,8 @@ export class XhrInterceptor implements HttpInterceptor {
     ArticleConsultationMiniComponent,
     ArticleStopPromoComponent,
     CommentArticleComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    ArticleModificationComponent
   ],
 
   imports: [

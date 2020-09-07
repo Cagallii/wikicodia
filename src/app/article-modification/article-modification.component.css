@@ -1,8 +1,33 @@
-/* bottom-buttons-area{
+
+button{
+    margin-right: 2em;
+    justify-content: center;
+}
+
+.largeInput{
+    width: 100%;
+}
+
+mat-select{
+    margin: 1%;
+}
+
+.removeBtn{
+    margin-right: 0em;
+    /* padding:0em; */
+}
+
+.langageList{
     display: inline-block;
-    justify-content: space-between;
-    margin: 80px;
-} */
+    /* flex-direction: row; */
+    min-width: 100%;
+    width: 100%;
+}
+
+.addVersion{
+    display: inline-block;
+    margin: 1em;
+}
 
 mat-card {
     margin: 1em;

@@ -30,6 +30,7 @@ import { RegisterComponent } from './register/register.component';
 import { ArticleStopPromoComponent } from './article-stop-promo/article-stop-promo.component';
 import { CarouselArticleComponent } from './carousel-article/carousel-article.component';
 import { ArticleSuggestionHomeComponent } from './article-suggestion-home/article-suggestion-home.component'
+import{ArticleModificationComponent}from './article-modification/article-modification.component'
 
 const routes: Routes = [
   { path: "userProfil",component : UserProfilComponent},
@@ -55,8 +56,9 @@ const routes: Routes = [
   { path: "register",component: RegisterComponent},
   { path: "profil",component: UserProfilComponent},
   { path: "stopPromo", component: ArticleStopPromoComponent},
-  { path: "articleSuggestion", component: ArticleSuggestionHomeComponent},
-  { path: "", component: ArticleSuggestionHomeComponent, pathMatch: "full" }
+  // { path: "articleSuggestion", component: ArticleSuggestionHomeComponent},
+  { path: "", component: ArticleSuggestionHomeComponent, pathMatch: "full" },
+  {path:"articleModification", component : ArticleModificationComponent}
 ];
 @NgModule({
   declarations: [],

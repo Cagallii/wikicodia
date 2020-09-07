@@ -1,4 +1,5 @@
-<mat-card class="consultation-card" (click)="goToArticle(this.oneArticle.idArticle)">
+
+<mat-card class="consultation-card" *ngIf='this.oneArticle.auteur.idUtilisateur' (click)="goToArticle('articleConsultation')">
   
   <mat-card-header>
     <mat-card-title *ngIf="this.oneArticle.titre!==null" >{{this.oneArticle.titre}}</mat-card-title>
@@ -21,7 +22,7 @@
   <mat-chip-list *ngIf="isPageMyArticles">
     <mat-chip *ngIf="!this.oneArticle.estPublie" color="primary" selected (click)="toggleVisibilityArticle(this.oneArticle.idArticle)">Publier</mat-chip>
     <mat-chip *ngIf="this.oneArticle.estPublie" color="primary" selected (click)="toggleVisibilityArticle(this.oneArticle.idArticle)">Rendre invisible</mat-chip>
-    <mat-chip color="accent" selected>Modifier</mat-chip>
+    <mat-chip color="accent" selected (click)="goToArticle('articleModification')">Modifier</mat-chip>
     <mat-chip color="warn" selected (click)="deleteArticle(this.oneArticle.idArticle)">Supprimer</mat-chip>
   </mat-chip-list>
 

@@ -84,9 +84,12 @@ export class ArticleConsultationMiniComponent implements OnInit {
     }
   }
 
-  goToArticle(idArticle:number){
-    let params = {idArticle:idArticle}
-    this.router.navigate(['articleConsultation', params]);
+  goToArticle(pathWhereTogo:string){
+    console.log("article mini bouton modify cliqué : value = ");
+    console.log(this.oneArticle.idArticle);
+
+    let params = {idArticle:this.oneArticle.idArticle}
+    this.router.navigate([pathWhereTogo, params]);
   }
 
 
