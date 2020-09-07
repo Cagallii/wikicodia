@@ -83,4 +83,8 @@ export class ArticleService {
     return this.http.put(this.baseUrl + "ajouterAuxFavoris/" + `${userId}` , article);
   }
 
+  deleteArticleFromFavorites(userId : Number , article : Article) : Observable<Object> {
+    return this.http.put(this.baseUrl + "supprimerDesFavoris/" + `${userId}` , article);
+  }
+
 }

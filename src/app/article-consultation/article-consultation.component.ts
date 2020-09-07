@@ -160,7 +160,19 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     } else {
       this.router.navigateByUrl("/connexion");
     }
+  }
+
+  deleteFromFavorites(article : Article){
     
+    if(this.app.authenticated){
+      this.articleService.deleteArticleFromFavorites(this.app.user.idUtilisateur , article).subscribe(
+        response => {
+          console.log(response);
+        }
+      )
+    } else {
+      this.router.navigateByUrl("/connexion");
+    }
   }
 
   publishArticle() {
