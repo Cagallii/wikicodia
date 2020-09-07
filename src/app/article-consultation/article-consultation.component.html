@@ -53,7 +53,7 @@
       <mat-icon>create</mat-icon>
     </button>
 
-    <button mat-mini-fab matTooltip="Imprimer l'article" color="primary">
+    <button mat-mini-fab matTooltip="Imprimer l'article" color="primary" (click)="printArticle()">
       <mat-icon>print</mat-icon>
     </button>
 
@@ -66,3 +66,6 @@
 
 <button type="button" mat-raised-button color="accent" (click)="goBack()"> Revenir à la liste</button>
 <!-- <div mat-card-avatar class="example-header-image"></div> -->
+
+<!-- Div utilisée pour la génération de PDF -->
+<div id="pdfDiv"></div>
