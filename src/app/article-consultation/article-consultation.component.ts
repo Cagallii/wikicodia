@@ -36,6 +36,10 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Location } from '@angular/common';
 import UserCreate from "../model/UserCreate";
 
+// Imports relatifs à la génération de PDF
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 
 // exemple de récupération de data :
 
@@ -70,7 +74,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     private articleService: ArticleService,
     private voteService: VoteService,
     private sanitizer: DomSanitizer,
-    private location: Location
+    private location: Location,
   ) {}
 
   // oneArticle: Article = this.oneArticle;
@@ -399,6 +403,52 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     });
   }
 
+  /**
+   * Convertit l'article au format PDF pour en faciliter l'impression
+   */
+  printArticle(){
+    let data = document.getElementById('pdfDiv');  
+        html2canvas(data).then(canvas =>{
+        
+        // Génère du PDF au format portrait 
+        let pdf = new jsPDF();
+
+        // Initialisation du contenu du PDF
+        let leftMarginWidth=15;
+        let rightMarginWidth=15;
+        let pageWidth=210;
+        pdf.setTextColor(0, 0, 255);
+        pdf.text('Wikicodia', 15, 20);
+        pdf.setTextColor(100);
+        pdf.text(this.oneArticle.titre, 15, 30);
+        
+        pdf.setTextColor(150);
+        
+        
+        // Récupération du contenu de l'article avec retours à la ligne
+        let content=this.oneArticle.contenu;
+        let lines =pdf.splitTextToSize(content, (pageWidth - (leftMarginWidth + rightMarginWidth)));
+        pdf.text(lines,leftMarginWidth, 40);
+
+        // Rajout pas élégant du tout d'une page tous les 2000 caractères
+        // Estimation à la louche du nb de caractères max pour une page
+        if (content.length > 2000){
+          pdf.addPage('a4', 'p');
+        }
+        if (content.length > 4000){
+          pdf.addPage('a4', 'p');
+        }
+        if (content.length > 6000){
+          pdf.addPage('a4', 'p');
+        }
+        if (content.length > 8000){
+          pdf.addPage('a4', 'p');
+        }
+        pdf.save('monArticle.pdf');
+
+      }); 
+  }
+  
   /**
    * Retour à la pgae précédente au clic sur "Revenir à la liste"
    */

@@ -21,7 +21,7 @@ export class AppComponent {
 
   logout() {
     this.http.post('logout', {}).subscribe( response => {
-      //deconnecte l utilisateur et redirige vers la page d acceuille
+      //déconnecte l utilisateur et le redirige vers la page d accueil
       this.app.authenticated = false;
       this.router.navigateByUrl('/');
       window.location.reload();

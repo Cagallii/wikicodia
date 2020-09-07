@@ -51,6 +51,10 @@ export class ArticleService {
     return this.http.put(this.baseUrl + "validate/" +`${idArticle}`, { observe: 'response' });
   }
 
+  print(idArticle:number): Observable<Object> {
+    return this.http.get(this.baseUrl + "print/" +`${idArticle}`);
+  }
+
   getAllMyArticles(userid:number): Observable<Object> {
     return this.http.get(this.baseUrl + "mesarticles/" +`${userid}`);
   }
