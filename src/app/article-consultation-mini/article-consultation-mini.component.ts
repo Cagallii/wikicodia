@@ -49,24 +49,9 @@ export class ArticleConsultationMiniComponent implements OnInit {
   isPagePendingArticles: boolean = false;
 
   ngOnInit() {
-    if (this.app.authenticated) {
       this.authenticated = this.app.authenticated;
       this.user = this.app.user;
-      // this.oneArticle.idArticle;
-      console.log("this.oneArticle.idArticle dans article mini ");
-      console.log(this.oneArticle.idArticle);
-
-      this.formatDataWithAuteur(this.oneArticle.idArticle)
-      // this.articleService.getOneArticle(this.oneArticle.idArticle).subscribe(
-      //   (data: Article) => {
-      //     this.oneArticle = data;
-      //     console.log(data);
-      //     this.determineIfArticleAlreadyFavorite(data);
-      //     this.refreshDataArticle();
-      //   },
-      //   (error) => console.log(error)
-      // );
-
+      this.formatDataWithAuteur(this.oneArticle.idArticle);
       if (this.authenticated && this.app.user.role.role == "admin"){
         this.adminConnected = true;
       }
@@ -79,15 +64,10 @@ export class ArticleConsultationMiniComponent implements OnInit {
       } else if (this.url.includes("createdArticles") || this.url.includes("profil")){
         this.isPageMyArticles = true;
       }
-    } else {
-      this.router.navigateByUrl("/");
-    }
+
   }
 
   goToArticle(pathWhereTogo:string){
-    console.log("article mini bouton modify cliqué : value = ");
-    console.log(this.oneArticle.idArticle);
-
     let params = {idArticle:this.oneArticle.idArticle}
     this.router.navigate([pathWhereTogo, params]);
   }
@@ -95,8 +75,6 @@ export class ArticleConsultationMiniComponent implements OnInit {
 
   formatDataWithAuteur(idarticle) {
     this.articleService.getOneArticle(idarticle).subscribe((art: Article) => {
-      console.log(art);
-      this.oneArticle = art;
       let idaut = art.auteur;
       let arrayIdAut = new Array();
       arrayIdAut.push(idaut);
