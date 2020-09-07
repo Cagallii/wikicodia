@@ -122,7 +122,7 @@ export class XhrInterceptor implements HttpInterceptor {
             return throwError(errorMessage);
           }
           // Suppression de la popup à l'ouverture de la homepage si pas d'articles promus / 
-          if (errorMessage.includes('articlesPromus')){
+          if (errorMessage.includes('articlesPromus') || errorMessage.includes('derniersArticlesPromus')){
             return throwError(errorMessage);
           }
           // Suppression de la popup à l'ouverture de la homepage si pas d'articles promus / 
