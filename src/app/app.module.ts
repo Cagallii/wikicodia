@@ -120,6 +120,14 @@ export class XhrInterceptor implements HttpInterceptor {
           if (errorMessage.includes('user: 403 Forbidden')){
             return throwError(errorMessage);
           }
+          // Suppression de la popup à l'ouverture de la homepage si pas d'articles promus / 
+          if (errorMessage.includes('articlesPromus')){
+            return throwError(errorMessage);
+          }
+          // Suppression de la popup à l'ouverture de la homepage si pas d'articles promus / 
+          if (errorMessage.includes('articlesSuggeres')){
+            return throwError(errorMessage);
+          }
           // Suppression de la popup si pas d'articles dans les favoris
           if (errorMessage.includes('articlesFavoris')){
             return throwError(errorMessage);
