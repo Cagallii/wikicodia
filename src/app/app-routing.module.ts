@@ -56,8 +56,9 @@ const routes: Routes = [
   { path: "register",component: RegisterComponent},
   { path: "profil",component: UserProfilComponent},
   { path: "stopPromo", component: ArticleStopPromoComponent},
-  // { path: "articleSuggestion", component: ArticleSuggestionHomeComponent},
-  { path: "", component: ArticleSuggestionHomeComponent, pathMatch: "full" },
+  { path: "articleSuggestion", component: ArticleSuggestionHomeComponent},
+  { path: "articleSuggestion", component: ArticleSuggestionHomeComponent},
+  { path: "", component: ArticleSuggestionHomeComponent, pathMatch: "full" },  
   {path:"articleModification", component : ArticleModificationComponent}
 ];
 @NgModule({

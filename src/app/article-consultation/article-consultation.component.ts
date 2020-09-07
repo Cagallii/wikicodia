@@ -406,10 +406,11 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     this.location.back();
   }
 
-  goToArticle(){
+  goToPath(pathWhereToGo:string){
     let params = {idArticle:this.oneArticle.idArticle}
-    this.router.navigate(['articleModification', params]);
+    this.router.navigate([pathWhereToGo, params]);
   }
+
 
 }
 

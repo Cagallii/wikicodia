@@ -317,7 +317,7 @@ onSubmitGlobally() {
 }
 
 updateArticle(article:Article){
-  this.articleService.updateOneArticle(article).subscribe((data:Article) => 
+  this.articleService.updateOneArticle(article).subscribe(
     (data:Article) => {console.log(data); this.goToArticle(data.idArticle);this.goToArticle(data.idArticle)},
     (error) => console.log(error),
   );
