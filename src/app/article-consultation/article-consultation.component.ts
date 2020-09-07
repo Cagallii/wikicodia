@@ -153,6 +153,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.articleService.setArticleToMyFavorite(this.app.user.idUtilisateur , article).subscribe(
         response => {
           console.log(response);
+          this.determineIfArticleAlreadyFavorite(article);
         }
       )
     } else {
@@ -166,6 +167,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.articleService.deleteArticleFromFavorites(this.app.user.idUtilisateur , article).subscribe(
         response => {
           console.log(response);
+          this.determineIfArticleAlreadyFavorite(article);
         }
       )
     } else {
