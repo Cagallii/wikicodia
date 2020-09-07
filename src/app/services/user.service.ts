@@ -4,6 +4,11 @@ import { Observable } from 'rxjs';
 import User from '../model/UserCreate';
 import Category from '../model/Category';
 import * as moment from 'moment';
+import { category } from '../enum/category';
+import UserCreate from '../model/UserCreate';
+import Langage from '../model/Language';
+import Framework from '../model/Framework';
+import TypeArticle from '../model/TypeArticle';
 
 @Injectable({
   providedIn: 'root'
@@ -31,15 +36,12 @@ export class UserService {
   }
 
   modification(user: User): Observable<any> {
-    //user.dateInscription.add(1);
     console.log(user.dateDerniereConnexion);
-    return this.http.put(`${this.baseUrl}/modification`, user);
+    return this.http.put(`${this.baseUrl}/modification-speciale`, user);
   }
 
   modificationDate(user: User): Observable<any> {
-    //user.dateInscription.add(1);
     console.log(moment(user.dateInscription).add(2, "d"));
-    console.log(user.dateDerniereConnexion);
     return this.http.put(`${this.baseUrl}/modification-date`, user);
   }
 
@@ -70,7 +72,98 @@ export class UserService {
 
   }
 
+  /**
+   * Gestion des preferences
+   */
+
   getAuteurs(auteurIds : Number[]): Observable<any>{
     return this.http.post(`${this.baseUrl}/trouverDesAuteurs` , auteurIds);
+  }
+
+  getUserCategorie(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/categories/${id}`);
+  }
+
+  getUserFramework(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/framework/${id}`);
+  }
+
+  getUserLangage(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/langage/${id}`);
+  }
+
+  getUserType(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/type/${id}`);
+  }
+
+  hydrateByConnectedUser(u: UserCreate, connectedUser: UserCreate){
+    u.nom = connectedUser.nom
+    u.prenom = connectedUser.prenom
+    u.pseudo = connectedUser.pseudo
+    u.etat = connectedUser.etat
+    u.role = connectedUser.role
+    u.dateDerniereConnexion = connectedUser.dateDerniereConnexion
+    u.idUtilisateur = connectedUser.idUtilisateur
+    u.lienLinkedin = connectedUser.lienLinkedin
+    u.motDePasse = connectedUser.motDePasse
+    u.statut = connectedUser.statut
+    u.mail = connectedUser.mail
+
+    this.getUserPreferences(u);
+  }
+
+  getUserPreferences(u: UserCreate){
+    this.getUserCategorie(u.idUtilisateur).subscribe(
+      categorie => u.categorie = categorie
+    );
+    this.getUserFramework(u.idUtilisateur).subscribe(
+      framework => u.framework = framework
+    );
+    this.getUserLangage(u.idUtilisateur).subscribe(
+      langage => u.langage = langage
+    );
+    this.getUserType(u.idUtilisateur).subscribe(
+      type => u.type = type
+    );
+  }
+
+  setUserPreferences(u: UserCreate, categoriesId: Category[], frameworkId: Framework[], langageId: Langage[], typeId: TypeArticle[]){
+
+    this.setUserCategorie(u.idUtilisateur, categoriesId).subscribe(
+      data => console.log(data)
+    )
+
+    this.setUserFramework(u.idUtilisateur, frameworkId).subscribe(
+      data => console.log(data)
+    )
+
+    this.setUserLangage(u.idUtilisateur, langageId).subscribe(
+      data => console.log(data)
+    )
+
+    this.setUserType(u.idUtilisateur, typeId).subscribe(
+      data => console.log(data)
+    )
+
+  }
+
+  setUserCategorie(id: number, categoriesId: Category[]): Observable<any> {
+    return this.http.post(`${this.baseUrl}/set-categories/${id}`, categoriesId);
+  }
+
+  setUserFramework(id: number, frameworkId: Framework[]): Observable<any> {
+    return this.http.post(`${this.baseUrl}/set-framework/${id}`, frameworkId);
+  }
+
+  setUserLangage(id: number, langageId: Langage[]): Observable<any> {
+    return this.http.post(`${this.baseUrl}/set-langage/${id}`, langageId);
+  }
+
+  setUserType(id: number, typeId: TypeArticle[]): Observable<any> {
+    return this.http.post(`${this.baseUrl}/set-type/${id}`, typeId);
+  }
+
+  getLast5Articles(id: number): Observable<any>{
+    return this.http.get(`/articles/mesarticles-profil/${id}`)
   }
 }

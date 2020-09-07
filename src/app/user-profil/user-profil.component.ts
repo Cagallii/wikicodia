@@ -15,6 +15,7 @@ import { CategoryService } from '../services/category.service';
 import { FrameworkService } from '../services/framework.service';
 import { LanguageService } from '../services/language.service';
 import { TypeService } from '../services/type.service';
+import Article from '../model/Article';
 
 @Component({
   selector: 'app-user-profil',
@@ -34,6 +35,8 @@ export class UserProfilComponent implements OnInit {
   language: Observable<Language[]>;
   checkArray: FormArray;
   invalidePassword : Boolean = false;
+  cinqDerniersArticles : Observable<Article[]>;
+  articles: Article[];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -48,13 +51,23 @@ export class UserProfilComponent implements OnInit {
 
   ngOnInit() {
     this.autentificated = this.app.authenticated;
-    this.user = this.app.user;
     this.categories = this.categoriesService.getAll();
     this.framework = this.frameworkService.getAll();
     this.language = this.langageService.getAll();
     this.type = this.typeService.getAll();
-
+ 
     if (this.app.authenticated) {
+      this.userService.getUserPreferences(this.app.user);
+      this.cinqDerniersArticles = this.userService.getLast5Articles(this.app.user.idUtilisateur);
+      console.log("app article");
+      this.cinqDerniersArticles.subscribe(
+        data => this.articles = data
+      )
+
+
+      let modifUser = new User;
+      this.userService.hydrateByConnectedUser(modifUser, this.app.user);
+      this.user = modifUser;
       // editon utilisateur
       this.editForm = this.formBuilder.group({
         idUtilisateur: ['', Validators.required],
@@ -95,6 +108,7 @@ export class UserProfilComponent implements OnInit {
 
   modification(){    
     console.log(this.user);
+    this.userService.setUserPreferences(this.user, this.user.categorie, this.user.framework, this.user.langage, this.user.type)
     this.userService.modification(this.user)
     .subscribe(
       data => console.log(data),
@@ -297,12 +311,8 @@ export class UserProfilComponent implements OnInit {
     let mdpNew = this.mdpForm.value['newMdp'];
     let mdpConfirmation = this.mdpForm.value['confirmNewMdp'];
 
-    console.log(mdpNew);
-    console.log(mdpConfirmation);
-    
-
     if(mdpConfirmation === mdpNew && mdpNew !== ""){
-      this.user.motDePasse = mdpNew;
+      this.user.motDePasse = window.btoa(mdpNew);
       this.modification();
       this.eventFire(document.querySelector("#changeMdp-close"), 'click')
     }else{
