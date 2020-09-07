@@ -1,18 +1,18 @@
-<mat-card class="consultation-card" *ngIf='this.oneArticle' (click)="goToArticle(this.oneArticle.idArticle)">
+<mat-card class="consultation-card" *ngIf='this.oneArticle.auteur.idUtilisateur' (click)="goToArticle(this.oneArticle.idArticle)">
   
   <mat-card-header>
-    <mat-card-title>{{this.oneArticle.titre}}</mat-card-title>
-    <mat-card-subtitle>{{this.oneArticle.description}}</mat-card-subtitle>
+    <mat-card-title *ngIf="this.oneArticle.titre!==null" >{{this.oneArticle.titre}}</mat-card-title>
+    <mat-card-subtitle *ngIf="this.oneArticle.description!==null">{{this.oneArticle.description}}</mat-card-subtitle>
   </mat-card-header>
 
   <mat-chip-list aria-label="">
-    <mat-chip color="accent" selected>Type : {{this.oneArticle.type.libType}}</mat-chip>
-    <mat-chip color="accent" selected>Catégorie : {{this.oneArticle.categorie.libCategorie}}</mat-chip>
-    <mat-chip color="accent" selected >Langage : {{this.oneArticle.langage.lang}} {{this.oneArticle.langage.version}}</mat-chip>
+    <mat-chip color="accent" selected *ngIf="this.oneArticle.type!==null">Type : {{this.oneArticle.type.libType}}</mat-chip>
+    <mat-chip color="accent" selected *ngIf="this.oneArticle.categorie!==null">Catégorie : {{this.oneArticle.categorie.libCategorie}}</mat-chip>
+    <mat-chip color="accent" selected *ngIf="this.oneArticle.langage!==null">Langage : {{this.oneArticle.langage.lang}} {{this.oneArticle.langage.version}}</mat-chip>
     <mat-chip color="accent" selected *ngIf="this.oneArticle.frameworks!==null">Framework : {{this.oneArticle.framework.framework}} {{this.oneArticle.framework.version}}</mat-chip>
-    <mat-chip color="accent" selected>Créé le {{this.oneArticle.dateCreation}}</mat-chip>
+    <mat-chip color="accent" selected *ngIf="this.oneArticle.dateCreation!==null">Créé le {{this.oneArticle.dateCreation}}</mat-chip>
     <mat-chip color="accent" selected *ngIf="this.oneArticle.dateDerniereModif!==null">Dernière modification le {{this.oneArticle.dateDerniereModif}}</mat-chip>
-    <mat-chip color="accent" selected>Créé par {{this.oneArticle.auteur.pseudo}}</mat-chip>
+    <mat-chip color="accent" selected *ngIf="this.oneArticle.auteur!==null">Créé par {{this.oneArticle.auteur.pseudo}}</mat-chip>
   </mat-chip-list>
   
   <br />
