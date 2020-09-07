@@ -1,4 +1,4 @@
-<mat-card class="consultation-card" *ngIf='this.oneArticle.auteur.idUtilisateur' (click)="goToArticle(this.oneArticle.idArticle)">
+<mat-card class="consultation-card" (click)="goToArticle(this.oneArticle.idArticle)">
   
   <mat-card-header>
     <mat-card-title *ngIf="this.oneArticle.titre!==null" >{{this.oneArticle.titre}}</mat-card-title>
