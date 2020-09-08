@@ -16,7 +16,7 @@ import { ArticleCategoryComponent } from "./article-category/article-category.co
 import { UserProfilComponent } from "./user-profil/user-profil.component";
 import { HomePageComponent } from "./home-page/home-page.component";
 import { ArticleConsultationComponent } from "./article-consultation/article-consultation.component";
-
+import { SearchResultComponent } from "./search-result/search-result.component";
 import { AdminCategoryMgmtComponent } from "./admin-category-mgmt/admin-category-mgmt.component";
 import { AdminTypeMgmtComponent } from "./admin-type-mgmt/admin-type-mgmt.component";
 import { AdminLanguageMgmtComponent } from "./admin-language-mgmt/admin-language-mgmt.component";
@@ -59,7 +59,8 @@ const routes: Routes = [
   { path: "articleSuggestion", component: ArticleSuggestionHomeComponent},
   { path: "articleSuggestion", component: ArticleSuggestionHomeComponent},
   { path: "", component: ArticleSuggestionHomeComponent, pathMatch: "full" },  
-  {path:"articleModification", component : ArticleModificationComponent}
+  { path:"articleModification", component : ArticleModificationComponent},
+  { path: "result", component: SearchResultComponent}
 ];
 @NgModule({
   declarations: [],
