@@ -3,6 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { Router } from "@angular/router";
 import { AppService } from "./app.service";
 import { DOCUMENT } from '@angular/common';
+import Article from './model/Article';
 
 @Component({
   selector: "app-root",
@@ -10,7 +11,9 @@ import { DOCUMENT } from '@angular/common';
   styleUrls: ["./app.component.css"],
 })
 export class AppComponent {
-  title = "wikicodia";
+  title = 'wikicodia';
+  listArticles: Article[] = null;
+  isPageResult: Boolean;
 
   constructor(
     private app: AppService,
@@ -41,4 +44,13 @@ export class AppComponent {
       window.location.reload();
     });
   }
+
+  sendArticlesSucced(sendArticles){
+    this.listArticles = sendArticles;
+  }
+
+  sendBoolSucced(isPageResult){
+    this.isPageResult = isPageResult;
+  }
+
 }
