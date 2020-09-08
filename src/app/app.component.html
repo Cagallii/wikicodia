@@ -1,3 +1,4 @@
 <app-menu></app-menu>
-<app-advanced-search></app-advanced-search>
+<app-advanced-search (sendArticles)="sendArticlesSucced($event)" (sendBool)="sendBoolSucced($event)"></app-advanced-search>
+<app-search-result [listArticles]="listArticles" [isPageResult]="isPageResult"></app-search-result>
 <router-outlet></router-outlet>

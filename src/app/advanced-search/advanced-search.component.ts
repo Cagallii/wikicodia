@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { SearchService } from '../services/search.service';
@@ -21,6 +21,9 @@ import {  Router } from "@angular/router";
 })
 export class AdvancedSearchComponent implements OnInit {
 
+  @Output() sendArticles: EventEmitter<Article[]> = new EventEmitter();
+  @Output() sendBool: EventEmitter<Boolean> = new EventEmitter();
+
   public listCategory:Observable<Category[]>;
   public listFramework:Observable<Framework[]>;
   public listLanguage:Observable<Language[]>;
@@ -31,6 +34,7 @@ export class AdvancedSearchComponent implements OnInit {
   public versionToShow: string;
   public popularitySought : string;
   public listArticles : Article[];
+  public isPageResult : Boolean = false;
   showFilters:boolean = false;
 
   constructor(
@@ -91,6 +95,9 @@ export class AdvancedSearchComponent implements OnInit {
     this.searchService.search(this.advancedSearchObject).subscribe(articles => {
       this.listArticles = articles;
       console.log(this.listArticles);
+      this.sendArticles.emit(articles);
+      this.isPageResult = true;
+      this.sendBool.emit(this.isPageResult);
     });
     this.router.navigateByUrl("/result");
   }

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AppService } from './app.service';
+import Article from './model/Article';
 
 @Component({
   selector: 'app-root',
@@ -10,6 +11,8 @@ import { AppService } from './app.service';
 })
 export class AppComponent {
   title = 'wikicodia';
+  listArticles: Article[] = null;
+  isPageResult: Boolean;
 
   constructor(private app: AppService, private http: HttpClient, private router: Router) {
     this.app.checkIfLogged();
@@ -22,6 +25,14 @@ export class AppComponent {
       this.router.navigateByUrl('/');
       window.location.reload();
     });
+  }
+
+  sendArticlesSucced(sendArticles){
+    this.listArticles = sendArticles;
+  }
+
+  sendBoolSucced(isPageResult){
+    this.isPageResult = isPageResult;
   }
 
 }
