@@ -80,6 +80,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   // oneArticle: Article = this.oneArticle;
   autentificated: boolean = false;
   user: User = null;
+  isUserAdmin:boolean=false;
   allLike: number = 0;
   allDislike: number = 0;
   dislikeComment: string = null;
@@ -113,9 +114,10 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
       this.allLike = 0;
+      this.isUserAdmin=false;
       this.allDislike = 0;
       this.dislikeComment = null;
-      
+
       this.isUnpublishButtonAvailable = false;
       this.isPublishButtonAvailable = false;
     }
@@ -542,20 +544,13 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 })
 export class ArticleConsultationComponentDialog {
   form: FormGroup;
-  // depreciated:boolean;
-  // doesntwork:boolean;
-  // otherreason:boolean;
-  // description:string;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ArticleConsultationComponentDialog>,
     @Inject(MAT_DIALOG_DATA) data
   ) {
-    // depreciated = data.depreciated;
-    // doesntwork = data.doesntwork;
-    // this.otherreason = data.otherreason;
-    // this.description = data.description;
+
   }
 
   ngOnInit() {

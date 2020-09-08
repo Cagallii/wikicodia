@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AppService } from '../app.service';
-import User from '../model/UserCreate';
+import User from "../model/UserCreate";
+import { UserService } from "../services/user.service";
+import {
+  ActivatedRoute,
+  Router,
+} from "@angular/router";
 
 @Component({
   selector: 'app-administrator-role-management',
@@ -12,12 +17,23 @@ export class AdministratorRoleManagementComponent implements OnInit {
   userToChange : any;
   isUserFound : boolean = false;
   isUserAdmin : boolean = false;
+  autentificated: boolean = false;
+  user: User = null;
 
   constructor(
-    private app: AppService
+    private app: AppService,
+    private userService: UserService,
+    private router: Router,
+    private route: ActivatedRoute,
+
   ) { }
 
   ngOnInit() {
+    this.autentificated = this.app.authenticated;
+    this.user = this.app.user;
+    if (!this.app.authenticated) {
+      this.router.navigateByUrl("/");
+      }
   }
 
   findUser(mail : string){
@@ -77,4 +93,8 @@ export class AdministratorRoleManagementComponent implements OnInit {
     document.getElementById('messages').innerHTML = "L'utilisateur est maintenant " + response.role;
   }
 
+  cancel(){
+    this.isUserFound = false;
+  }
+  
 }
