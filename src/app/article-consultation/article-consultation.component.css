@@ -32,6 +32,7 @@ mat-card-content{
     word-wrap    : break-word;
     overflow-wrap: break-word;
     word-break: break-all;
+    overflow-x: hidden;
 }
 
 button{

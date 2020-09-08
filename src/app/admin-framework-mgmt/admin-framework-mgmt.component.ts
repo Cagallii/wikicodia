@@ -23,6 +23,10 @@ export class AdminFrameworkMgmtComponent implements OnInit {
     this.frameworks = this.frameworkService.getAll();
   }
 
+  addFrk(){
+    this.router.navigate(['/frameworks/creation']);
+  }
+
   deleteFramework(id: number) {
     this.frameworkService.delete(id)
       .subscribe(

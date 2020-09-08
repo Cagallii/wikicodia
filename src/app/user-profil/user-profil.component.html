@@ -1,4 +1,4 @@
-<body *ngIf="autentificated">
+<div *ngIf="autentificated">
     <div class="container main-secction">
         <div class="row">
             <div class="col-md-12 col-sm-12 col-xs-12 image-section">
@@ -11,8 +11,8 @@
                             <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
                         </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
-                            <button id="btn-contact" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow">Modifier le Profil</button> 
-                            <button class="btn btn-warning btn-block" data-toggle="modal" (click)="fillPreference()" data-target="#preferences" >Modifier les Préférences</button>                               
+                            <button id="btn-contact" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow" mat-raised-button color="accent">Modifier le Profil</button> 
+                            <button class="btn-warning btn-block" mat-raised-button color="accent" data-toggle="modal" (click)="fillPreference()" data-target="#preferences" >Modifier les Préférences</button>                               
                         </div>
                         <div class="row user-detail-row">
                             <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -33,7 +33,7 @@
                                     <p>{{ user.statut }}</p>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
-                                    <a href="/search" data-toggle="modal" data-target="#changeMdp"  class="btn btn-primary btn-block">Changer de mot de passe</a>
+                                    <a href="/search" data-toggle="modal" data-target="#changeMdp"  class="btn-block" mat-raised-button color="warn">Changer de mot de passe</a>
                                 </div>
                             </div>
                         </div>
@@ -42,10 +42,10 @@
                                 <div class="col-md-12">
                                     <ul class="nav nav-tabs" role="tablist">
                                         <li class="nav-item">
-                                            <a class="nav-link active" href="#profile" role="tab" data-toggle="tab"><i class="fas fa-user-circle"></i> Profil</a>
+                                            <a class="nav-link active" href="#profile" role="tab" data-toggle="tab" color="warn"><i class="fas fa-user-circle"></i> Profil</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"><i class="fas fa-info-circle"></i> Préférences </a>
+                                            <a class="nav-link" href="#buzz" role="tab" data-toggle="tab"><i class="fas fa-info-circle" color="warn"></i> Préférences </a>
                                         </li>                                                
                                     </ul>       
                                     <!-- Tab panes -->
@@ -274,4 +274,4 @@
             </div>
         </div>
     </div>
-</body>
+</div>

@@ -27,7 +27,7 @@ export class AddTypeComponent implements OnInit {
     this.typeService.create(this.type)
       .subscribe(data => console.log(data), error => console.log(error));
     this.type = new Type();
-    // this.gotoList();
+    // this.goBack();
   }
 
   onSubmit() {
@@ -35,7 +35,7 @@ export class AddTypeComponent implements OnInit {
     this.save();    
   }
 
-  gotoList() {
+  goBack() {
     this.router.navigate(['/types/all']);
   }
 

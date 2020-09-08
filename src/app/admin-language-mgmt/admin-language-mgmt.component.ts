@@ -23,6 +23,10 @@ export class AdminLanguageMgmtComponent implements OnInit {
     this.languages = this.languageService.getAll();
   }
 
+  addLang(){
+    this.router.navigate(['/langages/creation']);
+  }
+
   deleteLanguage(id: number) {
     this.languageService.delete(id)
       .subscribe(

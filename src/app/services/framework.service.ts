@@ -20,7 +20,7 @@ export class FrameworkService {
   }
 
   delete(id: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/suppression/${id}`, { responseType: 'text' });
+    return this.http.delete(`${this.baseUrl}/supression/${id}`, { responseType: 'text' });
   }
 
   getAll(): Observable<any> {
