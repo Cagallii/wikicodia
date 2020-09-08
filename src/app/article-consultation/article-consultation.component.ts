@@ -323,7 +323,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.oneArticle.vote.splice(indexOfVote, 1, modifiedVote);
       // this.createVote();
       this.articleService
-        .updateOneArticle(this.oneArticle)
+        .updateVoteArticle(this.oneArticle)
         .subscribe((data) => {
           console.log(data);
           this.refreshDataArticle();
@@ -337,7 +337,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
       this.oneArticle.vote.splice(indexOfVote, 1);
       this.articleService
-        .updateOneArticle(this.oneArticle)
+        .updateVoteArticle(this.oneArticle)
         .subscribe((data) => {
           console.log(data);
           this.refreshDataArticle();
@@ -362,7 +362,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     newVote.utilisateur = this.user;
     console.log(newVote);
     this.oneArticle.vote.push(newVote);
-    this.articleService.updateOneArticle(this.oneArticle).subscribe((data) => {
+    this.articleService.updateVoteArticle(this.oneArticle).subscribe((data) => {
       console.log(data);
       this.refreshDataArticle();
     });
@@ -430,17 +430,9 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.dialog.open(ArticleConsultationComponentDialogLike, dialogConfig);
     } else {
       const dialogConfig = new MatDialogConfig();
-
-      // dialogConfig.disableClose = true;
       dialogConfig.autoFocus = true;
       dialogConfig.minWidth = "50%";
-
-      // dialogConfig.data = {
-      //   id: 1,
-      //   title: 'Angular For Beginners'
-      // };
-
-      this.dialog.open(ArticleConsultationComponentDialog, dialogConfig);
+      // this.dialog.open(ArticleConsultationComponentDialog, dialogConfig);
 
       const dialogRef = this.dialog.open(
         ArticleConsultationComponentDialog,
@@ -449,8 +441,10 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 
       dialogRef.afterClosed().subscribe((data) => {
         console.log("Dialog output:", data);
-        this.dislikeComment = data.raisonDislike;
-        this.actionDislike();
+        if(data.raisonDislike !== "cancel" && data.raisonDislike !== null){
+          this.dislikeComment = data.raisonDislike;
+          this.actionDislike();
+        }
       });
     }
     
@@ -579,7 +573,7 @@ export class ArticleConsultationComponentDialog {
   }
 
   close() {
-    this.dialogRef.close();
+    this.dialogRef.close(null);
   }
 }
 
