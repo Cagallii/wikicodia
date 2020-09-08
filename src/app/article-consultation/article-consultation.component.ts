@@ -144,6 +144,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 
   determineIfButtonsAreAvailable(article : Article){
     if(this.app.authenticated){
+      
       this.articleService.getArticlesFavoritesIds(this.app.user.idUtilisateur).subscribe(
         (data : any[]) => {
           if (this.determineIfIAmTheAuthor(article)){
@@ -157,6 +158,15 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
             this.isFavoriteButtonAvailable = true;
             this.isUnFavoriteButtonAvailable = false;
           }
+        },
+        (error) => {
+          if (this.determineIfIAmTheAuthor(article)){
+            this.isModifButtonAvailable = true;
+          } else {
+            this.isFavoriteButtonAvailable = true;
+          }
+          console.log(error);
+          
         }
       )
     }
@@ -203,6 +213,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
         response => {
           console.log(response);
           this.determineIfButtonsAreAvailable(article);
+          this.router.navigateByUrl("/liste");
         }
       )
     } else {
