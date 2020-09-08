@@ -138,6 +138,10 @@ export class XhrInterceptor implements HttpInterceptor {
           if (errorMessage.includes('articles/reject')){
             errorMessage = "Action impossible! Veuillez d'abord renseigner un commentaire pour justifier le rejet de cet article.";
           }
+          // Message spécifique aux erreurs sur la page de modification des articles
+          if (errorMessage.includes('articles/modification')){
+            errorMessage = "Le contenu de l'article est trop long (10 000 caractères max)!";
+          }
         }
         window.alert(errorMessage);
         return throwError(errorMessage);
