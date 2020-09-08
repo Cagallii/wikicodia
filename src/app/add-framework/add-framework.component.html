@@ -1,27 +1,29 @@
-<h3>Ajouter un framework</h3>
+<h3 matHeader>Créer un framework</h3>
+<mat-divider></mat-divider>
 
 <div [hidden]="submitted" style="width: 400px;">
 
-    <form (ngSubmit)="onSubmit()">
+  <mat-card-content>
 
-      <div class="form-group">
-        <label for="framework">Nom du framework</label>
-        <input
-          type="text"
-          class="form-control"
-          id="framework"
-          required
-          [(ngModel)]="framework.framework"
-          name="framework"
-        />
-      </div>
+    <mat-form-field appearance="fill">
+      <mat-label for="framework">Nom du framework</mat-label>
+      <input matInput
+        type="text"
+        class="form-control"
+        id="framework"
+        required
+        [(ngModel)]="framework.framework"
+        name="framework"
+      />
+    </mat-form-field>
   
-      <button type="submit" class="btn btn-success">Valider</button>
-
-    </form>
+    <button mat-raised-button type="submit" value="submit"color="primary" (click)="onSubmit()">Valider</button>
+  
+  </mat-card-content>
 
 </div>
-  
+
 <div [hidden]="!submitted">
-    <h4>Framework ajouté</h4>
+    <h6>Framework ajouté</h6>
+    <button mat-raised-button color="accent" (click)="goBack()">Retour</button>
 </div>

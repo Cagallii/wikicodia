@@ -1,12 +1,13 @@
-<h3>Créer un type d'article</h3>
+<h3 matHeader>Créer un nouveau type d'article</h3>
+<mat-divider></mat-divider>
 
 <div [hidden]="submitted" style="width: 400px;">
 
-    <form (ngSubmit)="onSubmit()">
+  <mat-card-content>
 
-      <div class="form-group">
-        <label for="libType">Libellé</label>
-        <input
+      <mat-form-field appearance="fill">
+        <mat-label for="libType">Libellé</mat-label>
+        <input matInput
           type="text"
           class="form-control"
           id="libType"
@@ -14,14 +15,15 @@
           [(ngModel)]="type.libType"
           name="libType"
         />
-      </div>
+      </mat-form-field>
   
-      <button type="submit" class="btn btn-success">Valider</button>
+      <button mat-raised-button type="submit" value="submit"color="primary" (click)="onSubmit()">Valider</button>
 
-    </form>
+  </mat-card-content>
 
 </div>
   
 <div [hidden]="!submitted">
-    <h4>Nouveau type créé</h4>
+    <h6>Nouveau type créé</h6>
+    <button mat-raised-button color="accent" (click)="goBack()">Retour</button>
 </div>

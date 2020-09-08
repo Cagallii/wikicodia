@@ -23,6 +23,10 @@ export class AdminTypeMgmtComponent implements OnInit {
     this.types = this.typeService.getAll();
   }
 
+  addType(){
+    this.router.navigate(['/types/creation']);
+  }
+
   deleteType(id: number) {
     this.typeService.delete(id)
       .subscribe(
