@@ -11,6 +11,8 @@ import Framework from '../model/Framework';
 import Type from '../model/TypeArticle';
 import Language from '../model/Language';
 import {Search} from '../model/Search';
+import Article from '../model/Article'
+import {  Router } from "@angular/router";
 
 @Component({
   selector: 'app-advanced-search',
@@ -28,6 +30,7 @@ export class AdvancedSearchComponent implements OnInit {
   public searchForm: FormGroup;
   public versionToShow: string;
   public popularitySought : string;
+  public listArticles : Article[];
   showFilters:boolean = false;
 
   constructor(
@@ -36,7 +39,8 @@ export class AdvancedSearchComponent implements OnInit {
     private frameworkService: FrameworkService,
     private langageService: LanguageService,
     private searchService : SearchService,
-    private typeService: TypeService) { }
+    private typeService: TypeService,
+    private router: Router,) { }
 
   ngOnInit() {
 
@@ -84,8 +88,11 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   public advancedSearch(): void {
-    this.searchService.search(this.advancedSearchObject).subscribe();
-    
+    this.searchService.search(this.advancedSearchObject).subscribe(articles => {
+      this.listArticles = articles;
+      console.log(this.listArticles);
+    });
+    this.router.navigateByUrl("/result");
   }
 
   public onLanguageChange() : void{
