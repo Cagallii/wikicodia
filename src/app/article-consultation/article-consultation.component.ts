@@ -80,6 +80,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   // oneArticle: Article = this.oneArticle;
   autentificated: boolean = false;
   user: User = null;
+  isUserAdmin:boolean=false;
   allLike: number = 0;
   allDislike: number = 0;
   dislikeComment: string = null;
@@ -110,11 +111,16 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
       this.allLike = 0;
+      this.isUserAdmin=false;
       this.allDislike = 0;
       this.dislikeComment = null;
-      if (!this.oneArticle.estPromu){
-        this.isPromoteButtonAvailable = true;
+      if(this.user.role.role==="admin"){
+        this.isUserAdmin = true;
+        if (!this.oneArticle.estPromu){
+          this.isPromoteButtonAvailable = true;
+        }
       }
+ 
       this.isUnpublishButtonAvailable = false;
       this.isPublishButtonAvailable = false;
     }
