@@ -25,7 +25,8 @@
                 <mat-card-content>Rôle : {{ userToChange.role.role }}</mat-card-content>
                 <div *ngIf="!isUserAdmin"><button mat-button color="warn" (click)="upGrade()">Promouvoir l'utilisateur</button></div>
                 <div *ngIf="isUserAdmin"><button mat-button color="warn" (click)="downGrade()">Destituer l'utilisateur</button></div>
-                
+                <div><button mat-button color="warn" (click)="cancel()">Annuler</button></div>
+
             </mat-card>
             
         </div>

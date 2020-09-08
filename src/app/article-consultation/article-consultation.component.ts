@@ -528,20 +528,13 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 })
 export class ArticleConsultationComponentDialog {
   form: FormGroup;
-  // depreciated:boolean;
-  // doesntwork:boolean;
-  // otherreason:boolean;
-  // description:string;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ArticleConsultationComponentDialog>,
     @Inject(MAT_DIALOG_DATA) data
   ) {
-    // depreciated = data.depreciated;
-    // doesntwork = data.doesntwork;
-    // this.otherreason = data.otherreason;
-    // this.description = data.description;
+
   }
 
   ngOnInit() {
