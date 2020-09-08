@@ -50,7 +50,7 @@ import { AdministratorRoleManagementComponent } from "./administrator-role-manag
 import { ArticleAwaitingValidationComponent } from "./article-awaiting-validation/article-awaiting-validation.component";
 import { ArticlePromotedHomeComponent } from "./article-promoted-home/article-promoted-home.component";
 import { ArticleSuggestionHomeComponent } from "./article-suggestion-home/article-suggestion-home.component";
-import { ArticleConsultationComponent , ArticleConsultationComponentDialog} from "./article-consultation/article-consultation.component";
+import { ArticleConsultationComponent , ArticleConsultationComponentDialog, ArticleConsultationComponentDialogLike} from "./article-consultation/article-consultation.component";
 import { CarouselArticleComponent } from "./carousel-article/carousel-article.component";
 import { CreateArticleComponent } from "./create-article/create-article.component";
 import { ListArticleCreatedComponent } from "./list-article-created/list-article-created.component";
@@ -155,6 +155,7 @@ export class XhrInterceptor implements HttpInterceptor {
     ArticleSuggestionHomeComponent,
     ArticleConsultationComponent,
     ArticleConsultationComponentDialog,
+    ArticleConsultationComponentDialogLike,
     CarouselArticleComponent,
     CreateArticleComponent,
     ListArticleCreatedComponent,
@@ -245,7 +246,7 @@ export class XhrInterceptor implements HttpInterceptor {
   ],
   providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }
   ],
-  entryComponents: [ArticleConsultationComponentDialog, ConfirmationDialogComponent],
+  entryComponents: [ArticleConsultationComponentDialog, ConfirmationDialogComponent, ArticleConsultationComponentDialogLike],
   bootstrap: [AppComponent],
 })
 

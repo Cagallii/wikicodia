@@ -84,12 +84,16 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   allDislike: number = 0;
   dislikeComment: string = null;
   oneArticle: Article;
-  isPromoteButtonAvailable: boolean = false;
+  
   mardownContenu: SafeHtml;
+  isPromoteButtonAvailable: boolean = false;
+
   isFavoriteButtonAvailable : boolean = true;
+  isUnFavoriteButtonAvailable : boolean = false;
 
   isUnpublishButtonAvailable: boolean = false;
   isPublishButtonAvailable: boolean = false;
+
 
   ngAfterViewChecked() {
     this.highlight();
@@ -123,7 +127,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
           (data: Article) => {
             this.oneArticle = data;
             if (this.app.authenticated){
-              this.determineIfArticleAlreadyFavorite(data);
+              this.determineIfButtonsAreAvailable(data);
             }
             this.refreshDataArticle();
           },
@@ -134,17 +138,30 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     );
   }
 
-  determineIfArticleAlreadyFavorite(article : Article){
+  determineIfButtonsAreAvailable(article : Article){
     if(this.app.authenticated){
       this.articleService.getArticlesFavoritesIds(this.app.user.idUtilisateur).subscribe(
         (data : any[]) => {
-          if(data.includes(article.idArticle)){
+          if (this.determineIfIAmTheAuthor(article)){
             this.isFavoriteButtonAvailable = false;
+            this.isUnFavoriteButtonAvailable = false;
+          } else if (data.includes(article.idArticle)){
+            this.isFavoriteButtonAvailable = false;
+            this.isUnFavoriteButtonAvailable = true;
           } else {
             this.isFavoriteButtonAvailable = true;
+            this.isUnFavoriteButtonAvailable = false;
           }
         }
       )
+    }
+  }
+
+  determineIfIAmTheAuthor(article : any) {
+    if(this.app.user.idUtilisateur == article.auteur){
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -153,7 +170,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.articleService.setArticleToMyFavorite(this.app.user.idUtilisateur , article).subscribe(
         response => {
           console.log(response);
-          this.determineIfArticleAlreadyFavorite(article);
+          this.determineIfButtonsAreAvailable(article);
         }
       )
     } else {
@@ -167,7 +184,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.articleService.deleteArticleFromFavorites(this.app.user.idUtilisateur , article).subscribe(
         response => {
           console.log(response);
-          this.determineIfArticleAlreadyFavorite(article);
+          this.determineIfButtonsAreAvailable(article);
         }
       )
     } else {
@@ -222,6 +239,12 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     // impossible de liker son propre article
     if (this.oneArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
       console.log("tentative de liker son propre article");
+
+      const dialogConfig = new MatDialogConfig();
+
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = "50%";
+      this.dialog.open(ArticleConsultationComponentDialogLike, dialogConfig);
       // return
     }
     // suppression du like si cliqué par quelqu'un l'ayant déjà liké
@@ -372,29 +395,38 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 
   // fonction qui gère la fenetre pop up de like dislike
   openDialog() {
-    const dialogConfig = new MatDialogConfig();
+    if (this.oneArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
+      const dialogConfig = new MatDialogConfig();
 
-    // dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.minWidth = "50%";
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = "50%";
+      this.dialog.open(ArticleConsultationComponentDialogLike, dialogConfig);
+    } else {
+      const dialogConfig = new MatDialogConfig();
 
-    // dialogConfig.data = {
-    //   id: 1,
-    //   title: 'Angular For Beginners'
-    // };
+      // dialogConfig.disableClose = true;
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = "50%";
 
-    this.dialog.open(ArticleConsultationComponentDialog, dialogConfig);
+      // dialogConfig.data = {
+      //   id: 1,
+      //   title: 'Angular For Beginners'
+      // };
 
-    const dialogRef = this.dialog.open(
-      ArticleConsultationComponentDialog,
-      dialogConfig
-    );
+      this.dialog.open(ArticleConsultationComponentDialog, dialogConfig);
 
-    dialogRef.afterClosed().subscribe((data) => {
-      console.log("Dialog output:", data);
-      this.dislikeComment = data.raisonDislike;
-      this.actionDislike();
-    });
+      const dialogRef = this.dialog.open(
+        ArticleConsultationComponentDialog,
+        dialogConfig
+      );
+
+      dialogRef.afterClosed().subscribe((data) => {
+        console.log("Dialog output:", data);
+        this.dislikeComment = data.raisonDislike;
+        this.actionDislike();
+      });
+    }
+    
   }
 
   promoteArticle(articleId: Number) {
@@ -503,6 +535,27 @@ export class ArticleConsultationComponentDialog {
     this.dialogRef.close("cancel");
   }
 
+  close() {
+    this.dialogRef.close();
+  }
+}
+
+@Component({
+  selector: "app-article-consultation-dialogLike",
+  templateUrl: "article-consultation-dialogLike.html"
+})
+export class ArticleConsultationComponentDialogLike {
+  form: FormGroup;
+
+  constructor(
+    
+    private dialogRef: MatDialogRef<ArticleConsultationComponentDialogLike>,
+    @Inject(MAT_DIALOG_DATA) data
+  ) {}
+
+  ngOnInit() {
+    
+  }
   close() {
     this.dialogRef.close();
   }

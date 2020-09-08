@@ -2,7 +2,7 @@
   <mat-card-header>
     <mat-chip-list aria-label="">
       <mat-chip color="accent" selected (click)="actionLike()"> <mat-icon>thumb_up</mat-icon> | {{this.allLike}}  </mat-chip>
-      <mat-chip color="accent" selected (click)="openDialog()"><mat-icon>thumb_down</mat-icon> | {{this.allDislike}}</mat-chip>
+      <mat-chip color="accent" selected (click)="openDialog(ArticleConsultationComponentDialog)"><mat-icon>thumb_down</mat-icon> | {{this.allDislike}}</mat-chip>
     </mat-chip-list>
     <mat-card-title>{{this.oneArticle.titre}}</mat-card-title>
     <mat-card-subtitle>{{this.oneArticle.description}}</mat-card-subtitle>
@@ -37,7 +37,7 @@
       <mat-icon>favorite</mat-icon>
     </button>
 
-    <button *ngIf='!this.isFavoriteButtonAvailable' mat-mini-fab matTooltip="Supprimer de mes favoris" (click)='deleteFromFavorites(this.oneArticle)' color="accent">
+    <button *ngIf='this.isUnFavoriteButtonAvailable' mat-mini-fab matTooltip="Supprimer de mes favoris" (click)='deleteFromFavorites(this.oneArticle)' color="accent">
       <mat-icon>favorite</mat-icon>
     </button>
 

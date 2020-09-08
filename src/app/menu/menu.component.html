@@ -9,7 +9,7 @@
     <button *ngIf="adminConnected" mat-menu-item [matMenuTriggerFor]="subMenu">Admin</button>
     
     <!-- section réservée aux utilisateurs connectés -->
-    <button *ngIf="authenticated" mat-menu-item routerLink="/articleSuggestion">Accueil</button>
+    <button mat-menu-item routerLink="/articleSuggestion">Accueil</button>
     <button *ngIf="authenticated" mat-menu-item routerLink="/liste">Articles favoris</button>
     <button *ngIf="authenticated" mat-menu-item routerLink="/createdArticles">Mes articles</button>
     <button *ngIf="authenticated" mat-menu-item routerLink="/createArticle">Créer un article</button>
