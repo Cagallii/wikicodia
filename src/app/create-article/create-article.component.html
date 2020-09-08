@@ -107,7 +107,7 @@
 
             <mat-form-field class="largeInput">
                 <textarea matInput type="text" placeholder="Contenu de l'article" formControlName="content"
-                    id="description" cdkTextareaAutosize cdkAutosizeMinRows="20"></textarea>
+                    id="contenu" cdkTextareaAutosize cdkAutosizeMinRows="20"></textarea>
                 <mat-error align="end" *ngIf="hasError('content', 'required')">Ce champs est requis</mat-error>
                 <mat-error align="end" *ngIf="hasError('content', 'minlength')">Un minimum de 100 caractères est requis
                 </mat-error>
