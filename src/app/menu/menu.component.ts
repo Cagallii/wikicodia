@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { AppService } from '../app.service';
 import { AppComponent } from '../app.component';
 import User from '../model/UserCreate';
-import { on } from 'process';
+import { MatSlideToggleChange } from '@angular/material';
 
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.css']
+  styleUrls: ['./menu.component.css'],
+  // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MenuComponent implements OnInit {
   
@@ -16,6 +17,9 @@ export class MenuComponent implements OnInit {
   authenticated: boolean = false;
   adminConnected: boolean = false;
   regularUserConnected: boolean = false;
+
+  @Output()
+  readonly darkModeSwitched = new EventEmitter<boolean>();
 
   constructor(
     private appComp: AppComponent,
@@ -25,6 +29,11 @@ export class MenuComponent implements OnInit {
 
   ngOnInit() {
      
+  }
+
+  onDarkModeSwitchedFromMenu({checked}:MatSlideToggleChange){
+    this.darkModeSwitched.emit(checked);
+    console.log("passage dans menucomponent : onDarkModeSwitched");
   }
 
   switchDisplay(){

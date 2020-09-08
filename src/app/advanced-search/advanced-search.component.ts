@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter,Input} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MatSlideToggleChange } from '@angular/material';
 
 
 @Component({
@@ -8,6 +9,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./advanced-search.component.scss']
 })
 export class AdvancedSearchComponent implements OnInit {
+
+  @Output()
+  readonly darkModeSwitched = new EventEmitter<boolean>();
+
 
   constructor(private formBuilder: FormBuilder) { }
 

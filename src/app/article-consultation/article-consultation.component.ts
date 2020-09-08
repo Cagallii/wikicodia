@@ -455,34 +455,57 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
         pdf.text('Wikicodia', 15, 20);
         pdf.setTextColor(100);
         pdf.text(this.oneArticle.titre, 15, 30);
-        
         pdf.setTextColor(150);
         
-        
         // Récupération du contenu de l'article avec retours à la ligne
-        let content=this.oneArticle.contenu;
-        let lines =pdf.splitTextToSize(content, (pageWidth - (leftMarginWidth + rightMarginWidth)));
-        pdf.text(lines,leftMarginWidth, 40);
-
-        // Rajout pas élégant du tout d'une page tous les 2000 caractères
-        // Estimation à la louche du nb de caractères max pour une page
-        if (content.length > 2000){
+        let content = this.oneArticle.contenu;
+        let lines = pdf.splitTextToSize(content, (pageWidth - (leftMarginWidth + rightMarginWidth)));
+        let firstHalf;
+        let secondHalf;
+        const heightContent = lines.length;
+        // Gestion très approximative de la longueur (max 2 pages sinon bug)
+        if (heightContent < 38){
+          pdf.text(lines,leftMarginWidth, 40);
+        } else if (heightContent > 37 && heightContent < 76){
+          firstHalf = pdf.splitTextToSize(this.getFirstHalf(content), (pageWidth - (leftMarginWidth + rightMarginWidth)));
+          pdf.text(firstHalf,leftMarginWidth, 40);
           pdf.addPage('a4', 'p');
-        }
-        if (content.length > 4000){
-          pdf.addPage('a4', 'p');
-        }
-        if (content.length > 6000){
-          pdf.addPage('a4', 'p');
-        }
-        if (content.length > 8000){
-          pdf.addPage('a4', 'p');
+          secondHalf = pdf.splitTextToSize(this.getSecondHalf(content), (pageWidth - (leftMarginWidth + rightMarginWidth)));
+          pdf.text(secondHalf,leftMarginWidth, 40);
         }
         pdf.save('monArticle.pdf');
 
       }); 
   }
-  
+
+  /**
+   * Récupère la 1ere moitié d'un string
+   */
+  getFirstHalf(str) {
+    let x;
+    if (str.length % 2 == 0) {
+      x = (str.length / 2);
+    } else {
+      x = (str.length / 2) - 1;
+    }
+    let halfString = str.substring(0, x);
+    return halfString;
+  }
+
+  /**
+   * Récupère la 2e moitié d'un string
+   */
+  getSecondHalf(str) {
+    let x;
+    if (str.length % 2 == 0) {
+      x = (str.length / 2);
+    } else {
+      x = (str.length / 2) - 1;
+    }
+    let halfString = str.substring(x, str.length-1);
+    return halfString;
+  }
+
   /**
    * Retour à la pgae précédente au clic sur "Revenir à la liste"
    */
