@@ -1,7 +1,8 @@
 import { Component, OnInit, Output, EventEmitter,Input} from '@angular/core';
 import { MatSlideToggleChange } from '@angular/material';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import {Search} from '../model/Search';
+import { Observable } from 'rxjs';
+import { SearchService } from '../services/search.service';
 import { CategoryService } from '../services/category.service';
 import { FrameworkService } from '../services/framework.service';
 import { LanguageService } from '../services/language.service';
@@ -10,8 +11,7 @@ import Category from '../model/Category';
 import Framework from '../model/Framework';
 import Type from '../model/TypeArticle';
 import Language from '../model/Language';
-import { Observable } from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
+import {Search} from '../model/Search';
 
 @Component({
   selector: 'app-advanced-search',
@@ -31,7 +31,7 @@ export class AdvancedSearchComponent implements OnInit {
   public advancedSearchObject = new Search();
   public searchForm: FormGroup;
   public versionToShow: string;
-  submitted:boolean = false;
+  public popularitySought : string;
   showFilters:boolean = false;
 
   constructor(
@@ -39,14 +39,13 @@ export class AdvancedSearchComponent implements OnInit {
     private categoriesService: CategoryService,
     private frameworkService: FrameworkService,
     private langageService: LanguageService,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
+    private searchService : SearchService,
     private typeService: TypeService) { }
 
   ngOnInit() {
 
     this.searchForm = this.formBuilder.group({
-      searchWords:[''],
+      searchString:[''],
       dateCrea: [''],
       dateModif: [''],
       language: [''],
@@ -63,7 +62,6 @@ export class AdvancedSearchComponent implements OnInit {
     this.listFramework = this.frameworkService.getAll();
     this.listLanguage = this.langageService.getAll();
     this.listType = this.typeService.getAll();
-    this.nbLike = ["Tous","Nouveau","Populaire","Très populaire"];
   }
 
   addFilters(){
@@ -74,36 +72,24 @@ export class AdvancedSearchComponent implements OnInit {
   get f() { return this.searchForm.controls; }
 
   public paramAdvancedSearch():void{
-    this.router.navigate([''],{
-      queryParams: {
-        dateCreate : this.advancedSearchObject.dateCreate, 
-        datelastModif: this.advancedSearchObject.dateModif,
-        language: this.advancedSearchObject.language,
-        version: this.advancedSearchObject.version,
-        framework: this.advancedSearchObject.framework,
-        category:this.advancedSearchObject.category,
-        popularity: this.advancedSearchObject.popularity,
-        type:this.advancedSearchObject.type,
-      }
-    })
+    switch(this.popularitySought){
+      case 'Tous':
+        this.advancedSearchObject.popularity = [999,1000];
+        break;
+      case 'Nouveau':
+        this.advancedSearchObject.popularity = [0,1];
+        break;
+      case 'Populaire':
+        this.advancedSearchObject.popularity= [19,20];
+        break;
+      case 'Très populaire':
+        this.advancedSearchObject.popularity = [49,50];
+    }
   }
 
   public advancedSearch(): void {
-    this.submitted = true;
-    this.activatedRoute.queryParams.subscribe(params => {
-      this.advancedSearchObject ={
-        dateCreate : params.dateCrea, 
-        dateModif: params.dateModif,
-        language: params.language,
-        version: params.version,
-        framework: params.framework,
-        category:params.category,
-        popularity: params.popularity,
-        type:params.type
-      }
-    })
+    this.searchService.search(this.advancedSearchObject).subscribe();
     
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.searchForm.value, null, 4));
   }
 
   public onLanguageChange() : void{
@@ -116,9 +102,19 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   public resetForm(): void {
-    this.submitted = false;
     this.searchForm.reset();
     this.searchForm.get('framework').enable();
     this.searchForm.get('language').enable();
   }
+
+  /*public mapArticles(articles : Article []): Article []{
+    return articles.map(article => {
+      article.dateCreation = article.dateCreation;
+      article.dateDerniereModif = article.dateDerniereModif;
+      article.langage.lang = article.langage.lang;
+      article.langage.version = article.langage.version;
+
+      return article;
+    })
+  }*/
 }
