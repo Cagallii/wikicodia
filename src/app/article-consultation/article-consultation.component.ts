@@ -132,7 +132,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
             if (this.app.authenticated){
               this.determineIfButtonsAreAvailable(data);
               this.determineIfPromotionButtonsAreAvailable(data);
-            }
+            };
             this.refreshDataArticle();
           },
           (error) => console.log(error)
