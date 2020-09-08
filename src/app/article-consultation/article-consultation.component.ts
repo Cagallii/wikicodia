@@ -431,8 +431,6 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
         let firstHalf;
         let secondHalf;
         const heightContent = lines.length;
-        console.log(heightContent);
-        console.log('type :' + typeof lines);
         // Gestion très approximative de la longueur (max 2 pages sinon bug)
         if (heightContent < 38){
           pdf.text(lines,leftMarginWidth, 40);
