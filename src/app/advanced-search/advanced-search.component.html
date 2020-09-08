@@ -1,15 +1,10 @@
 <form [formGroup]="searchForm" class="maincontainer" (Submit)="advancedSearch()" (keyup.enter)="advancedSearch()">
     <!-- <a routerLink="/goHome"><h1>Wikicodia</h1></a> -->
-<<<<<<< HEAD
 
     <div class="row searchZone">
         <app-menu class="col-lg-1 col-md-1 col-sm-12"></app-menu>
         <div class="col-lg-9 col-md-9 col-sm-12 searchInput">
             
-=======
-    <div class="row searchZone">
-        <div class="col-lg-10 col-md-10 col-sm-12 searchInput">
->>>>>>> ajout recherche et service
             <mat-form-field class="searchInput">
                 <mat-label>Rechercher</mat-label>
                 <input matInput [(ngModel)]="advancedSearchObject.searchString"
