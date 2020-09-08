@@ -5,16 +5,23 @@
     align-items: center;
 }
 .subContainer{
-    max-height: 600px; 
-    width : 90%;
-    background-color: lightgrey;
+    max-height: 400px; 
+    /* width : 90%; */
+    /* background-color: lightgrey; */
     overflow: auto;
-    box-shadow: 3px 3px 3px gray ;
+    /* box-shadow: 3px 3px 3px gray ; */
+    /* box-shadow: 3px 3px 3px lightgrey; */
+
     border-radius: 5px;
-    margin-bottom: 40px;
-    padding-right: 20px;
-    padding-left: 20px;
+    /* margin-bottom: 40px; */
+    /* padding-right: 20px;
+    padding-left: 20px; */
 }
+
+.subContainer::-webkit-scrollbar { width: 0 !important }
+.subContainer { overflow: -moz-scrollbars-none; }
+.subContainer { -ms-overflow-style: none; }
+
 
 .title{
     margin-top: 40px;

@@ -1,22 +1,31 @@
-<div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2>Types d'article disponibles</h2>
+<section>
+
+  <mat-list>
+
+    <h3 matHeader>Types d'article disponibles</h3>
+    
+    <div class="example-button-row">
+      <div class="example-flex-container">
+          <div class="example-button-container">
+            <button mat-fab color="primary" id="add-button" (click)="addType()">
+              <mat-icon>add</mat-icon>
+            </button>
+        </div>
+      </div>
     </div>
-    <div class="panel-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Libellé</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let type of types | async">
-            <td>{{type.libType}}</td>
-            <td>
-                <button (click)="deleteType(type.idType)" class="btn btn-danger">Supprimer</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+
+    <mat-divider></mat-divider>
+
+    <mat-list-item *ngFor="let type of types | async">
+      <p matLine>{{type.libType}}</p>
+      <button mat-icon-button color="warn" (click)="deleteType(type.idType)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+
+  </mat-list>
+
+</section>
+  
+  
+  

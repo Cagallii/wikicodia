@@ -50,7 +50,7 @@ import { AdministratorRoleManagementComponent } from "./administrator-role-manag
 import { ArticleAwaitingValidationComponent } from "./article-awaiting-validation/article-awaiting-validation.component";
 import { ArticlePromotedHomeComponent } from "./article-promoted-home/article-promoted-home.component";
 import { ArticleSuggestionHomeComponent } from "./article-suggestion-home/article-suggestion-home.component";
-import { ArticleConsultationComponent , ArticleConsultationComponentDialog} from "./article-consultation/article-consultation.component";
+import { ArticleConsultationComponent , ArticleConsultationComponentDialog, ArticleConsultationComponentDialogLike} from "./article-consultation/article-consultation.component";
 import { CarouselArticleComponent } from "./carousel-article/carousel-article.component";
 import { CreateArticleComponent } from "./create-article/create-article.component";
 import { ListArticleCreatedComponent } from "./list-article-created/list-article-created.component";
@@ -92,6 +92,7 @@ import { HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ArticleModificationComponent } from './article-modification/article-modification.component';
+import { SelectorThemeComponent } from './selector-theme/selector-theme.component';
 
 
 /**
@@ -121,11 +122,12 @@ export class XhrInterceptor implements HttpInterceptor {
           if (errorMessage.includes('user: 403 Forbidden')){
             return throwError(errorMessage);
           }
-          // Suppression de la popup à l'ouverture de la homepage si pas d'articles promus / 
-          if (errorMessage.includes('articlesPromus') || errorMessage.includes('derniersArticlesPromus')){
+          // Suppression de la popup à l'ouverture de la homepage si pas d'articles promus ou récents 
+          if (errorMessage.includes('articlesPromus') || errorMessage.includes('derniersArticlesPromus')
+          || (errorMessage.includes('articlesRecents'))) {
             return throwError(errorMessage);
           }
-          // Suppression de la popup à l'ouverture de la homepage si pas d'articles promus / 
+          // Suppression de la popup à l'ouverture de la homepage si pas d'articles suggérés  
           if (errorMessage.includes('articlesSuggeres')){
             return throwError(errorMessage);
           }
@@ -136,6 +138,10 @@ export class XhrInterceptor implements HttpInterceptor {
           // Message spécifique aux erreurs sur la page des articles en attente de validation
           if (errorMessage.includes('articles/reject')){
             errorMessage = "Action impossible! Veuillez d'abord renseigner un commentaire pour justifier le rejet de cet article.";
+          }
+          // Message spécifique aux erreurs sur la page de modification des articles
+          if (errorMessage.includes('articles/modification')){
+            errorMessage = "Le contenu de l'article est trop long (10 000 caractères max)!";
           }
         }
         window.alert(errorMessage);
@@ -155,6 +161,7 @@ export class XhrInterceptor implements HttpInterceptor {
     ArticleSuggestionHomeComponent,
     ArticleConsultationComponent,
     ArticleConsultationComponentDialog,
+    ArticleConsultationComponentDialogLike,
     CarouselArticleComponent,
     CreateArticleComponent,
     ListArticleCreatedComponent,
@@ -186,7 +193,8 @@ export class XhrInterceptor implements HttpInterceptor {
     ArticleStopPromoComponent,
     CommentArticleComponent,
     ConfirmationDialogComponent,
-    ArticleModificationComponent
+    ArticleModificationComponent,
+    SelectorThemeComponent
   ],
 
   imports: [
@@ -245,7 +253,7 @@ export class XhrInterceptor implements HttpInterceptor {
   ],
   providers: [AppService, { provide: HTTP_INTERCEPTORS, useClass: XhrInterceptor, multi: true }
   ],
-  entryComponents: [ArticleConsultationComponentDialog, ConfirmationDialogComponent],
+  entryComponents: [ArticleConsultationComponentDialog, ConfirmationDialogComponent, ArticleConsultationComponentDialogLike],
   bootstrap: [AppComponent],
 })
 

@@ -80,16 +80,24 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   // oneArticle: Article = this.oneArticle;
   autentificated: boolean = false;
   user: User = null;
+  isUserAdmin:boolean=false;
   allLike: number = 0;
   allDislike: number = 0;
   dislikeComment: string = null;
   oneArticle: Article;
-  isPromoteButtonAvailable: boolean = false;
+  
   mardownContenu: SafeHtml;
-  isFavoriteButtonAvailable : boolean = true;
+
+  isPromoteButtonAvailable: boolean = false;
+  isUnPromoteButtonAvailable : boolean = false;
+
+  isFavoriteButtonAvailable : boolean = false;
+  isUnFavoriteButtonAvailable : boolean = false;
 
   isUnpublishButtonAvailable: boolean = false;
   isPublishButtonAvailable: boolean = false;
+
+  isModifButtonAvailable : boolean = false;
 
   ngAfterViewChecked() {
     this.highlight();
@@ -106,11 +114,10 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
       this.allLike = 0;
+      this.isUserAdmin=false;
       this.allDislike = 0;
       this.dislikeComment = null;
-      if (!this.oneArticle.estPromu){
-        this.isPromoteButtonAvailable = true;
-      }
+
       this.isUnpublishButtonAvailable = false;
       this.isPublishButtonAvailable = false;
     }
@@ -123,8 +130,9 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
           (data: Article) => {
             this.oneArticle = data;
             if (this.app.authenticated){
-              this.determineIfArticleAlreadyFavorite(data);
-            }
+              this.determineIfButtonsAreAvailable(data);
+              this.determineIfPromotionButtonsAreAvailable(data);
+            };
             this.refreshDataArticle();
           },
           (error) => console.log(error)
@@ -134,17 +142,54 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     );
   }
 
-  determineIfArticleAlreadyFavorite(article : Article){
+  determineIfButtonsAreAvailable(article : Article){
     if(this.app.authenticated){
+      
       this.articleService.getArticlesFavoritesIds(this.app.user.idUtilisateur).subscribe(
         (data : any[]) => {
-          if(data.includes(article.idArticle)){
+          if (this.determineIfIAmTheAuthor(article)){
             this.isFavoriteButtonAvailable = false;
+            this.isUnFavoriteButtonAvailable = false;
+            this.isModifButtonAvailable = true;
+          } else if (data.includes(article.idArticle)){
+            this.isFavoriteButtonAvailable = false;
+            this.isUnFavoriteButtonAvailable = true;
+          } else {
+            this.isFavoriteButtonAvailable = true;
+            this.isUnFavoriteButtonAvailable = false;
+          }
+        },
+        (error) => {
+          if (this.determineIfIAmTheAuthor(article)){
+            this.isModifButtonAvailable = true;
           } else {
             this.isFavoriteButtonAvailable = true;
           }
+          console.log(error);
+          
         }
       )
+    }
+  }
+
+  determineIfPromotionButtonsAreAvailable(article : Article) {
+    if(article.estPromu == false && this.app.user.role.role == "admin" && !this.determineIfIAmTheAuthor(article)){
+      this.isPromoteButtonAvailable = true;
+      this.isUnPromoteButtonAvailable = false;
+    } else if (article.estPromu == true && this.app.user.role.role == "admin" && !this.determineIfIAmTheAuthor(article)){
+      this.isPromoteButtonAvailable = false;
+      this.isUnPromoteButtonAvailable = true;
+    } else {
+      this.isPromoteButtonAvailable = false;
+      this.isUnPromoteButtonAvailable = false;
+    }
+  }
+
+  determineIfIAmTheAuthor(article : any) {
+    if(this.app.user.idUtilisateur == article.auteur){
+      return true;
+    } else {
+      return false;
     }
   }
 
@@ -153,7 +198,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.articleService.setArticleToMyFavorite(this.app.user.idUtilisateur , article).subscribe(
         response => {
           console.log(response);
-          this.determineIfArticleAlreadyFavorite(article);
+          this.determineIfButtonsAreAvailable(article);
         }
       )
     } else {
@@ -167,7 +212,8 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.articleService.deleteArticleFromFavorites(this.app.user.idUtilisateur , article).subscribe(
         response => {
           console.log(response);
-          this.determineIfArticleAlreadyFavorite(article);
+          this.determineIfButtonsAreAvailable(article);
+          this.router.navigateByUrl("/liste");
         }
       )
     } else {
@@ -222,6 +268,12 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     // impossible de liker son propre article
     if (this.oneArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
       console.log("tentative de liker son propre article");
+
+      const dialogConfig = new MatDialogConfig();
+
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = "50%";
+      this.dialog.open(ArticleConsultationComponentDialogLike, dialogConfig);
       // return
     }
     // suppression du like si cliqué par quelqu'un l'ayant déjà liké
@@ -271,7 +323,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.oneArticle.vote.splice(indexOfVote, 1, modifiedVote);
       // this.createVote();
       this.articleService
-        .updateOneArticle(this.oneArticle)
+        .updateVoteArticle(this.oneArticle)
         .subscribe((data) => {
           console.log(data);
           this.refreshDataArticle();
@@ -285,7 +337,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
       this.oneArticle.vote.splice(indexOfVote, 1);
       this.articleService
-        .updateOneArticle(this.oneArticle)
+        .updateVoteArticle(this.oneArticle)
         .subscribe((data) => {
           console.log(data);
           this.refreshDataArticle();
@@ -310,7 +362,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     newVote.utilisateur = this.user;
     console.log(newVote);
     this.oneArticle.vote.push(newVote);
-    this.articleService.updateOneArticle(this.oneArticle).subscribe((data) => {
+    this.articleService.updateVoteArticle(this.oneArticle).subscribe((data) => {
       console.log(data);
       this.refreshDataArticle();
     });
@@ -326,23 +378,21 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
         marked(this.oneArticle.contenu)
       );
     }
-
-    if (this.user.role.role == "admin" && this.oneArticle.estPromu == false) {
-      this.isPromoteButtonAvailable = true;
-    } else {
-      this.isPromoteButtonAvailable = false;
-    }
+    
     console.log(this.oneArticle);
     console.log("data from refresh :");
     // console.log(data);
 
-    if(this.oneArticle.estPublie===true){
-      this.isUnpublishButtonAvailable = true;
-      this.isPublishButtonAvailable = false;
-    } else {
-      this.isUnpublishButtonAvailable = false;
-      this.isPublishButtonAvailable = true;
+    if(this.determineIfIAmTheAuthor(this.oneArticle)){
+      if(this.oneArticle.estPublie===true){
+        this.isUnpublishButtonAvailable = true;
+        this.isPublishButtonAvailable = false;
+      } else {
+        this.isUnpublishButtonAvailable = false;
+        this.isPublishButtonAvailable = true;
+      }
     }
+    
 
     this.refreshLikeArticle();
     // });
@@ -372,29 +422,32 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 
   // fonction qui gère la fenetre pop up de like dislike
   openDialog() {
-    const dialogConfig = new MatDialogConfig();
+    if (this.oneArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
+      const dialogConfig = new MatDialogConfig();
 
-    // dialogConfig.disableClose = true;
-    dialogConfig.autoFocus = true;
-    dialogConfig.minWidth = "50%";
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = "50%";
+      this.dialog.open(ArticleConsultationComponentDialogLike, dialogConfig);
+    } else {
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.autoFocus = true;
+      dialogConfig.minWidth = "50%";
+      // this.dialog.open(ArticleConsultationComponentDialog, dialogConfig);
 
-    // dialogConfig.data = {
-    //   id: 1,
-    //   title: 'Angular For Beginners'
-    // };
+      const dialogRef = this.dialog.open(
+        ArticleConsultationComponentDialog,
+        dialogConfig
+      );
 
-    this.dialog.open(ArticleConsultationComponentDialog, dialogConfig);
-
-    const dialogRef = this.dialog.open(
-      ArticleConsultationComponentDialog,
-      dialogConfig
-    );
-
-    dialogRef.afterClosed().subscribe((data) => {
-      console.log("Dialog output:", data);
-      this.dislikeComment = data.raisonDislike;
-      this.actionDislike();
-    });
+      dialogRef.afterClosed().subscribe((data) => {
+        console.log("Dialog output:", data);
+        if(data.raisonDislike !== "cancel" && data.raisonDislike !== null){
+          this.dislikeComment = data.raisonDislike;
+          this.actionDislike();
+        }
+      });
+    }
+    
   }
 
   promoteArticle(articleId: Number) {
@@ -423,34 +476,57 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
         pdf.text('Wikicodia', 15, 20);
         pdf.setTextColor(100);
         pdf.text(this.oneArticle.titre, 15, 30);
-        
         pdf.setTextColor(150);
         
-        
         // Récupération du contenu de l'article avec retours à la ligne
-        let content=this.oneArticle.contenu;
-        let lines =pdf.splitTextToSize(content, (pageWidth - (leftMarginWidth + rightMarginWidth)));
-        pdf.text(lines,leftMarginWidth, 40);
-
-        // Rajout pas élégant du tout d'une page tous les 2000 caractères
-        // Estimation à la louche du nb de caractères max pour une page
-        if (content.length > 2000){
+        let content = this.oneArticle.contenu;
+        let lines = pdf.splitTextToSize(content, (pageWidth - (leftMarginWidth + rightMarginWidth)));
+        let firstHalf;
+        let secondHalf;
+        const heightContent = lines.length;
+        // Gestion très approximative de la longueur (max 2 pages sinon bug)
+        if (heightContent < 38){
+          pdf.text(lines,leftMarginWidth, 40);
+        } else if (heightContent > 37 && heightContent < 76){
+          firstHalf = pdf.splitTextToSize(this.getFirstHalf(content), (pageWidth - (leftMarginWidth + rightMarginWidth)));
+          pdf.text(firstHalf,leftMarginWidth, 40);
           pdf.addPage('a4', 'p');
-        }
-        if (content.length > 4000){
-          pdf.addPage('a4', 'p');
-        }
-        if (content.length > 6000){
-          pdf.addPage('a4', 'p');
-        }
-        if (content.length > 8000){
-          pdf.addPage('a4', 'p');
+          secondHalf = pdf.splitTextToSize(this.getSecondHalf(content), (pageWidth - (leftMarginWidth + rightMarginWidth)));
+          pdf.text(secondHalf,leftMarginWidth, 40);
         }
         pdf.save('monArticle.pdf');
 
       }); 
   }
-  
+
+  /**
+   * Récupère la 1ere moitié d'un string
+   */
+  getFirstHalf(str) {
+    let x;
+    if (str.length % 2 == 0) {
+      x = (str.length / 2);
+    } else {
+      x = (str.length / 2) - 1;
+    }
+    let halfString = str.substring(0, x);
+    return halfString;
+  }
+
+  /**
+   * Récupère la 2e moitié d'un string
+   */
+  getSecondHalf(str) {
+    let x;
+    if (str.length % 2 == 0) {
+      x = (str.length / 2);
+    } else {
+      x = (str.length / 2) - 1;
+    }
+    let halfString = str.substring(x, str.length-1);
+    return halfString;
+  }
+
   /**
    * Retour à la pgae précédente au clic sur "Revenir à la liste"
    */
@@ -473,20 +549,13 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 })
 export class ArticleConsultationComponentDialog {
   form: FormGroup;
-  // depreciated:boolean;
-  // doesntwork:boolean;
-  // otherreason:boolean;
-  // description:string;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ArticleConsultationComponentDialog>,
     @Inject(MAT_DIALOG_DATA) data
   ) {
-    // depreciated = data.depreciated;
-    // doesntwork = data.doesntwork;
-    // this.otherreason = data.otherreason;
-    // this.description = data.description;
+
   }
 
   ngOnInit() {
@@ -503,6 +572,27 @@ export class ArticleConsultationComponentDialog {
     this.dialogRef.close("cancel");
   }
 
+  close() {
+    this.dialogRef.close(null);
+  }
+}
+
+@Component({
+  selector: "app-article-consultation-dialogLike",
+  templateUrl: "article-consultation-dialogLike.html"
+})
+export class ArticleConsultationComponentDialogLike {
+  form: FormGroup;
+
+  constructor(
+    
+    private dialogRef: MatDialogRef<ArticleConsultationComponentDialogLike>,
+    @Inject(MAT_DIALOG_DATA) data
+  ) {}
+
+  ngOnInit() {
+    
+  }
   close() {
     this.dialogRef.close();
   }

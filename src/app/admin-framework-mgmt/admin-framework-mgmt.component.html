@@ -1,22 +1,28 @@
-<div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2>Liste des frameworks</h2>
-    </div>
-    <div class="panel-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Libellé</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let framework of frameworks | async">
-            <td>{{framework.framework}}</td>
-            <td>
-                <button (click)="deleteFramework(framework.idFramework)" class="btn btn-danger">Supprimer</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+  <section>
+  
+    <mat-list>
+  
+      <h3 matHeader>Frameworks disponibles</h3>
+      
+      <div class="example-button-row">
+        <div class="example-flex-container">
+            <div class="example-button-container">
+              <button mat-fab color="primary" id="add-button" (click)="addFrk()">
+                <mat-icon>add</mat-icon>
+              </button>
+          </div>
+        </div>
+      </div>
+  
+      <mat-divider></mat-divider>
+  
+      <mat-list-item *ngFor="let framework of frameworks | async">
+        <p matLine>{{framework.framework}}</p>
+        <button mat-icon-button color="warn" (click)="deleteFramework(framework.idFramework)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+  
+    </mat-list>
+  
+  </section>

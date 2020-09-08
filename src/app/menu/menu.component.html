@@ -9,7 +9,7 @@
     <button *ngIf="adminConnected" mat-menu-item [matMenuTriggerFor]="subMenu">Admin</button>
     
     <!-- section réservée aux utilisateurs connectés -->
-    <button *ngIf="authenticated" mat-menu-item routerLink="/articleSuggestion">Accueil</button>
+    <button mat-menu-item routerLink="/articleSuggestion">Accueil</button>
     <button *ngIf="authenticated" mat-menu-item routerLink="/liste">Articles favoris</button>
     <button *ngIf="authenticated" mat-menu-item routerLink="/createdArticles">Mes articles</button>
     <button *ngIf="authenticated" mat-menu-item routerLink="/createArticle">Créer un article</button>
@@ -29,13 +29,9 @@
     <button mat-menu-item routerLink="/articles/pending">Articles en attente de validation</button>
     <button mat-menu-item routerLink="/stopPromo">Dé-promouvoir un article</button>
     <button mat-menu-item routerLink="/categories/all">Catégories d'article</button>
-    <button mat-menu-item routerLink="/categories/creation">Ajouter une catégorie d'article</button>
     <button mat-menu-item routerLink="/types/all">Types d'article</button>
-    <button mat-menu-item routerLink="/types/creation">Ajouter un type d'article</button>
     <button mat-menu-item routerLink="/langages/all">Langages</button>
-    <button mat-menu-item routerLink="/langages/creation">Ajouter un langage</button>
     <button mat-menu-item routerLink="/frameworks/all">Frameworks</button>
-    <button mat-menu-item routerLink="/frameworks/creation">Ajouter un framework</button>
     <button mat-menu-item routerLink="/roleManagement">Promouvoir / Destituer un utilisateur</button>
 </mat-menu>
 

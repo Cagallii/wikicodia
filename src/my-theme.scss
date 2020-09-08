@@ -4,9 +4,29 @@
 @include mat-core();
 
 $my-app-primary: mat-palette($mat-wikicodia-palette, 700);
-$my-app-accent: mat-palette($mat-wikicodia-palette-accent, 300);
-$my-app-warn: mat-palette($mat-wikicodia-palette-warn, 500);
+$my-app-accent: mat-palette($mat-wikicodia-palette-accent, 400);
+$my-app-warn: mat-palette($mat-wikicodia-palette-warn, 300);
+
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
+$my-app-theme-dark: mat-dark-theme($my-app-primary,$my-app-accent,$my-app-warn);
+
+html,body{
+    height: 100%;
+    // overflow: hidden;
+}
+
 
 @include angular-material-theme($my-app-theme);
 
+
+.theme-dark{
+    @include angular-material-theme($my-app-theme-dark);
+    background:$black;
+    color:$mainColor;
+}
+
+.theme-light{
+    @include angular-material-theme($my-app-theme);
+    background:$white;
+    color:$mainColor;
+}

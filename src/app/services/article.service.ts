@@ -27,6 +27,10 @@ export class ArticleService {
     return this.http.put(this.baseUrl+"modification/"+`${article.idArticle}`, article);
   }
 
+  updateVoteArticle(article:Article): Observable<Object> {
+    return this.http.put(this.baseUrl+"votes/"+`${article.idArticle}`, article);
+  }
+
   toggleVisibility(idArticle:number){
     return this.http.put(this.baseUrl + "toggle-visibility/" +`${idArticle}`, { observe: 'response' });
   }
