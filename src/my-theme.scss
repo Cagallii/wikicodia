@@ -8,5 +8,23 @@ $my-app-accent: mat-palette($mat-wikicodia-palette-accent, 300);
 $my-app-warn: mat-palette($mat-wikicodia-palette-warn, 500);
 $my-app-theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warn);
 
+$my-app-theme-dark: mat-dark-theme($my-app-warn, $my-app-primary, $my-app-accent);
+
+html,body{
+    height: 100%;
+}
+
 @include angular-material-theme($my-app-theme);
 
+
+.theme-dark{
+    @include angular-material-theme($my-app-theme-dark);
+    background:$black;
+
+}
+
+.theme-light{
+    @include angular-material-theme($my-app-theme);
+    background:$white;
+
+}

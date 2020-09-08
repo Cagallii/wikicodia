@@ -92,6 +92,7 @@ import { HttpEvent, HttpResponse, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { ArticleModificationComponent } from './article-modification/article-modification.component';
+import { SelectorThemeComponent } from './selector-theme/selector-theme.component';
 
 
 /**
@@ -191,7 +192,8 @@ export class XhrInterceptor implements HttpInterceptor {
     ArticleStopPromoComponent,
     CommentArticleComponent,
     ConfirmationDialogComponent,
-    ArticleModificationComponent
+    ArticleModificationComponent,
+    SelectorThemeComponent
   ],
 
   imports: [
