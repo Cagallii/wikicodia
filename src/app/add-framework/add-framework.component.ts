@@ -13,9 +13,7 @@ export class AddFrameworkComponent implements OnInit {
   framework: Framework = new Framework();
   submitted = false;
 
-  constructor(private frameworkService: FrameworkService
-    // , private router: Router
-    ) { }
+  constructor(private frameworkService: FrameworkService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -29,7 +27,7 @@ export class AddFrameworkComponent implements OnInit {
     this.frameworkService.create(this.framework)
       .subscribe(data => console.log(data), error => console.log(error));
     this.framework = new Framework();
-    // this.gotoList();
+    // this.goBack();
   }
 
   onSubmit() {
@@ -37,8 +35,8 @@ export class AddFrameworkComponent implements OnInit {
     this.save();    
   }
 
-  gotoList() {
-    // this.router.navigate(['/frameworks']);
+  goBack() {
+    this.router.navigate(['/frameworks/all']);
   }
 
 }

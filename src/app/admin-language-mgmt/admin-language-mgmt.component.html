@@ -1,22 +1,28 @@
-<div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2 style="text-align: center;">Liste des langages</h2>
+<section>
+
+  <mat-list>
+
+    <h3 matHeader>Langages disponibles</h3>
+    
+    <div class="example-button-row">
+      <div class="example-flex-container">
+          <div class="example-button-container">
+            <button mat-fab color="primary" id="add-button" (click)="addLang()">
+              <mat-icon>add</mat-icon>
+            </button>
+        </div>
+      </div>
     </div>
-    <div class="panel-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Libellé</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let language of languages | async">
-            <td>{{language.lang}}</td>
-            <td>
-                <button (click)="deleteLanguage(language.idLang)" class="btn btn-danger">Supprimer</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+
+    <mat-divider></mat-divider>
+
+    <mat-list-item *ngFor="let language of languages | async">
+      <p matLine>{{language.lang}}</p>
+      <button mat-icon-button color="warn" (click)="deleteLanguage(language.idLang)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+
+  </mat-list>
+
+</section>

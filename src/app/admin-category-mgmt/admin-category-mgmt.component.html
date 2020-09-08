@@ -1,22 +1,30 @@
-<div class="panel panel-primary">
-    <div class="panel-heading">
-      <h2 style="text-align: center;">Catégories d'article disponibles</h2>
+<section>
+  
+  <mat-list>
+
+    <h3 matHeader>Catégories disponibles</h3>
+    
+    <div class="example-button-row">
+      <div class="example-flex-container">
+          <div class="example-button-container">
+            <button mat-fab color="primary" id="add-button" (click)="addCat()">
+              <mat-icon>add</mat-icon>
+            </button>
+        </div>
+      </div>
     </div>
-    <div class="panel-body">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th>Libellé</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let category of categories | async">
-            <td>{{category.libCategorie}}</td>
-            <td>
-                <button (click)="deleteCategory(category.idCategorie)" class="btn btn-danger">Supprimer</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
+
+    <mat-divider></mat-divider>
+
+    <mat-list-item *ngFor="let category of categories | async">
+      <p matLine>{{category.libCategorie}}</p>
+      <button mat-icon-button color="warn" (click)="deleteCategory(category.idCategorie)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-list-item>
+
+  </mat-list>
+
+</section>
+
+

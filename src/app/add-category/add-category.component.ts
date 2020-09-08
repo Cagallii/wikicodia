@@ -13,9 +13,7 @@ export class AddCategoryComponent implements OnInit {
   category: Category = new Category();
   submitted = false;
 
-  constructor(private categoryService: CategoryService
-    // , private router: Router
-    ) { }
+  constructor(private categoryService: CategoryService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -29,7 +27,7 @@ export class AddCategoryComponent implements OnInit {
     this.categoryService.create(this.category)
       .subscribe(data => console.log(data), error => console.log(error));
     this.category = new Category();
-    // this.gotoList();
+    // this.goBack();
   }
 
   onSubmit() {
@@ -37,8 +35,8 @@ export class AddCategoryComponent implements OnInit {
     this.save();    
   }
 
-  gotoList() {
-    // this.router.navigate(['/categories']);
+  goBack() {
+    this.router.navigate(['/categories/all']);
   }
 
 }

@@ -23,6 +23,10 @@ export class AdminCategoryMgmtComponent implements OnInit {
     this.categories = this.categoryService.getAll();
   }
 
+  addCat(){
+    this.router.navigate(['/categories/creation']);
+  }
+
   deleteCategory(id: number) {
     this.categoryService.delete(id)
       .subscribe(

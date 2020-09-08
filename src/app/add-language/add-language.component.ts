@@ -13,8 +13,7 @@ export class AddLanguageComponent implements OnInit {
   language: Language = new Language();
   submitted = false;
 
-  constructor(private languageService: LanguageService
-    // , private router: Router
+  constructor(private languageService: LanguageService, private router: Router
     ) { }
 
   ngOnInit() {
@@ -29,7 +28,7 @@ export class AddLanguageComponent implements OnInit {
     this.languageService.create(this.language)
       .subscribe(data => console.log(data), error => console.log(error));
     this.language = new Language();
-    // this.gotoList();
+    // this.goBack();
   }
 
   onSubmit() {
@@ -37,8 +36,8 @@ export class AddLanguageComponent implements OnInit {
     this.save();    
   }
 
-  gotoList() {
-    // this.router.navigate(['/langages']);
+  goBack() {
+    this.router.navigate(['/langages/all']);
   }
 
 }
