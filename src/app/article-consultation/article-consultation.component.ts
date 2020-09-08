@@ -86,14 +86,17 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   oneArticle: Article;
   
   mardownContenu: SafeHtml;
-  isPromoteButtonAvailable: boolean = false;
 
-  isFavoriteButtonAvailable : boolean = true;
+  isPromoteButtonAvailable: boolean = false;
+  isUnPromoteButtonAvailable : boolean = false;
+
+  isFavoriteButtonAvailable : boolean = false;
   isUnFavoriteButtonAvailable : boolean = false;
 
   isUnpublishButtonAvailable: boolean = false;
   isPublishButtonAvailable: boolean = false;
 
+  isModifButtonAvailable : boolean = false;
 
   ngAfterViewChecked() {
     this.highlight();
@@ -112,9 +115,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.allLike = 0;
       this.allDislike = 0;
       this.dislikeComment = null;
-      if (!this.oneArticle.estPromu){
-        this.isPromoteButtonAvailable = true;
-      }
+      
       this.isUnpublishButtonAvailable = false;
       this.isPublishButtonAvailable = false;
     }
@@ -128,6 +129,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
             this.oneArticle = data;
             if (this.app.authenticated){
               this.determineIfButtonsAreAvailable(data);
+              this.determineIfPromotionButtonsAreAvailable(data);
             }
             this.refreshDataArticle();
           },
@@ -145,6 +147,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
           if (this.determineIfIAmTheAuthor(article)){
             this.isFavoriteButtonAvailable = false;
             this.isUnFavoriteButtonAvailable = false;
+            this.isModifButtonAvailable = true;
           } else if (data.includes(article.idArticle)){
             this.isFavoriteButtonAvailable = false;
             this.isUnFavoriteButtonAvailable = true;
@@ -154,6 +157,19 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
           }
         }
       )
+    }
+  }
+
+  determineIfPromotionButtonsAreAvailable(article : Article) {
+    if(article.estPromu == false && this.app.user.role.role == "admin" && !this.determineIfIAmTheAuthor(article)){
+      this.isPromoteButtonAvailable = true;
+      this.isUnPromoteButtonAvailable = false;
+    } else if (article.estPromu == true && this.app.user.role.role == "admin" && !this.determineIfIAmTheAuthor(article)){
+      this.isPromoteButtonAvailable = false;
+      this.isUnPromoteButtonAvailable = true;
+    } else {
+      this.isPromoteButtonAvailable = false;
+      this.isUnPromoteButtonAvailable = false;
     }
   }
 
@@ -349,23 +365,21 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
         marked(this.oneArticle.contenu)
       );
     }
-
-    if (this.user.role.role == "admin" && this.oneArticle.estPromu == false) {
-      this.isPromoteButtonAvailable = true;
-    } else {
-      this.isPromoteButtonAvailable = false;
-    }
+    
     console.log(this.oneArticle);
     console.log("data from refresh :");
     // console.log(data);
 
-    if(this.oneArticle.estPublie===true){
-      this.isUnpublishButtonAvailable = true;
-      this.isPublishButtonAvailable = false;
-    } else {
-      this.isUnpublishButtonAvailable = false;
-      this.isPublishButtonAvailable = true;
+    if(this.determineIfIAmTheAuthor(this.oneArticle)){
+      if(this.oneArticle.estPublie===true){
+        this.isUnpublishButtonAvailable = true;
+        this.isPublishButtonAvailable = false;
+      } else {
+        this.isUnpublishButtonAvailable = false;
+        this.isPublishButtonAvailable = true;
+      }
     }
+    
 
     this.refreshLikeArticle();
     // });
