@@ -303,13 +303,20 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     }
     // suppression du like si cliqué par quelqu'un l'ayant déjà liké
     else if (voteOfUser) {
-      var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
-      this.oneArticle.vote.splice(indexOfVote, 1);
-      this.articleService
-        .updateVoteArticle(this.oneArticle)
-        .subscribe((data) => {
-          this.refreshDataArticle();
-        });
+      if(voteOfUser.liked===false){
+        var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
+        this.oneArticle.vote.splice(indexOfVote, 1);
+        this.dislikeComment=null;
+        this.createVote();
+      }else {
+        var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
+        this.oneArticle.vote.splice(indexOfVote, 1);
+        this.articleService
+          .updateVoteArticle(this.oneArticle)
+          .subscribe((data) => {
+            this.refreshDataArticle();
+          });
+      }
     } else {
       this.createVote();
     }
