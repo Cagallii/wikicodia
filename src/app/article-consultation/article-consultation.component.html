@@ -31,7 +31,7 @@
   <mat-divider></mat-divider>
 
   <mat-card-actions>
-    <button *ngIf='this.isPromoteButtonAvailable && this.isUserAdmin' mat-mini-fab matTooltip="Promouvoir cet article" (click)='promoteArticle(this.oneArticle.idArticle)' color="primary">
+    <button *ngIf='this.isPromoteButtonAvailable' mat-mini-fab matTooltip="Promouvoir cet article" (click)='promoteArticle(this.oneArticle.idArticle)' color="primary">
       <mat-icon>loyalty</mat-icon>
     </button>
 

@@ -173,13 +173,17 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   }
 
   determineIfPromotionButtonsAreAvailable(article : Article) {
+    console.log(article.estPromu, this.app.user.role.role, this.determineIfIAmTheAuthor(article));
     if(article.estPromu == false && this.app.user.role.role == "admin" && !this.determineIfIAmTheAuthor(article)){
+      console.log("coucou");
       this.isPromoteButtonAvailable = true;
       this.isUnPromoteButtonAvailable = false;
     } else if (article.estPromu == true && this.app.user.role.role == "admin" && !this.determineIfIAmTheAuthor(article)){
+      console.log("coucou");
       this.isPromoteButtonAvailable = false;
       this.isUnPromoteButtonAvailable = true;
     } else {
+      console.log("coucou");
       this.isPromoteButtonAvailable = false;
       this.isUnPromoteButtonAvailable = false;
     }
