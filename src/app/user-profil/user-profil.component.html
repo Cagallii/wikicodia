@@ -1,18 +1,12 @@
 <div *ngIf="autentificated">
     <div class="container main-secction">
         <div class="row">
-            <div class="col-md-12 col-sm-12 col-xs-12 image-section">
-                <img src="https://i.imgur.com/T1kCd0H.jpeg">
-            </div>
             <div class="row user-left-part col-md-12">
                 <div class="col-md-3 col-sm-3 col-xs-12 user-profil-part pull-left">
                     <div class="row ">
-                        <div class="col-md-12 col-md-12-sm-12 col-xs-12 user-image text-center">
-                            <img src="https://www.jamf.com/jamf-nation/img/default-avatars/generic-user-purple.png" class="rounded-circle">
-                        </div>
                         <div class="col-md-12 col-sm-12 col-xs-12 user-detail-section1 text-center">
-                            <button id="btn-contact" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow" mat-raised-button color="accent">Modifier le Profil</button> 
-                            <button class="btn-warning btn-block" mat-raised-button color="accent" data-toggle="modal" (click)="fillPreference()" data-target="#preferences" >Modifier les Préférences</button>                               
+                            <button id="btn-contact" data-toggle="modal" data-target="#contact" class="btn btn-success btn-block follow" mat-raised-button color="primary">Modifier le Profil</button> 
+                            <button class="btn-warning btn-block" mat-raised-button color="primary" data-toggle="modal" (click)="fillPreference()" data-target="#preferences" >Modifier les Préférences</button>                               
                         </div>
                         <div class="row user-detail-row">
                             <div class="col-md-12 col-sm-12 user-detail-section2 pull-left">
@@ -33,7 +27,7 @@
                                     <p>{{ user.statut }}</p>
                                 </div>
                                 <div class="col-md-4 col-sm-6 col-xs-6 profile-header-section1 text-right pull-rigth">
-                                    <a href="/search" data-toggle="modal" data-target="#changeMdp"  class="btn-block" mat-raised-button color="warn">Changer de mot de passe</a>
+                                    <a href="/search" data-toggle="modal" data-target="#changeMdp"  class="btn-block" mat-raised-button color="accent">Changer de mot de passe</a>
                                 </div>
                             </div>
                         </div>
@@ -141,7 +135,7 @@
 
     <div class="modal fade" id="contact" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <mat-card class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="contact">Modification du Profil</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -174,10 +168,10 @@
                     </mat-form-field>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary" (click)="modification()" data-dismiss="modal">Modifier</button>
+                    <button type="button" class="btn btn-secondary" mat-raised-button color="warn" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary" mat-raised-button color="primary" (click)="modification()" data-dismiss="modal">Modifier</button>
                 </div>
-            </div>
+            </mat-card>
         </div>
     </div>
     <div class="modal fade" id="preferences" tabindex="-1" role="dialog" aria-labelledby="preferences" aria-hidden="true">
@@ -239,8 +233,8 @@
                     </mat-card>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary" (click)="modification()" data-dismiss="modal">Modifier</button>
+                    <button type="button" class="btn btn-secondary"  mat-raised-button color="warn" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary"  mat-raised-button color="primary" (click)="modification()" data-dismiss="modal">Modifier</button>
                 </div>
             </mat-card>
         </div>

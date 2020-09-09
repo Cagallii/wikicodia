@@ -8,9 +8,6 @@ body{
 
       margin-bottom:10px;
     }
-    .main-secction{
-      box-shadow: 3px 3px 3px;
-    }
     .image-section{
       padding: 0px;
     }
@@ -25,6 +22,7 @@ body{
     }
     .user-left-part{
       margin: 0px;
+      margin-top:50px;
     }
     .user-image img{
       width:100px;
@@ -59,6 +57,7 @@ body{
     .profile-right-section{
       padding: 20px 0px 10px 15px;
       /* background-color: #FFFFFF;   */
+      margin-top: 50px;
     }
     .profile-right-section-row{
       margin: 0px;
@@ -137,4 +136,11 @@ body{
     */
     .alert-msg {
       /* color: red; */
+    }
+    .btn{
+      margin: 2px;
+    }
+    .container{
+      margin-left: 5%;
+      margin-right: 5%;
     }
