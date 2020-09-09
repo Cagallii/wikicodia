@@ -7,13 +7,14 @@ import { HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class SearchService {
-
+  public searchData : any;
   constructor(private http: HttpClient) { }
 
   private baseUrl = '/articles';
 
   search(search : Search) : Observable<any>{
     console.log(search);
-    return this.http.post(this.baseUrl +"/search", search);
+    this.searchData = this.http.post(this.baseUrl +"/search", search);
+    return this.searchData;
   }
 }

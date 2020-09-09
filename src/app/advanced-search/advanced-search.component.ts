@@ -24,8 +24,6 @@ export class AdvancedSearchComponent implements OnInit {
 
   @Output()
   readonly darkModeSwitched = new EventEmitter<boolean>();
-  @Output() sendArticles: EventEmitter<Article[]> = new EventEmitter();
-  @Output() sendBool: EventEmitter<Boolean> = new EventEmitter();
 
   public listCategory:Observable<Category[]>;
   public listFramework:Observable<Framework[]>;
@@ -98,10 +96,9 @@ export class AdvancedSearchComponent implements OnInit {
     this.searchService.search(this.advancedSearchObject).subscribe(articles => {
       this.listArticles = articles;
       console.log(this.listArticles);
-      this.sendArticles.emit(articles);
       this.isPageResult = true;
-      this.sendBool.emit(this.isPageResult);
     });
+    this.resetForm();
     this.router.navigateByUrl("/result");
   }
 

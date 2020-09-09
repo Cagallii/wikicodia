@@ -12,48 +12,28 @@ import User from "../model/UserCreate";
 import { UserService } from "../services/user.service";
 import { ArticleService } from "../services/article.service";
 import { VoteService } from "../services/vote.service";
+import { SearchService } from '../services/search.service';
 
 @Component({
   selector: 'app-search-result',
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.css']
 })
-export class SearchResultComponent implements OnInit, OnChanges {
+export class SearchResultComponent implements OnInit {
 
-  @Input() listArticles;
-  @Input() isPageResult;
-
+  public listArticles: Article[];
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
+    private searchService : SearchService,
   ) {}
 
   url: String;
 
   ngOnInit() {
-    /*this.url = String(this.activatedRoute.snapshot.url);
-    if (!this.url.includes("result")){
-      this.isPageResult = false;
-      console.log("HI");
-    }else {
-      this.isPageResult = true;
-      console.log("HA");
-    }
-    console.log(this.url);*/
-  }
-
-  getCurrentNavigation (){}
-
-  ngOnChanges() {
-    this.url = String(this.activatedRoute.snapshot.url);
-    if (!this.url.includes("result")){
-      this.isPageResult = false;
-      console.log("false");
-      
-    }else {
-      this.isPageResult = true;
-      console.log("true");
-    }
-    console.log(this.url);
+    this.searchService.searchData.subscribe(articles =>
+      this.listArticles = articles,
+      console.log(this.listArticles));
+     
   }
 }
