@@ -30,16 +30,15 @@ import Vote from "../model/Vote";
 import { ArticleService } from "../services/article.service";
 import { VoteService } from "../services/vote.service";
 import * as marked from "marked";
-import { DOCUMENT } from '@angular/common';
-import * as prism from '../../assets/prismjs/prism.js';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Location } from '@angular/common';
+import { DOCUMENT } from "@angular/common";
+import * as prism from "../../assets/prismjs/prism.js";
+import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
+import { Location } from "@angular/common";
 import UserCreate from "../model/UserCreate";
 
 // Imports relatifs à la génération de PDF
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 // exemple de récupération de data :
 
@@ -74,30 +73,30 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     private articleService: ArticleService,
     private voteService: VoteService,
     private sanitizer: DomSanitizer,
-    private location: Location,
+    private location: Location
   ) {}
 
   // oneArticle: Article = this.oneArticle;
   autentificated: boolean = false;
   user: User = null;
-  isUserAdmin:boolean=false;
+  isUserAdmin: boolean = false;
   allLike: number = 0;
   allDislike: number = 0;
   dislikeComment: string = null;
   oneArticle: Article;
-  
+
   mardownContenu: SafeHtml;
 
   isPromoteButtonAvailable: boolean = false;
-  isUnPromoteButtonAvailable : boolean = false;
+  isUnPromoteButtonAvailable: boolean = false;
 
-  isFavoriteButtonAvailable : boolean = false;
-  isUnFavoriteButtonAvailable : boolean = false;
+  isFavoriteButtonAvailable: boolean = false;
+  isUnFavoriteButtonAvailable: boolean = false;
 
   isUnpublishButtonAvailable: boolean = false;
   isPublishButtonAvailable: boolean = false;
 
-  isModifButtonAvailable : boolean = false;
+  isModifButtonAvailable: boolean = false;
 
   ngAfterViewChecked() {
     this.highlight();
@@ -114,7 +113,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.autentificated = this.app.authenticated;
       this.user = this.app.user;
       this.allLike = 0;
-      this.isUserAdmin=false;
+      this.isUserAdmin = false;
       this.allDislike = 0;
       this.dislikeComment = null;
 
@@ -129,10 +128,10 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
         this.articleService.getOneArticle(idart).subscribe(
           (data: Article) => {
             this.oneArticle = data;
-            if (this.app.authenticated){
+            if (this.app.authenticated) {
               this.determineIfButtonsAreAvailable(data);
               this.determineIfPromotionButtonsAreAvailable(data);
-            };
+            }
             this.refreshDataArticle();
           },
           (error) => console.log(error)
@@ -142,43 +141,55 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     );
   }
 
-  determineIfButtonsAreAvailable(article : Article){
-    if(this.app.authenticated){
-      
-      this.articleService.getArticlesFavoritesIds(this.app.user.idUtilisateur).subscribe(
-        (data : any[]) => {
-          if (this.determineIfIAmTheAuthor(article)){
-            this.isFavoriteButtonAvailable = false;
-            this.isUnFavoriteButtonAvailable = false;
-            this.isModifButtonAvailable = true;
-          } else if (data.includes(article.idArticle)){
-            this.isFavoriteButtonAvailable = false;
-            this.isUnFavoriteButtonAvailable = true;
-          } else {
-            this.isFavoriteButtonAvailable = true;
-            this.isUnFavoriteButtonAvailable = false;
+  determineIfButtonsAreAvailable(article: Article) {
+    if (this.app.authenticated) {
+      this.articleService
+        .getArticlesFavoritesIds(this.app.user.idUtilisateur)
+        .subscribe(
+          (data: any[]) => {
+            if (this.determineIfIAmTheAuthor(article)) {
+              this.isFavoriteButtonAvailable = false;
+              this.isUnFavoriteButtonAvailable = false;
+              this.isModifButtonAvailable = true;
+            } else if (data.includes(article.idArticle)) {
+              this.isFavoriteButtonAvailable = false;
+              this.isUnFavoriteButtonAvailable = true;
+            } else {
+              this.isFavoriteButtonAvailable = true;
+              this.isUnFavoriteButtonAvailable = false;
+            }
+          },
+          (error) => {
+            if (this.determineIfIAmTheAuthor(article)) {
+              this.isModifButtonAvailable = true;
+            } else {
+              this.isFavoriteButtonAvailable = true;
+            }
+            console.log(error);
           }
-        },
-        (error) => {
-          if (this.determineIfIAmTheAuthor(article)){
-            this.isModifButtonAvailable = true;
-          } else {
-            this.isFavoriteButtonAvailable = true;
-          }
-          console.log(error);
-          
-        }
-      )
+        );
     }
   }
 
-  determineIfPromotionButtonsAreAvailable(article : Article) {
-    console.log(article.estPromu, this.app.user.role.role, this.determineIfIAmTheAuthor(article));
-    if(article.estPromu == false && this.app.user.role.role == "admin" && !this.determineIfIAmTheAuthor(article)){
+  determineIfPromotionButtonsAreAvailable(article: Article) {
+    console.log(
+      article.estPromu,
+      this.app.user.role.role,
+      this.determineIfIAmTheAuthor(article)
+    );
+    if (
+      article.estPromu == false &&
+      this.app.user.role.role == "admin" &&
+      !this.determineIfIAmTheAuthor(article)
+    ) {
       console.log("coucou");
       this.isPromoteButtonAvailable = true;
       this.isUnPromoteButtonAvailable = false;
-    } else if (article.estPromu == true && this.app.user.role.role == "admin" && !this.determineIfIAmTheAuthor(article)){
+    } else if (
+      article.estPromu == true &&
+      this.app.user.role.role == "admin" &&
+      !this.determineIfIAmTheAuthor(article)
+    ) {
       console.log("coucou");
       this.isPromoteButtonAvailable = false;
       this.isUnPromoteButtonAvailable = true;
@@ -189,49 +200,45 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     }
   }
 
-  determineIfIAmTheAuthor(article : any) {
-    if(this.app.user.idUtilisateur == article.auteur){
+  determineIfIAmTheAuthor(article: any) {
+    if (this.app.user.idUtilisateur == article.auteur) {
       return true;
     } else {
       return false;
     }
   }
 
-  addToFavorites(article : Article){
-    if(this.app.authenticated){
-      this.articleService.setArticleToMyFavorite(this.app.user.idUtilisateur , article).subscribe(
-        response => {
+  addToFavorites(article: Article) {
+    if (this.app.authenticated) {
+      this.articleService
+        .setArticleToMyFavorite(this.app.user.idUtilisateur, article)
+        .subscribe((response) => {
           console.log(response);
           this.determineIfButtonsAreAvailable(article);
-        }
-      )
+        });
     } else {
       this.router.navigateByUrl("/connexion");
     }
   }
 
-  deleteFromFavorites(article : Article){
-    
-    if(this.app.authenticated){
-      this.articleService.deleteArticleFromFavorites(this.app.user.idUtilisateur , article).subscribe(
-        response => {
+  deleteFromFavorites(article: Article) {
+    if (this.app.authenticated) {
+      this.articleService
+        .deleteArticleFromFavorites(this.app.user.idUtilisateur, article)
+        .subscribe((response) => {
           console.log(response);
           this.determineIfButtonsAreAvailable(article);
           this.router.navigateByUrl("/liste");
-        }
-      )
+        });
     } else {
       this.router.navigateByUrl("/connexion");
     }
   }
 
   publishArticle() {
-    // if(this.oneArticle.)
     console.log("publish cliked");
     this.oneArticle.estPublie = true;
-    this.articleService
-    .updateOneArticle(this.oneArticle)
-    .subscribe((data) => {
+    this.articleService.updateOneArticle(this.oneArticle).subscribe((data) => {
       console.log(data);
       this.refreshDataArticle();
     });
@@ -240,9 +247,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   unpublishArticle() {
     console.log("unpublish cliked");
     this.oneArticle.estPublie = false;
-    this.articleService
-    .updateOneArticle(this.oneArticle)
-    .subscribe((data) => {
+    this.articleService.updateOneArticle(this.oneArticle).subscribe((data) => {
       console.log(data);
       this.refreshDataArticle();
     });
@@ -272,13 +277,10 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     // impossible de liker son propre article
     if (this.oneArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
       console.log("tentative de liker son propre article");
-
       const dialogConfig = new MatDialogConfig();
-
       dialogConfig.autoFocus = true;
       dialogConfig.minWidth = "50%";
       this.dialog.open(ArticleConsultationComponentDialogLike, dialogConfig);
-      // return
     }
     // suppression du like si cliqué par quelqu'un l'ayant déjà liké
     else if (voteOfUser) {
@@ -287,21 +289,10 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.articleService
         .updateOneArticle(this.oneArticle)
         .subscribe((data) => {
-          console.log(data);
           this.refreshDataArticle();
         });
-      console.log(this.oneArticle);
     } else {
       this.createVote();
-      // this.articleService
-      //   .updateOneArticle(this.oneArticle)
-      //   .subscribe((data) => {
-      //     console.log(data);
-      //     this.refreshDataArticle();
-      //   });
-
-      console.log(this.user);
-      console.log(this.oneArticle);
     }
   }
 
@@ -312,46 +303,32 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     // impossible de liker son propre article
     if (this.oneArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
       console.log("Option 1 : tentative de disliker son propre article");
-      // return
     }
     // modification du dislike si cliqué par quelqu'un l'ayant déjà disliké
     else if (voteOfUser && this.dislikeComment !== "cancel") {
-      console.log(
-        "OPTION 2 : modification du dislike si cliqué par quelqu'un l'ayant déjà disliké"
-      );
       var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
       var modifiedVote = new Vote();
       modifiedVote.commentaire = this.dislikeComment;
       modifiedVote.liked = false;
       modifiedVote.utilisateur = this.user;
       this.oneArticle.vote.splice(indexOfVote, 1, modifiedVote);
-      // this.createVote();
       this.articleService
         .updateVoteArticle(this.oneArticle)
         .subscribe((data) => {
-          console.log(data);
           this.refreshDataArticle();
         });
-      console.log(this.oneArticle);
     }
     // l'utilisateur clique sur suppression du dislike
     else if (this.dislikeComment === "cancel") {
-      console.log("OPTION 3 : utilisateur clique sur suppression du dislike");
-
       var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
       this.oneArticle.vote.splice(indexOfVote, 1);
       this.articleService
         .updateVoteArticle(this.oneArticle)
         .subscribe((data) => {
-          console.log(data);
           this.refreshDataArticle();
         });
-      console.log(this.oneArticle);
     } else {
-      console.log("OPTION 4 : else final ");
       this.createVote();
-      console.log(this.user);
-      console.log(this.oneArticle);
     }
   }
 
@@ -373,33 +350,28 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   }
 
   refreshDataArticle() {
-    // this.articleService.getOneArticle(this.oneArticle.idArticle).subscribe((data: Article) => {
-    // this.oneArticle = data;
     this.formatDataWithAuteur(this.oneArticle.idArticle);
-
     if (this.oneArticle.contenu && this.oneArticle.contenu.length > 0) {
       this.mardownContenu = this.sanitizer.bypassSecurityTrustHtml(
         marked(this.oneArticle.contenu)
       );
     }
-    
-    console.log(this.oneArticle);
-    console.log("data from refresh :");
-    // console.log(data);
-
-    // if(this.determineIfIAmTheAuthor(this.oneArticle)){
-      if(this.oneArticle.estPublie===true){
+    if (
+      this.user.idUtilisateur === this.oneArticle.auteur.idUtilisateur ||
+      this.user.role.role === "admin"
+    ) {
+      if (this.oneArticle.estPublie === true) {
         this.isUnpublishButtonAvailable = true;
         this.isPublishButtonAvailable = false;
       } else {
         this.isUnpublishButtonAvailable = false;
         this.isPublishButtonAvailable = true;
       }
-    // }
-    
-
+    } else {
+      this.isUnpublishButtonAvailable = false;
+      this.isPublishButtonAvailable = false;
+    }
     this.refreshLikeArticle();
-    // });
   }
 
   refreshLikeArticle() {
@@ -445,13 +417,12 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
 
       dialogRef.afterClosed().subscribe((data) => {
         console.log("Dialog output:", data);
-        if(data.raisonDislike !== "cancel" && data.raisonDislike !== null){
+        if (data.raisonDislike !== "cancel" && data.raisonDislike !== null) {
           this.dislikeComment = data.raisonDislike;
           this.actionDislike();
         }
       });
     }
-    
   }
 
   promoteArticle(articleId: Number) {
@@ -465,42 +436,49 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   /**
    * Convertit l'article au format PDF pour en faciliter l'impression
    */
-  printArticle(){
-    let data = document.getElementById('pdfDiv');  
-        html2canvas(data).then(canvas =>{
-        
-        // Génère du PDF au format portrait 
-        let pdf = new jsPDF();
+  printArticle() {
+    let data = document.getElementById("pdfDiv");
+    html2canvas(data).then((canvas) => {
+      // Génère du PDF au format portrait
+      let pdf = new jsPDF();
 
-        // Initialisation du contenu du PDF
-        let leftMarginWidth=15;
-        let rightMarginWidth=15;
-        let pageWidth=210;
-        pdf.setTextColor(0, 0, 255);
-        pdf.text('Wikicodia', 15, 20);
-        pdf.setTextColor(100);
-        pdf.text(this.oneArticle.titre, 15, 30);
-        pdf.setTextColor(150);
-        
-        // Récupération du contenu de l'article avec retours à la ligne
-        let content = this.oneArticle.contenu;
-        let lines = pdf.splitTextToSize(content, (pageWidth - (leftMarginWidth + rightMarginWidth)));
-        let firstHalf;
-        let secondHalf;
-        const heightContent = lines.length;
-        // Gestion très approximative de la longueur (max 2 pages sinon bug)
-        if (heightContent < 38){
-          pdf.text(lines,leftMarginWidth, 40);
-        } else if (heightContent > 37 && heightContent < 76){
-          firstHalf = pdf.splitTextToSize(this.getFirstHalf(content), (pageWidth - (leftMarginWidth + rightMarginWidth)));
-          pdf.text(firstHalf,leftMarginWidth, 40);
-          pdf.addPage('a4', 'p');
-          secondHalf = pdf.splitTextToSize(this.getSecondHalf(content), (pageWidth - (leftMarginWidth + rightMarginWidth)));
-          pdf.text(secondHalf,leftMarginWidth, 40);
-        }
-        pdf.save('monArticle.pdf');
+      // Initialisation du contenu du PDF
+      let leftMarginWidth = 15;
+      let rightMarginWidth = 15;
+      let pageWidth = 210;
+      pdf.setTextColor(0, 0, 255);
+      pdf.text("Wikicodia", 15, 20);
+      pdf.setTextColor(100);
+      pdf.text(this.oneArticle.titre, 15, 30);
+      pdf.setTextColor(150);
 
-      }); 
+      // Récupération du contenu de l'article avec retours à la ligne
+      let content = this.oneArticle.contenu;
+      let lines = pdf.splitTextToSize(
+        content,
+        pageWidth - (leftMarginWidth + rightMarginWidth)
+      );
+      let firstHalf;
+      let secondHalf;
+      const heightContent = lines.length;
+      // Gestion très approximative de la longueur (max 2 pages sinon bug)
+      if (heightContent < 38) {
+        pdf.text(lines, leftMarginWidth, 40);
+      } else if (heightContent > 37 && heightContent < 76) {
+        firstHalf = pdf.splitTextToSize(
+          this.getFirstHalf(content),
+          pageWidth - (leftMarginWidth + rightMarginWidth)
+        );
+        pdf.text(firstHalf, leftMarginWidth, 40);
+        pdf.addPage("a4", "p");
+        secondHalf = pdf.splitTextToSize(
+          this.getSecondHalf(content),
+          pageWidth - (leftMarginWidth + rightMarginWidth)
+        );
+        pdf.text(secondHalf, leftMarginWidth, 40);
+      }
+      pdf.save("monArticle.pdf");
+    });
   }
 
   /**
@@ -509,9 +487,9 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   getFirstHalf(str) {
     let x;
     if (str.length % 2 == 0) {
-      x = (str.length / 2);
+      x = str.length / 2;
     } else {
-      x = (str.length / 2) - 1;
+      x = str.length / 2 - 1;
     }
     let halfString = str.substring(0, x);
     return halfString;
@@ -523,11 +501,11 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   getSecondHalf(str) {
     let x;
     if (str.length % 2 == 0) {
-      x = (str.length / 2);
+      x = str.length / 2;
     } else {
-      x = (str.length / 2) - 1;
+      x = str.length / 2 - 1;
     }
-    let halfString = str.substring(x, str.length-1);
+    let halfString = str.substring(x, str.length - 1);
     return halfString;
   }
 
@@ -538,12 +516,10 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     this.location.back();
   }
 
-  goToPath(pathWhereToGo:string){
-    let params = {idArticle:this.oneArticle.idArticle}
+  goToPath(pathWhereToGo: string) {
+    let params = { idArticle: this.oneArticle.idArticle };
     this.router.navigate([pathWhereToGo, params]);
   }
-
-
 }
 
 @Component({
@@ -558,9 +534,7 @@ export class ArticleConsultationComponentDialog {
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<ArticleConsultationComponentDialog>,
     @Inject(MAT_DIALOG_DATA) data
-  ) {
-
-  }
+  ) {}
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -583,20 +557,17 @@ export class ArticleConsultationComponentDialog {
 
 @Component({
   selector: "app-article-consultation-dialogLike",
-  templateUrl: "article-consultation-dialogLike.html"
+  templateUrl: "article-consultation-dialogLike.html",
 })
 export class ArticleConsultationComponentDialogLike {
   form: FormGroup;
 
   constructor(
-    
     private dialogRef: MatDialogRef<ArticleConsultationComponentDialogLike>,
     @Inject(MAT_DIALOG_DATA) data
   ) {}
 
-  ngOnInit() {
-    
-  }
+  ngOnInit() {}
   close() {
     this.dialogRef.close();
   }
