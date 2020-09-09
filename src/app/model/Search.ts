@@ -11,7 +11,7 @@ dateModif: Date;
 language: Language[];
 framework: Framework[];
 category:Category[];
-popularity: number[];
+popularity: String[];
 type:TypeArticle[];
 
 constructor(){

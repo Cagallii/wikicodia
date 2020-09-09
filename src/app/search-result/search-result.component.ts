@@ -34,8 +34,6 @@ export class SearchResultComponent implements OnInit, AfterContentChecked {
   }
 
   ngAfterContentChecked(){
-    this.listArticles = this.searchService.searchData
-    console.log("search result");
-    console.log(this.listArticles); 
+    this.listArticles = this.searchService.searchData;
   }
 }
