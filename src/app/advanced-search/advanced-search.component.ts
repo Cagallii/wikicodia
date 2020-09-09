@@ -93,11 +93,7 @@ export class AdvancedSearchComponent implements OnInit {
   }
 
   public advancedSearch(): void {
-    this.searchService.search(this.advancedSearchObject).subscribe(articles => {
-      this.listArticles = articles;
-      console.log(this.listArticles);
-      this.isPageResult = true;
-    });
+    this.searchService.search(this.advancedSearchObject)
     this.resetForm();
     this.router.navigateByUrl("/result");
   }

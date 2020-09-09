@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,Inject, AfterViewChecked, OnChanges } from "@angular/core";
+import { Component, OnInit, Input,Inject, DoCheck, AfterContentInit, AfterContentChecked } from "@angular/core";
 import {
   MatDialog,
   MatDialogRef,
@@ -19,9 +19,9 @@ import { SearchService } from '../services/search.service';
   templateUrl: './search-result.component.html',
   styleUrls: ['./search-result.component.css']
 })
-export class SearchResultComponent implements OnInit {
+export class SearchResultComponent implements OnInit, AfterContentChecked {
 
-  public listArticles: Article[];
+  listArticles: Article[];
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -31,9 +31,11 @@ export class SearchResultComponent implements OnInit {
   url: String;
 
   ngOnInit() {
-    this.searchService.searchData.subscribe(articles =>
-      this.listArticles = articles,
-      console.log(this.listArticles));
-     
+  }
+
+  ngAfterContentChecked(){
+    this.listArticles = this.searchService.searchData
+    console.log("search result");
+    console.log(this.listArticles); 
   }
 }

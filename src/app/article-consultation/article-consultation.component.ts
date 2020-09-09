@@ -103,7 +103,6 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   }
 
   highlight() {
-    console.log("highlight launch");
     Prism.highlightAll();
   }
 
