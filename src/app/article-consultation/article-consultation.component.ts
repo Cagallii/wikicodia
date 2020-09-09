@@ -264,10 +264,29 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
         (aut: UserCreate) => {
           console.log(aut);
           this.oneArticle.auteur = aut[0];
+          this.showPublishButtons();
         },
         (error) => console.log(error)
       );
     });
+  }
+
+  showPublishButtons(){
+    if (
+      this.user.idUtilisateur === this.oneArticle.auteur.idUtilisateur ||
+      this.user.role.role === "admin"
+    ) {
+      if (this.oneArticle.estPublie === true) {
+        this.isUnpublishButtonAvailable = true;
+        this.isPublishButtonAvailable = false;
+      } else {
+        this.isUnpublishButtonAvailable = false;
+        this.isPublishButtonAvailable = true;
+      }
+    } else {
+      this.isUnpublishButtonAvailable = false;
+      this.isPublishButtonAvailable = false;
+    }
   }
 
   actionLike() {
@@ -287,7 +306,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       var indexOfVote = this.oneArticle.vote.indexOf(voteOfUser, 0);
       this.oneArticle.vote.splice(indexOfVote, 1);
       this.articleService
-        .updateOneArticle(this.oneArticle)
+        .updateVoteArticle(this.oneArticle)
         .subscribe((data) => {
           this.refreshDataArticle();
         });
@@ -341,7 +360,6 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       newVote.liked = false;
     }
     newVote.utilisateur = this.user;
-    console.log(newVote);
     this.oneArticle.vote.push(newVote);
     this.articleService.updateVoteArticle(this.oneArticle).subscribe((data) => {
       console.log(data);
@@ -355,21 +373,6 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       this.mardownContenu = this.sanitizer.bypassSecurityTrustHtml(
         marked(this.oneArticle.contenu)
       );
-    }
-    if (
-      this.user.idUtilisateur === this.oneArticle.auteur.idUtilisateur ||
-      this.user.role.role === "admin"
-    ) {
-      if (this.oneArticle.estPublie === true) {
-        this.isUnpublishButtonAvailable = true;
-        this.isPublishButtonAvailable = false;
-      } else {
-        this.isUnpublishButtonAvailable = false;
-        this.isPublishButtonAvailable = true;
-      }
-    } else {
-      this.isUnpublishButtonAvailable = false;
-      this.isPublishButtonAvailable = false;
     }
     this.refreshLikeArticle();
   }
@@ -400,7 +403,6 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
   openDialog() {
     if (this.oneArticle.auteur.idUtilisateur === this.user.idUtilisateur) {
       const dialogConfig = new MatDialogConfig();
-
       dialogConfig.autoFocus = true;
       dialogConfig.minWidth = "50%";
       this.dialog.open(ArticleConsultationComponentDialogLike, dialogConfig);
@@ -408,18 +410,16 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
       const dialogConfig = new MatDialogConfig();
       dialogConfig.autoFocus = true;
       dialogConfig.minWidth = "50%";
-      // this.dialog.open(ArticleConsultationComponentDialog, dialogConfig);
-
       const dialogRef = this.dialog.open(
         ArticleConsultationComponentDialog,
         dialogConfig
       );
 
       dialogRef.afterClosed().subscribe((data) => {
-        console.log("Dialog output:", data);
-        if (data.raisonDislike !== "cancel" && data.raisonDislike !== null) {
+        if (data.raisonDislike !== null) {
           this.dislikeComment = data.raisonDislike;
           this.actionDislike();
+          // this.dialog.closeAll();
         }
       });
     }
