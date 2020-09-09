@@ -12,9 +12,8 @@ export class SearchService {
 
   private baseUrl = '/articles';
 
-  search(search : Search) : Observable<any>{
-    console.log(search);
-    this.searchData = this.http.post(this.baseUrl +"/search", search);
-    return this.searchData;
+  search(search : Search){
+    this.http.post(this.baseUrl +"/search", search).subscribe(
+      data =>this.searchData = data);
   }
 }
