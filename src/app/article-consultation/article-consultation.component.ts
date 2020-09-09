@@ -383,7 +383,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
     console.log("data from refresh :");
     // console.log(data);
 
-    if(this.determineIfIAmTheAuthor(this.oneArticle)){
+    // if(this.determineIfIAmTheAuthor(this.oneArticle)){
       if(this.oneArticle.estPublie===true){
         this.isUnpublishButtonAvailable = true;
         this.isPublishButtonAvailable = false;
@@ -391,7 +391,7 @@ export class ArticleConsultationComponent implements OnInit, AfterViewChecked {
         this.isUnpublishButtonAvailable = false;
         this.isPublishButtonAvailable = true;
       }
-    }
+    // }
     
 
     this.refreshLikeArticle();
