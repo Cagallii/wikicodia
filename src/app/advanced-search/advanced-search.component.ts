@@ -33,7 +33,7 @@ export class AdvancedSearchComponent implements OnInit {
   public advancedSearchObject = new Search();
   public searchForm: FormGroup;
   public versionToShow: string;
-  public popularitySought : string;
+  public popularitySought : [string];
   public listArticles : Article[];
   public isPageResult : Boolean = false;
   showFilters:boolean = false;
@@ -76,25 +76,23 @@ export class AdvancedSearchComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.searchForm.controls; }
 
-  public paramAdvancedSearch():void{
+  /*public paramAdvancedSearch():void{
     switch(this.popularitySought){
-      case 'Tous':
-        this.advancedSearchObject.popularity = [999,1000];
-        break;
       case 'Nouveau':
-        this.advancedSearchObject.popularity = [0,1];
+        this.advancedSearchObject.popularity = [5];
         break;
       case 'Populaire':
-        this.advancedSearchObject.popularity= [19,20];
+        this.advancedSearchObject.popularity= [10];
         break;
       case 'Très populaire':
-        this.advancedSearchObject.popularity = [49,50];
+        this.advancedSearchObject.popularity = [15];
     }
-  }
+  }*/
 
   public advancedSearch(): void {
     this.searchService.search(this.advancedSearchObject)
     this.resetForm();
+    console.log(this.advancedSearchObject);
     this.router.navigateByUrl("/result");
   }
 
