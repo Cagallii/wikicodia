@@ -14,7 +14,7 @@
               <!-- matTooltip="Rechercher" -->
         </div>
         <div class="col-lg-1 col-md-1 col-sm-12 searchBtns">
-            <button mat-button matTooltip="Rechercher" type="submit" value="submit">
+            <button mat-button matTooltip="Rechercher" type="submit" value="submit" (click)="advancedSearch()">
                 <mat-icon color="primary">search</mat-icon>
             </button>
         </div>
@@ -93,7 +93,6 @@
                             multiple>
                     <mat-option value="Nouveau"> Nouveau </mat-option>
                     <mat-option value="Populaire"> Populaire </mat-option>
-                    <mat-option value="Très populaire"> Très populaire </mat-option>
                 </mat-select>
               </mat-form-field>
         </div>
