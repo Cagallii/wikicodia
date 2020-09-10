@@ -2,47 +2,47 @@
     <!-- <a routerLink="/goHome"><h1>Wikicodia</h1></a> -->
 
     <div class="row searchZone">
-        <app-menu class="col-lg-1 col-md-1 col-sm-12"></app-menu>
-        <div class="col-lg-9 col-md-9 col-sm-12 searchInput">
-            
+        <div class="col-lg-2 col-md-2 col-sm-12">
+            <app-menu></app-menu>
+        </div>
+        <div class="col-lg-8 col-md-8 col-sm-10 searchInput">
             <mat-form-field class="searchInput">
                 <mat-label>Rechercher</mat-label>
-                <input matInput [(ngModel)]="advancedSearchObject.searchString"
-                        formControlName="searchString"
-                        placeholder="Entrez un mot clef">
+                <input matInput [(ngModel)]="advancedSearchObject.searchString" formControlName="searchString"
+                    placeholder="Entrez un mot clef">
             </mat-form-field>
-              <!-- matTooltip="Rechercher" -->
+            <!-- matTooltip="Rechercher" -->
         </div>
-        <div class="col-lg-1 col-md-1 col-sm-12 searchBtns">
+        <div class="col-lg-1 col-md-1 col-sm-1 searchBtns">
             <button mat-button matTooltip="Rechercher" type="submit" value="submit" (click)="advancedSearch()">
                 <mat-icon color="primary">search</mat-icon>
             </button>
         </div>
-        <div class="col-lg-1 col-md-1 col-sm-12 searchBtns">
+        <div class="col-lg-1 col-md-1 col-sm-1 searchBtns">
             <button mat-button matTooltip="Filtrer la recherche" type="button" (click)="addFilters()">
                 <mat-icon color="primary">tune</mat-icon>
             </button>
         </div>
-        <img style="width:200px;" class="col-lg-2 col-md-2 col-sm-12" src="../assets/slogan_wikicodia.png">     
+        <div class="col-lg-12 col-md-12 col-sm-12 slogan">
+            <img style="width:30vw;" src="../assets/slogan_wikicodia.png">
+        </div>
     </div>
     <!-- zone des selects -->
     <div class="row selectZone" *ngIf="showFilters">
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Date de création</mat-label>
-                <input matInput [matDatepicker]="picker" 
-                                formControlName="dateCrea"
-                                [(ngModel)]="advancedSearchObject.dateCreate">
+                <input matInput [matDatepicker]="picker" formControlName="dateCrea"
+                    [(ngModel)]="advancedSearchObject.dateCreate">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-              </mat-form-field>
+            </mat-form-field>
         </div>
-         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
+        <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Date de modification</mat-label>
-                <input matInput [matDatepicker]="picker2" 
-                                formControlName="dateModif"
-                                [(ngModel)]="advancedSearchObject.dateModif">
+                <input matInput [matDatepicker]="picker2" formControlName="dateModif"
+                    [(ngModel)]="advancedSearchObject.dateModif">
                 <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
                 <mat-datepicker #picker2></mat-datepicker>
             </mat-form-field>
@@ -50,71 +50,63 @@
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Language</mat-label>
-                <mat-select formControlName="language"
-                            [(ngModel)]="advancedSearchObject.language"
-                            (selectionChange)="onLanguageChange($event.value)"
-                            multiple>
-                  <mat-option *ngFor='let language of listLanguage | async;' [value]="language">
-                      {{language.lang}} 
-                  </mat-option>
+                <mat-select formControlName="language" [(ngModel)]="advancedSearchObject.language"
+                    (selectionChange)="onLanguageChange($event.value)" multiple>
+                    <mat-option *ngFor='let language of listLanguage | async;' [value]="language">
+                        {{language.lang}}
+                    </mat-option>
                 </mat-select>
-              </mat-form-field>
+            </mat-form-field>
         </div>
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Framework</mat-label>
-                <mat-select formControlName="framework"
-                            [(ngModel)]="advancedSearchObject.framework"
-                            (selectionChange)="onFrameworkChange($event.value)"
-                            multiple>
-                  <mat-option *ngFor='let framework of listFramework |async;' [value]="framework">
-                      {{ framework.framework }} 
-                  </mat-option>
+                <mat-select formControlName="framework" [(ngModel)]="advancedSearchObject.framework"
+                    (selectionChange)="onFrameworkChange($event.value)" multiple>
+                    <mat-option *ngFor='let framework of listFramework |async;' [value]="framework">
+                        {{ framework.framework }}
+                    </mat-option>
                 </mat-select>
-              </mat-form-field>
+            </mat-form-field>
         </div>
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Catégorie</mat-label>
-                <mat-select formControlName="category"
-                            [(ngModel)]="advancedSearchObject.category"
-                            multiple>
-                  <mat-option *ngFor='let category of listCategory| async;' [value]="category">
-                      {{category.libCategorie}}
-                  </mat-option>
+                <mat-select formControlName="category" [(ngModel)]="advancedSearchObject.category" multiple>
+                    <mat-option *ngFor='let category of listCategory| async;' [value]="category">
+                        {{category.libCategorie}}
+                    </mat-option>
                 </mat-select>
-              </mat-form-field>
+            </mat-form-field>
         </div>
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Popularités</mat-label>
-                <mat-select formControlName="likes"
-                            [(ngModel)]="advancedSearchObject.popularity"
-                            multiple>
+                <mat-select formControlName="likes" [(ngModel)]="advancedSearchObject.popularity" multiple>
                     <mat-option value="Nouveau"> Nouveau </mat-option>
                     <mat-option value="Populaire"> Populaire </mat-option>
                 </mat-select>
-              </mat-form-field>
+            </mat-form-field>
         </div>
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
             <mat-form-field appearance="fill">
                 <mat-label>Type</mat-label>
-                <mat-select formControlName="type"
-                            [(ngModel)]="advancedSearchObject.type"
-                            multiple>
-                  <mat-option *ngFor='let type of listType | async;' [value]="type">
-                      {{type.libType}}
-                  </mat-option>
+                <mat-select formControlName="type" [(ngModel)]="advancedSearchObject.type" multiple>
+                    <mat-option *ngFor='let type of listType | async;' [value]="type">
+                        {{type.libType}}
+                    </mat-option>
                 </mat-select>
-              </mat-form-field>
+            </mat-form-field>
         </div>
         <div class="col-sm-12 col-md-4 col-lg-3">
-            <button class="btn btn-secondary btn-sm" mat-button matTooltip="Valider la recherche" type="submit" (click)="advancedSearch()">
+            <button class="btn btn-secondary btn-sm" mat-button matTooltip="Valider la recherche" type="submit"
+                (click)="advancedSearch()">
                 Valider
             </button>
         </div>
         <div class="selectFilter col-sm-12 col-md-4 col-lg-3">
-            <button class="resetButton" mat-button matTooltip="Supprimer les filtres selectionnés" type="button" (click)="resetForm()">
+            <button class="resetButton" mat-button matTooltip="Supprimer les filtres selectionnés" type="button"
+                (click)="resetForm()">
                 <mat-icon color="primary">backspace</mat-icon>
             </button>
         </div>
