@@ -16,6 +16,7 @@ import { FrameworkService } from '../services/framework.service';
 import { LanguageService } from '../services/language.service';
 import { TypeService } from '../services/type.service';
 import Article from '../model/Article';
+import { ArticleService } from '../services/article.service';
 
 @Component({
   selector: 'app-user-profil',
@@ -37,6 +38,7 @@ export class UserProfilComponent implements OnInit {
   invalidePassword : Boolean = false;
   cinqDerniersArticles : Observable<Article[]>;
   articles: Article[];
+  articleCount: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,7 +48,8 @@ export class UserProfilComponent implements OnInit {
     private categoriesService: CategoryService,
     private frameworkService: FrameworkService,
     private langageService: LanguageService,
-    private typeService: TypeService
+    private typeService: TypeService,
+    private articleService: ArticleService
     ) {}
 
   ngOnInit() {
@@ -55,8 +58,13 @@ export class UserProfilComponent implements OnInit {
     this.framework = this.frameworkService.getAll();
     this.language = this.langageService.getAll();
     this.type = this.typeService.getAll();
+
  
     if (this.app.authenticated) {
+      this.articleService.getAllMyArticles(this.app.user.idUtilisateur).subscribe(
+        articlesRecup =>  {this.articleCount = articlesRecup,
+          this.articleCount = this.articleCount.length}
+      );
       this.userService.getUserPreferences(this.app.user);
       this.cinqDerniersArticles = this.userService.getLast5Articles(this.app.user.idUtilisateur);
       console.log("app article");
